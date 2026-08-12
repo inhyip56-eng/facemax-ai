@@ -1,0 +1,53 @@
+FaceMax AI v1.8 — requested fixes
+
+1. AI daily limits
+- 20 successful uses/day PER USER PER AI FEATURE.
+- Separate buckets:
+  ai_face_scan
+  ai_food_scan
+  ai_glow_plan
+  ai_meal_plan
+  ai_dating_photo
+  ai_haircut_guide
+  ai_skin_plan
+  ai_jawline_plan
+- Failed AI calls do not consume the quota.
+- All client AI calls now send local_date so the quota follows the user's local calendar day.
+- Face Scan does not auto-retry after daily_limit_reached.
+- User-facing daily-limit messages are shown instead of generic "AI busy" errors.
+
+2. Face Scan reliability
+- Uses the structured-output Face Scan worker fix previously verified in production flow.
+- OpenRouter route remains google/gemini-2.5-flash-lite -> google-vertex/eu.
+- allow_fallbacks remains false; data_collection remains deny.
+
+3. Glow Up streak visual consistency
+- Active streak is always yellow.
+- Removed color switching for an at-risk active streak on Home.
+- Glow Up streak badge always says "N day streak" and stays yellow.
+- No "streak secured" copy/state.
+- At-risk information remains in the separate momentum/status message.
+
+4. Duolingo-style completion behavior preserved
+- Streak increments only after the complete Glow Up Plan is finished.
+- Square task check/checkmark UI remains.
+- Full-plan completion celebration remains.
+- Completed-plan lock remains.
+
+5. Notifications
+- Bell exists on Home/Profile and remains solid white-filled.
+- Notification inbox remains newest-first.
+- Boot-time delivered-notification sync no longer bumps an old existing item above newer notifications.
+
+Validation
+- node --check workers/api/src/worker.js: PASS
+- node --check web/js/native-bridge.js: PASS
+- AI daily-limit UI audit: PASS
+- Streak yellow/completion audit: PASS
+- Notification inbox audit: PASS
+- Potential/streak regression audit: PASS
+- Glow completion lock audit: PASS
+- web build: PASS
+- Cloudflare frontend worker build: PASS
+
+Note: the supplied old project already contained 7 stale/failing legacy audits before these edits. After the edits, the same legacy failures remain except the Duolingo retention audit is now corrected/passing; no new legacy-test regression was introduced.
