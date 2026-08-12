@@ -5046,12 +5046,13 @@ function _fmCloudMergeHistory(aRaw, bRaw) {
   const map = new Map();
   all.forEach((x) => {
     if (!x || typeof x !== "object") return;
-    const id = String(Number(x.date) || x.id || "");
+    const id = String(x.scan_uid || Number(x.date) || x.id || "");
     if (!id) return;
     const prev = map.get(id);
     if (!prev || Object.keys(x).length > Object.keys(prev).length) map.set(id, x);
   });
-  return JSON.stringify(Array.from(map.values()).sort((x,y)=>(Number(y.date)||0)-(Number(x.date)||0)).slice(0,90));
+  const merged = Array.from(map.values()).sort((x,y)=>(Number(y.date)||0)-(Number(x.date)||0));
+  return JSON.stringify(_fmDedupeScanHistory(merged));
 }
 
 function _fmCloudMergeJsonObjects(aRaw, bRaw) {
@@ -5663,6 +5664,69 @@ try {
 
 
 
+function _fmHistoryMetricFingerprint(entry){
+  if (!entry || typeof entry !== "object") return "";
+  if (entry.scan_uid) return "uid:" + String(entry.scan_uid);
+  const m = entry.metrics && typeof entry.metrics === "object" ? entry.metrics : {};
+  const keys = ["overall","jawline","cheekbones","potential","eyes","lips","nose","skin","symmetry","harmony","hair","eye_area","photo_angle"];
+  const vals = keys.map(k => {
+    const v = k === "overall" ? entry.score : m[k];
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.round(n * 10) / 10 : null;
+  });
+  const populated = vals.filter(v => v != null).length;
+  if (populated < 4) return "";
+  const shape = String(entry.shape || (entry.report && entry.report.face_shape_type) || "");
+  return JSON.stringify([vals, shape]);
+}
+
+function _fmDedupeScanHistory(arr){
+  if (!Array.isArray(arr)) return [];
+  const out = [];
+  const uidIndex = new Map();
+  const recentLegacy = new Map();
+  for (const raw of arr) {
+    if (!raw || typeof raw !== "object") continue;
+    const entry = { ...raw };
+    const uid = String(entry.scan_uid || "");
+    if (uid) {
+      const existingIdx = uidIndex.get(uid);
+      if (existingIdx != null) {
+        const prev = out[existingIdx];
+        out[existingIdx] = Object.keys(entry).length >= Object.keys(prev).length ? { ...prev, ...entry } : { ...entry, ...prev };
+        continue;
+      }
+      uidIndex.set(uid, out.length);
+      out.push(entry);
+      continue;
+    }
+    const fp = _fmHistoryMetricFingerprint(entry);
+    const ts = Number(entry.date) || 0;
+    if (fp) {
+      const prev = recentLegacy.get(fp);
+      // Only collapse legacy clones created within 90 seconds. Two deliberate
+      // scans farther apart remain distinct even if the model returned the same score.
+      if (prev && Math.abs(ts - prev.ts) <= 90000) {
+        const existing = out[prev.idx];
+        const newer = ts >= (Number(existing.date)||0) ? entry : existing;
+        const older = newer === entry ? existing : entry;
+        const merged = { ...older, ...newer };
+        // A duplicate callback may arrive before cloud-thumbnail backfill finishes.
+        // Never let the newer empty clone erase a valid local/cloud thumbnail.
+        merged.thumb = newer.thumb || older.thumb || null;
+        merged.thumb_key = newer.thumb_key || older.thumb_key || "";
+        out[prev.idx] = merged;
+        recentLegacy.set(fp, { idx:prev.idx, ts:Math.max(ts, prev.ts) });
+        continue;
+      }
+    }
+    const idx = out.length;
+    out.push(entry);
+    if (fp) recentLegacy.set(fp, { idx, ts });
+  }
+  return out.slice(0,90);
+}
+
 function loadHistory(){
   try {
     const raw = localStorage.getItem("facemax_history");
@@ -5670,6 +5734,9 @@ function loadHistory(){
       scanHistory = JSON.parse(raw);
       let changed = false;
       if (Array.isArray(scanHistory)) {
+        const beforeLen = scanHistory.length;
+        scanHistory = _fmDedupeScanHistory(scanHistory);
+        if (scanHistory.length !== beforeLen) changed = true;
         scanHistory.forEach(entry => {
           if (entry && entry.report && (entry.report._ai_source !== "openrouter" || !markOpenRouterReport(entry.report))) {
             entry.report = null;
@@ -5688,10 +5755,22 @@ function saveToHistory(score, thumbData, extra){
   // ("Tap below to scan") forever, even after a successful scan.
   const sc = Number(score);
   const safeScore = Number.isFinite(sc) ? Math.max(0, Math.min(100, Math.round(sc))) : 0;
-  const entry = Object.assign({ date: Date.now(), score: safeScore, thumb: thumbData || null }, extra || {});
-  // extra may carry a stale `score` field — force the normalized one to win.
+  const payload = extra && typeof extra === "object" ? { ...extra } : {};
+  const scanUid = String(payload.scan_uid || "");
+  if (scanUid) {
+    const existing = scanHistory.find(x => x && String(x.scan_uid || "") === scanUid);
+    if (existing) {
+      Object.assign(existing, payload);
+      existing.score = safeScore;
+      if (thumbData && !existing.thumb) existing.thumb = thumbData;
+      try { localStorage.setItem("facemax_history", JSON.stringify(_fmDedupeScanHistory(scanHistory))); } catch {}
+      return existing;
+    }
+  }
+  const entry = Object.assign({ date: Date.now(), score: safeScore, thumb: thumbData || null }, payload);
   entry.score = safeScore;
   scanHistory.unshift(entry);
+  scanHistory = _fmDedupeScanHistory(scanHistory);
   if (scanHistory.length > 90) scanHistory = scanHistory.slice(0, 90);
   try { localStorage.setItem("facemax_history", JSON.stringify(scanHistory)); } catch {}
   // If Apple cloud backup is available, migrate only this compact thumbnail
@@ -9443,34 +9522,26 @@ function _applyAvatarCrop(cropUrl) {
   _avatarCropUrl = url;
   ['resultImg', 'reportImg', 'prePayImg'].forEach(id => {
     const img = el(id);
-    if (img) {
-      img.src = url;
-      img.style.objectPosition = 'center center';
+    if (!img) return;
+    // Once the quiz paywall is visible its portrait is immutable. Several
+    // asynchronous crop jobs finishing at different times used to keep swapping
+    // this image and could make WKWebView look like a strobe.
+    if (id === 'prePayImg') {
+      const pp = el('prePay');
+      if (pp && pp.classList.contains('active')) return;
     }
+    img.src = url;
+    img.style.objectPosition = 'center center';
   });
 }
 
 function applySelectedPhoto(dataUrl, stayOnCurrentScreen){
-  // New photo = new avatar crop. Keeping the previous crop here could make
-  // history/result thumbnails lag one scan behind while the new crop decodes.
   _avatarCropUrl = null;
   _prePayCropUrl = null;
   _preparedScanImage = null;
   _preparedScanImageSource = null;
   _preparedScanImagePromise = null;
   selectedImageData = dataUrl;
-  // Start expensive work NOW, while the user is still looking at capture/
-  // paywall, instead of after they tap Face Scan.
-  _prepareScanImageInBackground(dataUrl).catch(() => {});
-  _makePrePayCrop(dataUrl).then(crop => {
-    if (crop && selectedImageData === dataUrl) {
-      _prePayCropUrl = crop;
-      const pp = el('prePayImg');
-      if (pp && el('prePay') && el('prePay').classList.contains('active')) {
-        pp.src = crop; pp.style.objectFit = 'cover'; pp.style.objectPosition = 'center center';
-      }
-    }
-  }).catch(() => {});
   el("previewImg").src = selectedImageData;
   el("loadingImg").src = selectedImageData;
   el("resultImg").src = selectedImageData;
@@ -9483,15 +9554,12 @@ function applySelectedPhoto(dataUrl, stayOnCurrentScreen){
   if (!stayOnCurrentScreen && !document.getElementById("upload").classList.contains("active")) {
     try { openScreen("upload"); } catch {}
   }
-  // Instant: apply a synchronous center-crop to the avatar circles right
-  // away (no network, no model load — just canvas), so there is never a
-  // frame where the raw, differently-framed photo shows through. Once the
-  // (slower) face-detected crop resolves, swap it in — same square shape,
-  // so the swap is just a subtle recenter, not a visible "half a face" jump.
+  // Match the old stable flow: one immediate square crop, then one optional
+  // face-centred refinement. No separate prePay crop is allowed to swap the
+  // visible paywall portrait later.
   _makeInstantCrop(dataUrl).then(instant => {
     if (instant && !_avatarCropUrl) _applyAvatarCrop(instant);
   }).catch(() => {});
-  // Async: detect face, crop square, apply to avatar circles
   _makeFaceCrop(dataUrl).then(crop => {
     if (crop) _applyAvatarCrop(crop);
   }).catch(() => {});
@@ -9744,6 +9812,26 @@ function animateRing(ringEl, numEl, rankEl, rankTextEl, archBadgeEl, score, arch
   }
 }
 
+let _fmFaceScanActiveRunId = null;
+let _fmFaceScanLockTimer = null;
+function _fmAcquireFaceScanRun(){
+  if (_fmFaceScanActiveRunId) return null;
+  const id = "face_" + Date.now() + "_" + Math.random().toString(36).slice(2,10);
+  _fmFaceScanActiveRunId = id;
+  clearTimeout(_fmFaceScanLockTimer);
+  _fmFaceScanLockTimer = setTimeout(() => {
+    if (_fmFaceScanActiveRunId === id) _fmFaceScanActiveRunId = null;
+  }, 120000);
+  return id;
+}
+function _fmReleaseFaceScanRun(id){
+  if (!id || _fmFaceScanActiveRunId === id) {
+    _fmFaceScanActiveRunId = null;
+    clearTimeout(_fmFaceScanLockTimer);
+    _fmFaceScanLockTimer = null;
+  }
+}
+
 window.startScan = async function(_premiumChecked){
   if (!selectedImageData) { showToast("Upload a photo first"); return; }
   const _fmFirstRunScan = (typeof fmFirstRunFunnelActive === "function") ? fmFirstRunFunnelActive() : !!(onbState && onbState.flow === "onboarding");
@@ -9777,6 +9865,15 @@ window.startScan = async function(_premiumChecked){
       if (!ok) return;
     }
   }
+  // A Face Scan is single-flight. Purchase/restore/lifecycle callbacks may all
+  // attempt to resume the same pending scan; only the first caller is allowed
+  // to reach the AI request/history write.
+  const _fmScanRunId = _fmAcquireFaceScanRun();
+  if (!_fmScanRunId) {
+    console.warn("[facemax] duplicate startScan suppressed");
+    return;
+  }
+
   // Open the scan screen FIRST. The 1080px payload is normally already
   // prepared in the background while the user is on capture/paywall.
   let _fmScanPayloadImage = selectedImageData;
@@ -9836,6 +9933,7 @@ window.startScan = async function(_premiumChecked){
   const ai = await fetchGeminiScan(_fmScanPayloadImage, null, null, _fmScanPayloadPrepared).catch(() => ({ hardFail: true, reason: "exception" }));
   // No face in photo — tell user clearly, don't retry, go back.
   if (ai && ai.noFace) {
+    _fmReleaseFaceScanRun(_fmScanRunId);
     stopScanBars();
     showToast("No face detected. Please upload a clear photo of your face.", 3500);
     setTimeout(() => openScreen("home"), 1200);
@@ -9843,17 +9941,19 @@ window.startScan = async function(_premiumChecked){
   }
   // Full analysis failure: two silent retries with increasing delays before showing error dialog.
   if (ai && ai.hardFail) {
-    if (ai.paywalled) return; // paywall already shown, stop here
+    if (ai.paywalled) { _fmReleaseFaceScanRun(_fmScanRunId); return; } // paywall already shown
     const errLead = document.getElementById("aiErrLead");
     // server_sync_pending = paid locally but server not confirmed yet.
     // Show specific message and go straight to retry dialog — don't waste 8s on auto-retries.
     if (ai.reason === "server_sync_pending") {
+      _fmReleaseFaceScanRun(_fmScanRunId);
       stopScanBars();
       if (errLead) errLead.textContent = "Purchase confirmed! Still syncing with server — tap Retry in a moment.";
       showAnalysisError();
       return;
     }
     if (ai.reason === "daily_limit_reached") {
+      _fmReleaseFaceScanRun(_fmScanRunId);
       stopScanBars();
       showAnalysisError({
         title: "Daily limit reached",
@@ -9866,17 +9966,17 @@ window.startScan = async function(_premiumChecked){
     // Retry 1 — wait 3s
     await new Promise(r => setTimeout(r, 3000));
     const ai2 = await fetchGeminiScan(_fmScanPayloadImage, null, null, _fmScanPayloadPrepared).catch(() => ({ hardFail: true, reason: "exception" }));
-    if (ai2 && ai2.reason === "daily_limit_reached") { stopScanBars(); showAnalysisError({ title:"Daily limit reached", message: ai2.message, retry:false }); return; }
-    if (ai2 && ai2.noFace) { stopScanBars(); showToast("No face detected. Please upload a clear photo of your face.", 3500); setTimeout(() => openScreen("home"), 1200); return; }
+    if (ai2 && ai2.reason === "daily_limit_reached") { _fmReleaseFaceScanRun(_fmScanRunId); stopScanBars(); showAnalysisError({ title:"Daily limit reached", message: ai2.message, retry:false }); return; }
+    if (ai2 && ai2.noFace) { _fmReleaseFaceScanRun(_fmScanRunId); stopScanBars(); showToast("No face detected. Please upload a clear photo of your face.", 3500); setTimeout(() => openScreen("home"), 1200); return; }
     if (ai2 && !ai2.hardFail) { Object.assign(ai, ai2); ai.hardFail = false; }
     else {
       // Retry 2 — wait another 5s
       await new Promise(r => setTimeout(r, 5000));
       const ai3 = await fetchGeminiScan(_fmScanPayloadImage, null, null, _fmScanPayloadPrepared).catch(() => ({ hardFail: true, reason: "exception" }));
-      if (ai3 && ai3.reason === "daily_limit_reached") { stopScanBars(); showAnalysisError({ title:"Daily limit reached", message: ai3.message, retry:false }); return; }
-      if (ai3 && ai3.noFace) { stopScanBars(); showToast("No face detected. Please upload a clear photo of your face.", 3500); setTimeout(() => openScreen("home"), 1200); return; }
+      if (ai3 && ai3.reason === "daily_limit_reached") { _fmReleaseFaceScanRun(_fmScanRunId); stopScanBars(); showAnalysisError({ title:"Daily limit reached", message: ai3.message, retry:false }); return; }
+      if (ai3 && ai3.noFace) { _fmReleaseFaceScanRun(_fmScanRunId); stopScanBars(); showToast("No face detected. Please upload a clear photo of your face.", 3500); setTimeout(() => openScreen("home"), 1200); return; }
       if (ai3 && !ai3.hardFail) { Object.assign(ai, ai3); ai.hardFail = false; }
-      else { stopScanBars(); showAnalysisError(); return; }
+      else { _fmReleaseFaceScanRun(_fmScanRunId); stopScanBars(); showAnalysisError(); return; }
     }
   }
   const finalMetrics = (ai && ai.metrics) ? ai.metrics : null;
@@ -9898,6 +9998,7 @@ window.startScan = async function(_premiumChecked){
   const _fmPreparedThumb = (_avatarCropUrl && /^data:image\//i.test(String(_avatarCropUrl))) ? _avatarCropUrl : null;
 
   finishScanBars(Object.assign({ overall: finalScore }, finalMetrics || {}), () => {
+    _fmReleaseFaceScanRun(_fmScanRunId);
     const completedFirstRun = (typeof fmFirstRunFunnelActive === "function")
       ? fmFirstRunFunnelActive()
       : !!(onbState && onbState.flow === "onboarding");
@@ -9927,7 +10028,7 @@ window.startScan = async function(_premiumChecked){
       try {
         savedEntry = saveToHistory(lastScanScore, _fmPreparedThumb, {
           shape: detectedShape, metrics: finalMetrics, report: aiReport || null,
-          archetype: archetypeFor(lastScanScore)
+          archetype: archetypeFor(lastScanScore), scan_uid: _fmScanRunId
         });
         if (Number.isFinite(_fmPrevScanScore) && Number(lastScanScore) > _fmPrevScanScore) {
           const delta = Math.max(1, Math.round(Number(lastScanScore) - _fmPrevScanScore));
@@ -9974,6 +10075,7 @@ window.startScan = async function(_premiumChecked){
  * Retry button that re-runs the whole scan (the selected photo is still loaded). */
 let _analysisErrorCanRetry = true;
 function showAnalysisError(options){
+  _fmReleaseFaceScanRun();
   const opts = options && typeof options === "object" ? options : {};
   _analysisErrorCanRetry = opts.retry !== false;
   const title = el("aiErrTitle");
@@ -15079,12 +15181,6 @@ async function onbSetPhoto(dataUrl){
     }
     // Store the processed version (replaces the raw dataUrl saved above)
     onbState[photoTarget] = out;
-    if (photoTarget === "front") {
-      _prepareScanImageInBackground(out).catch(() => {});
-      _makePrePayCrop(out).then(crop => {
-        if (crop && onbState.front === out) _prePayCropUrl = crop;
-      }).catch(() => {});
-    }
     // Refresh the preview image with the final processed version
     try { const si = document.getElementById("capShotImg"); if (si && si.src !== out) si.src = out; } catch {}
   })();
@@ -15160,7 +15256,7 @@ function onbCaptureBack(){
   }
 }
 
-function onbProceedToScan(){
+async function onbProceedToScan(){
   // Keep the whole capture -> subscription check -> prePay/loading transition
   // inside onboarding chrome. This is deliberately repeated here because a
   // native picker resume may preserve JS state but drop the html class.
@@ -15189,9 +15285,17 @@ function onbProceedToScan(){
   selectedSideImageData = onbState.side || "";
   try { if (typeof applySelectedPhoto === "function" && selectedImageData) applySelectedPhoto(selectedImageData, true); } catch {}
   const li = el("loadingImg"); if (li && selectedImageData) li.src = selectedImageData;
-  // Product rule: after the SECOND photo in the quiz, ALWAYS show the
-  // existing single-week pre-pay screen (1 week + Start free trial). Never
-  // substitute the multi-plan paywall and never skip it for existing Premium.
+  // Old working behaviour: finish one deterministic square crop before the
+  // quiz paywall is revealed. This prevents the portrait from changing while
+  // the user is looking at it and preserves the full lower face much better
+  // than the later experimental prePay crop pipeline.
+  try {
+    const stableCrop = _avatarCropUrl || await _makeInstantCrop(selectedImageData).catch(() => null);
+    if (stableCrop) _applyAvatarCrop(stableCrop);
+  } catch {}
+  // After the SECOND photo in onboarding always show the one-product weekly
+  // paywall. Existing Premium users still see the screen, but tapping it just
+  // continues and never buys the same subscription twice.
   if (onbState && onbState.flow === "onboarding") {
     onbState.pendingScan = true;
     _quizStaticPhotoScanOnce = true;
@@ -15831,24 +15935,14 @@ window.quizResultToScan = quizResultToScan;
 
 async function prePayWeeklyAction(){
   if (_quizCheckingOut) return;
-
-  // The quiz paywall is a mandatory visual step even for an Apple account
-  // that already owns Premium. Existing subscribers simply continue; they
-  // must never be sent through StoreKit for the same weekly product again.
   const active = !!(premium || hasUnlockedAccess() || await checkPremium(false).catch(() => false));
   if (active) {
     onbState.pendingScan = true;
     _quizStaticPhotoScanOnce = true;
-    const ready = await quizBackendPremiumReady(12000);
-    if (!ready) {
-      showToast("Premium is still syncing. Tap again in a moment.", 2600);
-      return;
-    }
     if (!quizResumePendingScan() && typeof window.startScan === "function") window.startScan(true);
     return;
   }
-
-  // New subscriber: the quiz has exactly one purchasable product — weekly.
+  // Exactly the old quiz monetisation: both visible CTAs buy the single weekly product.
   quizBuyPlan("weekly");
 }
 window.prePayWeeklyAction = prePayWeeklyAction;
@@ -15861,34 +15955,25 @@ window.prePayOpenPaywall = prePayOpenPaywall;
 
 function showPrePay(){
   if (!quizRequireAppleSignIn()) return;
-  // This flag belongs to exactly ONE scan: paywall -> first quiz result.
   _quizStaticPhotoScanOnce = true;
   var img = el('prePayImg');
   if (img) {
-    const payImg = _prePayCropUrl || selectedImageData || _avatarCropUrl || "";
-    img.src = payImg;
+    const stable = _avatarCropUrl || selectedImageData || "";
+    img.src = stable;
+    img.style.objectFit = "cover";
     img.style.objectPosition = "center center";
-    // If the generous square crop is still finishing, show the raw portrait
-    // uncropped rather than chopping off the user's chin.
-    img.style.objectFit = _prePayCropUrl ? "cover" : "contain";
   }
   document.documentElement.classList.add("fm-quiz-active");
   openScreen('prePay');
 
-  // App-start price preloading can be skipped before mandatory Apple sign-in.
-  // Fetch again EVERY time this exact weekly paywall opens.
+  // Keep the exact old paywall UI, but still refresh the real StoreKit price.
   try { if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(true); } catch {}
 
-  if (!_prePayCropUrl && selectedImageData) {
-    _makePrePayCrop(selectedImageData).then(crop => {
-      if (!crop) return;
-      _prePayCropUrl = crop;
-      const current = el('prePayImg');
-      if (current && el('prePay') && el('prePay').classList.contains('active')) {
-        current.src = crop; current.style.objectFit = 'cover'; current.style.objectPosition = 'center center';
-      }
-    }).catch(() => {});
-  }
+  // Prepare the AI payload only after the paywall has painted. This work never
+  // touches the visible paywall image, so it cannot cause flashing.
+  setTimeout(() => {
+    try { if (selectedImageData) _prepareScanImageInBackground(selectedImageData).catch(() => {}); } catch {}
+  }, 0);
 }
 
 function quizSetPaywallAccessMode(active){
@@ -15997,56 +16082,31 @@ async function quizCheckout(){
   if (!quizRequireAppleSignIn()) return;
   const native = fmIsNative();
   const btn = el("quizPayBtn");
-  const syncStatus = el("qpSyncStatus");
   if (btn) { btn.disabled = true; const sp = btn.querySelector("span"); if (sp) sp.textContent = "Opening checkout…"; }
-  if (syncStatus) syncStatus.textContent = "Opening Apple checkout…";
-  let purchaseConfirmed = false;
   try {
     if (native) {
-      // Native iOS: real Apple IAP via RevenueCat. The purchase starts a direct
-      // backend reconciliation in native-bridge.js. Join that sync briefly here
-      // BEFORE opening the scan animation; otherwise /api/full-report can see a
-      // transient 402 and make the scan screen sit in its 90% tail for seconds.
-      purchaseConfirmed = !!(await window.handlePurchase(_quizSelectedPlan));
-      if ((purchaseConfirmed || premium || hasUnlockedAccess()) && window.facemax) {
-        if (btn) {
-          const sp = btn.querySelector("span");
-          if (sp) sp.textContent = "Preparing your scan…";
-        }
-        if (syncStatus) syncStatus.textContent = "Activating Premium & preparing your scan…";
-        // Keep propagation waiting on the paywall, never on the Face Scan
-        // animation. This removes the post-purchase 89–99% dead zone.
-        const serverReady = await quizBackendPremiumReady(18000);
-        if (!serverReady) {
-          if (syncStatus) syncStatus.textContent = "Premium is active. Finishing secure setup — tap Continue to retry.";
-          quizSetPaywallAccessMode(true);
-          return;
-        }
-      }
+      // Restore the old working flow: RevenueCat/StoreKit confirms ownership,
+      // local Premium is marked immediately, and the pending scan resumes.
+      // Server reconciliation continues in the native bridge in background.
+      await window.handlePurchase(_quizSelectedPlan);
     } else {
-      // Web preview has no real billing (the shipped app charges through the
-      // App Store). Show a toast so the paywall UI can be reviewed end-to-end
-      // on the web build without auto-unlocking the scan.
       showToast("Web preview — no billing", 2500);
     }
   } catch (err) { showToast("Checkout error"); }
   if (btn) { btn.disabled = false; const sp = btn.querySelector("span"); if (sp) sp.textContent = "Unlock my full analysis"; }
-  // After a successful purchase, handlePurchase already called markPremiumActiveLocally()
-  // which sets premium=true and writes FACEMAX_QUIZ_UNLOCKED to localStorage.
-  // We must NOT call checkPremium() here — the server webhook may not have landed yet,
-  // and checkPremium() would reset premium=false, killing the flow.
-  // If StoreKit/RevenueCat confirmed the entitlement, resume immediately.
-  // Cancellation or a failed confirmation stays on the paywall; there is no
-  // extra hidden 10-second poll that makes the UI feel unresponsive.
+
   if (premium || hasUnlockedAccess()) {
-    console.log("[facemax] quizCheckout: premium confirmed, resuming scan. pendingScan=", onbState.pendingScan, "hasPhoto=", !!selectedImageData);
-    if (syncStatus) syncStatus.textContent = "Premium active — starting your scan…";
     if (!quizResumePendingScan()) quizPaywallClose();
-  } else {
-    // Cancellation / failed StoreKit confirmation: stay on the paywall and let
-    // the user choose again. Never burn another 10 seconds polling after a
-    // purchase that did not actually complete.
-    if (syncStatus) syncStatus.textContent = "";
+  } else if (native) {
+    let tries = 0;
+    const resumeWhenReady = () => {
+      if (premium || hasUnlockedAccess()) {
+        if (!quizResumePendingScan()) quizPaywallClose();
+        return;
+      }
+      if (++tries < 20) setTimeout(resumeWhenReady, 500);
+    };
+    setTimeout(resumeWhenReady, 300);
   }
 }
 
@@ -16758,21 +16818,13 @@ window.downloadResultCard = async function() {
         var plan = el.getAttribute("data-price-plan");
         if (prices[plan] && prices[plan] !== "…") el.textContent = prices[plan];
       });
-      // The quiz paywall has one product: weekly. Both CTAs are real purchase
-      // actions; only the copy changes based on the iOS intro-offer eligibility.
+      // Keep the original quiz paywall copy exactly: one weekly price CTA plus
+      // a separate gift CTA. Both are live weekly purchase actions; the UI must
+      // not silently rename or hide the free-trial button while StoreKit warms up.
       var trialBtn = document.getElementById("prePayTrialBtn");
-      if (trialBtn) {
-        if (prices.weeklyHasFreeTrial === true && prices.weeklyTrialEligible === true) {
-          trialBtn.textContent = "🎁 Start free trial";
-        } else if (prices.weeklyTrialEligible === false || prices.weeklyHasFreeTrial === false) {
-          trialBtn.textContent = "Continue with weekly plan";
-        } else {
-          // Eligibility may be temporarily unknown while StoreKit warms up.
-          trialBtn.textContent = "🎁 Start free trial";
-        }
-      }
+      if (trialBtn) { trialBtn.textContent = "🎁 Start free trial"; trialBtn.disabled = false; }
       var weeklyBtn = document.getElementById("prePayWeeklyBtn");
-      if (weeklyBtn) weeklyBtn.disabled = !prices.weekly || prices.weekly === "…";
+      if (weeklyBtn) weeklyBtn.disabled = false;
       // Fill the "Billed annually · X / month" helper span with the
       // per-month equivalent derived from the yearly price when available.
       // We display the raw yearly price string as-is (e.g. "$39.99 / year")

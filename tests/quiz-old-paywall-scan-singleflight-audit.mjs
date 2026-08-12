@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const web = fs.readFileSync('web/index.html','utf8');
+const ios = fs.readFileSync('ios/App/App/public/index.html','utf8');
+const ok=(v,m)=>{assert.ok(v,m);console.log('PASS:',m)};
+ok(web===ios,'web and iOS index are identical');
+ok(web.includes('id="prePayWeeklyBtn"') && web.includes('data-price-plan="weekly"'),'quiz paywall contains the real weekly price CTA');
+ok(web.includes('id="prePayTrialBtn"') && web.includes('🎁 Start free trial'),'quiz paywall contains the gift free-trial CTA');
+ok(/async function prePayWeeklyAction\(\)[\s\S]*?quizBuyPlan\("weekly"\)/.test(web),'both quiz CTAs route to the single weekly purchase');
+ok(!web.includes('Continue with weekly plan'),'quiz trial CTA is not silently renamed');
+ok(/if \(onbState && onbState\.flow === "onboarding"\)[\s\S]*?showPrePay\(\)/.test(web),'second onboarding photo routes to prePay');
+ok(web.includes('duplicate startScan suppressed') && web.includes('_fmAcquireFaceScanRun'),'Face Scan is single-flight');
+ok(web.includes('scan_uid: _fmScanRunId'),'history receives a stable scan_uid for the run');
+ok(web.includes('_fmDedupeScanHistory') && web.includes('90000'),'legacy same-scan bursts are collapsed within 90 seconds');
+ok(/if \(id === 'prePayImg'\)[\s\S]*?classList\.contains\('active'\)/.test(web),'visible prePay portrait is frozen against async crop swaps');

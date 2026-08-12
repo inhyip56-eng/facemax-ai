@@ -8,8 +8,8 @@ assert.equal(web, ios, 'web/iOS index must be identical');
 console.log('PASS: web and iOS index are identical');
 
 ok(web.includes('if (onbState && onbState.flow === "onboarding") {\n    onbState.pendingScan = true;\n    _quizStaticPhotoScanOnce = true;'), 'second onboarding photo arms the one-shot static scan');
-ok(web.includes('quizShowPaywall();\n    return;'), 'second onboarding photo routes directly to real quiz paywall');
-ok(web.includes('openScreen("quizPaywall")'), 'real quiz paywall exists');
+ok(web.includes('showPrePay();\n    return;'), 'second onboarding photo routes directly to the single weekly prePay');
+ok(web.includes("openScreen('prePay')"), 'single weekly prePay exists');
 ok(web.includes('🎁 Start free trial'), 'quiz paywall retains free-trial CTA');
 ok(web.includes('const firstRunOnboarding = !!(onbState && onbState.flow === "onboarding") ||'), 'onboarding detection does not rely only on first-run localStorage state');
 ok(web.includes('#loading.fm-quiz-static-photo .scan-photo::after{content:none!important'), 'post-quiz scan removes sweep line from photo');
