@@ -1,0 +1,7 @@
+# Add this block to workers/api/wrangler.toml AFTER creating the D1 database.
+# Current FaceMax production D1 binding.
+
+[[d1_databases]]
+binding = "PROGRESS_DB"
+database_name = "facemax-progress"
+database_id = "f5ca3304-b8bc-4af3-9c05-91dada80b83a"

@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const h = fs.readFileSync('web/index.html','utf8');
+assert.ok(!h.toLowerCase().includes('streak secured'), 'secured copy must never return');
+assert.ok(h.includes('color:#fbbf24;background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.35)'), 'Glow streak badge must be yellow');
+assert.ok(h.includes('if (streak >= 1) streakTile.classList.add("hs-streak-active")'), 'active Home streak must use yellow class');
+assert.ok(!h.includes('if (momentum.atRisk && momentum.isEvening) streakTile.classList.add("hs-streak-risk")'), 'risk must not recolor active streak');
+assert.ok(h.includes('streakTxt.textContent = "🔥 " + streakCount + " day streak"'), 'plain streak copy missing');
+assert.ok(h.includes('if (adding && done.length >= _guGetPlanTotal())'), 'full-plan completion gate missing');
+assert.ok(h.includes('_guCompleteToday(true)'), 'completion hook missing');
+assert.ok(h.includes('id="guCompletionOverlay"'), 'completion celebration missing');
+assert.ok(h.includes('.gu-step-box{width:19px;height:19px;border-radius:6px'), 'square task completion icon missing');
+console.log('PASS: streak is always yellow/plain and Duolingo-style completion mechanics remain');
