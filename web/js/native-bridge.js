@@ -464,6 +464,13 @@
 
   let purchasesReady = null;
   let _rcConfiguredUserId = null;
+  // Warm RevenueCat product cache. The quiz price renderer fills this before
+  // the paywall opens, and checkout reuses the exact StoreProduct/package so
+  // the first tap does not need to refetch offerings from scratch.
+  let _cachedOfferings = null;
+  const _cachedPackagesByProductId = new Map();
+  const _cachedStoreProductsByProductId = new Map();
+  let _nativePurchaseInFlight = null;
   const RC_BRIDGE_ACCOUNT_KEY = "facemax_rc_bridge_account_v1";
   const RC_BRIDGE_USER_KEY = "facemax_rc_bridge_user_v1";
 
@@ -475,6 +482,38 @@
       if (requested && accountId === String(requested) && bridgedId) return bridgedId;
     } catch (_) {}
     return requested;
+  }
+
+  function revenueCatProductId(product) {
+    return String(product && (product.identifier || product.productIdentifier) || "");
+  }
+
+  function packagesFromOffering(offering) {
+    if (!offering) return [];
+    const out = [];
+    if (Array.isArray(offering.availablePackages)) out.push(...offering.availablePackages);
+    for (const key in offering) {
+      if (key === "availablePackages") continue;
+      const value = offering[key];
+      if (value && typeof value === "object" && value.product) out.push(value);
+    }
+    return out;
+  }
+
+  function rememberOfferings(offerings) {
+    if (!offerings || typeof offerings !== "object") return;
+    _cachedOfferings = offerings;
+    let packages = packagesFromOffering(offerings.current);
+    if (offerings.all && typeof offerings.all === "object") {
+      for (const key of Object.keys(offerings.all)) packages = packages.concat(packagesFromOffering(offerings.all[key]));
+    }
+    packages.forEach(function (pkg) {
+      const product = pkg && pkg.product;
+      const productId = revenueCatProductId(product);
+      if (!productId) return;
+      _cachedPackagesByProductId.set(productId, pkg);
+      _cachedStoreProductsByProductId.set(productId, product);
+    });
   }
 
   async function initRevenueCat(userId) {
@@ -522,7 +561,10 @@
         // → purchase fails on the first attempt, succeeds on the second (SDK
         // is settled by then). Swallowing errors here is intentional — a failed
         // warmup is non-fatal; findPackageForProduct will retry on demand.
-        try { await Purchases.getOfferings(); } catch (_) {}
+        try {
+          const warmOfferings = await Purchases.getOfferings();
+          rememberOfferings(warmOfferings);
+        } catch (_) {}
         return true;
       })();
     } else if (needsLogin) {
@@ -677,6 +719,7 @@
       // (has .current / .all directly) — it is NOT wrapped in another
       // `{ offerings: ... }` layer. See the comment in _getOfferingsWithRetry.
       const offerings = await _getOfferingsWithRetry(Purchases);
+      rememberOfferings(offerings);
       const current = offerings && offerings.current;
       // The RevenueCat Capacitor SDK has returned `current` in two different
       // shapes depending on version/platform:
@@ -756,6 +799,18 @@
       // Do NOT cache on failure — allow retry on next call.
     }
     return _cachedPrices || Object.assign({}, _emptyPrices);
+  };
+
+  facemax.prefetchWeeklyProduct = async function (userId) {
+    const prices = await facemax.loadPrices(userId, false);
+    const productId = facemax.products.weekly && facemax.products.weekly.appleId;
+    return {
+      ok: !!(productId && _cachedStoreProductsByProductId.get(productId)),
+      product_id: productId || null,
+      priceString: prices && prices.weekly !== "…" ? prices.weekly : null,
+      has_free_trial: prices ? prices.weeklyHasFreeTrial : null,
+      trial_eligible: prices ? prices.weeklyTrialEligible : null,
+    };
   };
 
   // Pull the entitlement expiration as epoch-ms, tolerating the different field
@@ -869,34 +924,23 @@
   // Locate the RevenueCat package that wraps a given App Store product id,
   // scanning the current offering first and then every other offering.
   async function findPackageForProduct(Purchases, appleId) {
+    const cached = _cachedPackagesByProductId.get(appleId);
+    if (cached) return cached;
     try {
-      // getOfferings() resolves directly to the PurchasesOfferings object
-      // (.current / .all on it directly) — no `{ offerings }` wrapper.
-      const offerings = await Purchases.getOfferings();
-      function packagesOf(off) {
-        if (!off) return [];
-        if (Array.isArray(off.availablePackages)) return off.availablePackages;
-        // Keyed-by-package-id form: { weekly: {...}, monthly: {...}, ... }
-        const out = [];
-        for (const key in off) {
-          if (key === "availablePackages") continue;
-          const val = off[key];
-          if (val && typeof val === "object" && val.product) out.push(val);
-        }
-        return out;
-      }
-      let pkgs = packagesOf(offerings && offerings.current);
-      if (offerings && offerings.all) {
-        for (const key of Object.keys(offerings.all)) {
-          pkgs = pkgs.concat(packagesOf(offerings.all[key]));
-        }
-      }
-      return pkgs.find(p => {
-        const pid = (p.product && (p.product.identifier || p.product.productIdentifier)) || "";
-        return pid === appleId;
-      }) || null;
+      // Prefer the preloaded offering, then refresh only when the requested
+      // product was not already cached.
+      let offerings = _cachedOfferings;
+      if (!offerings) offerings = await Purchases.getOfferings();
+      rememberOfferings(offerings);
+      const found = _cachedPackagesByProductId.get(appleId);
+      if (found) return found;
+
+      // One final fresh fetch covers an offering changed while the app was open.
+      offerings = await Purchases.getOfferings();
+      rememberOfferings(offerings);
+      return _cachedPackagesByProductId.get(appleId) || null;
     } catch (e) {
-      return null;
+      return _cachedPackagesByProductId.get(appleId) || null;
     }
   }
 
@@ -1010,7 +1054,7 @@
 
   // Buy a product and confirm with our backend.
   // Returns { ok, premium_until, server_synced, error }.
-  facemax.purchase = async function (planName, userId) {
+  async function purchaseRevenueCatProduct(planName, userId) {
     if (!facemax.native) return { ok: false, error: "not_native" };
     const product = facemax.products[planName];
     if (!product) return { ok: false, error: "unknown_plan" };
@@ -1027,8 +1071,12 @@
       if (pkg) {
         ({ customerInfo } = await Purchases.purchasePackage({ aPackage: pkg }));
       } else {
-        const { products } = await Purchases.getProducts({ productIdentifiers: [product.appleId] });
-        const storeProduct = products && products[0];
+        let storeProduct = _cachedStoreProductsByProductId.get(product.appleId) || null;
+        if (!storeProduct) {
+          const { products } = await Purchases.getProducts({ productIdentifiers: [product.appleId] });
+          storeProduct = products && products[0];
+          if (storeProduct) _cachedStoreProductsByProductId.set(product.appleId, storeProduct);
+        }
         if (!storeProduct) return { ok: false, error: "product_unavailable" };
         ({ customerInfo } = await Purchases.purchaseStoreProduct({ product: storeProduct }));
       }
@@ -1068,6 +1116,20 @@
         } catch (e) { /* fall through to error */ }
       }
       return { ok: false, error: msg };
+    }
+  }
+
+  // Native single-flight guard sits below every HTML/UI guard. Even if two JS
+  // click handlers race, only one RevenueCat/StoreKit transaction can be started.
+  facemax.purchase = async function (planName, userId) {
+    if (_nativePurchaseInFlight) return { ok:false, error:"purchase_in_progress" };
+    _nativePurchaseInFlight = Promise.resolve().then(function () {
+      return purchaseRevenueCatProduct(planName, userId);
+    });
+    try {
+      return await _nativePurchaseInFlight;
+    } finally {
+      _nativePurchaseInFlight = null;
     }
   };
 
