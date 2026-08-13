@@ -11675,23 +11675,12 @@ async function _handlePurchaseInternal(plan){
   else plan = "monthly";
   if (fmIsNative()) {
     try {
-      // Existing access is accepted only after a fresh RevenueCat entitlement
-      // check. A stale in-memory/localStorage/backend premium flag must never
-      // skip the system App Store purchase sheet for a new/inactive account.
-      if (window.facemax && typeof window.facemax.getSubscriptionStatus === "function") {
-        const existing = await window.facemax.getSubscriptionStatus(currentUserId()).catch(() => null);
-        if (existing && existing.ok && existing.active) {
-          markPremiumActiveLocally(existing.premium_until || null);
-          const activeScreen = document.querySelector(".screen.active");
-          if (activeScreen && activeScreen.id === "gate") await resumePendingPremiumAction();
-          return true;
-        }
-        if (existing && existing.ok && !existing.active) {
-          premium = false;
-          premiumUntil = null;
-          clearLocalPremiumUnlock();
-        }
-      }
+      // HARD STOREKIT GATE: a purchase CTA must never be satisfied by a cached
+      // entitlement check. If a paywall is visible and the user taps Weekly or
+      // Start free trial, the next billing step is always RevenueCat purchase()
+      // -> StoreKit. Existing ownership is handled only by StoreKit/RevenueCat
+      // (including the already-purchased/restore path below), never by a local,
+      // backend, or pre-purchase CustomerInfo shortcut.
       const appleProduct =
         (plan === "weekly" || plan === "starter") ? "weekly" :
         (plan === "yearly")   ? "yearly"   : "monthly";
@@ -16328,9 +16317,15 @@ async function quizRevenueCatEntitlementStatus(){
 }
 window.quizRevenueCatEntitlementStatus = quizRevenueCatEntitlementStatus;
 
+// One-shot proof that this exact quiz checkout returned successfully from the
+// native RevenueCat purchase/restore path. A stale local premium flag is never
+// enough to create this proof.
+let _quizStoreKitVerifiedAt = 0;
+function quizMarkStoreKitVerified(){ _quizStoreKitVerifiedAt = Date.now(); }
+function quizHasFreshStoreKitProof(){ return _quizStoreKitVerifiedAt > 0 && (Date.now() - _quizStoreKitVerifiedAt) < 60000; }
+
 async function quizContinueAfterVerifiedEntitlement(){
-  const status = await quizRevenueCatEntitlementStatus();
-  if (!status || status.active !== true) return false;
+  if (!quizHasFreshStoreKitProof()) return false;
 
   const sync = el("qpSyncStatus");
   if (sync) sync.textContent = "Premium verified — starting your scan…";
@@ -16345,7 +16340,10 @@ async function quizContinueAfterVerifiedEntitlement(){
 
   onbState.pendingScan = true;
   _quizStaticPhotoScanOnce = true;
-  if (!quizResumePendingScan() && typeof window.startScan === "function") window.startScan(true);
+  if (!quizResumePendingScan(true) && typeof window.startScan === "function" && quizHasFreshStoreKitProof()) {
+    _quizStoreKitVerifiedAt = 0;
+    window.startScan(true);
+  }
   return true;
 }
 window.quizContinueAfterVerifiedEntitlement = quizContinueAfterVerifiedEntitlement;
@@ -16353,8 +16351,8 @@ window.quizContinueAfterVerifiedEntitlement = quizContinueAfterVerifiedEntitleme
 async function prePayWeeklyAction(){
   if (_quizCheckingOut || _purchaseInFlight) return;
   // Keep the tap path identical to the old working paywall: go straight into
-  // the weekly checkout. handlePurchase() still performs the real RevenueCat
-  // entitlement check before StoreKit, but normally hits the pre-warmed cache.
+  // the weekly checkout. No local/backend/CustomerInfo pre-check may satisfy
+  // this CTA before the RevenueCat purchase method reaches StoreKit.
   quizBuyPlan("weekly");
 }
 window.prePayWeeklyAction = prePayWeeklyAction;
@@ -16398,16 +16396,8 @@ function quizSetPaywallAccessMode(active){
 }
 window.quizPaywallPrimaryAction = async function(){
   if (_quizCheckingOut || _purchaseInFlight) return;
-  const status = await quizRevenueCatEntitlementStatus();
-  const active = !!(status && status.active === true);
-  quizSetPaywallAccessMode(active);
-  if (active) {
-    const primary = el("quizPaywallPrimaryBtn");
-    if (primary) primary.disabled = true;
-    try { await quizContinueAfterVerifiedEntitlement(); }
-    finally { if (primary) primary.disabled = false; }
-    return;
-  }
+  // Never turn the CTA into a "continue" shortcut from cached subscription
+  // state. The button is a real Weekly purchase action and must enter StoreKit.
   quizBuyPlan("weekly");
 };
 function quizShowPaywall(){
@@ -16517,8 +16507,11 @@ async function quizCheckout(){
     return false;
   }
 
-  // Re-read RevenueCat CustomerInfo before navigation. This prevents any stale
-  // local/backend premium flag from being the condition that launches Scan.
+  // handlePurchase() can return true only after facemax.purchase() returned an
+  // active RevenueCat entitlement from the real StoreKit purchase/restore path.
+  // Mint a one-shot proof for this quiz checkout; local/backend premium flags
+  // cannot mint it and therefore cannot launch Scan.
+  quizMarkStoreKitVerified();
   const continued = await quizContinueAfterVerifiedEntitlement();
   if (!continued) return false;
   return true;
@@ -16527,8 +16520,13 @@ async function quizCheckout(){
 // Resume the analysis that was deferred until payment. Called after a
 // successful purchase. Returns true if a pending scan was started.
 let _lastResumeAt = 0;
-function quizResumePendingScan(){
-  if (!(premium || hasUnlockedAccess())) return false;
+function quizResumePendingScan(requireStoreKitProof){
+  const proofRequired = requireStoreKitProof === true;
+  if (proofRequired) {
+    if (!quizHasFreshStoreKitProof()) return false;
+  } else if (!(premium || hasUnlockedAccess())) {
+    return false;
+  }
   document.documentElement.classList.remove("fm-quiz-active");
   // Resume ONLY when the user was actually blocked mid-scan by the paywall
   // (onbState.pendingScan, set in startScan() right before showing the
@@ -16546,9 +16544,13 @@ function quizResumePendingScan(){
     // Idempotency guard: purchase and restore can both trigger a resume (e.g.
     // the checkout poller plus an auto-restore) within a short window.
     const now = Date.now();
-    if (now - _lastResumeAt < 5000) return true;
+    if (now - _lastResumeAt < 5000) {
+      if (proofRequired) _quizStoreKitVerifiedAt = 0;
+      return true;
+    }
     _lastResumeAt = now;
     onbState.pendingScan = false;
+    if (proofRequired) _quizStoreKitVerifiedAt = 0;
     if (typeof window.startScan === "function") { window.startScan(true); return true; }
   }
   return false;
@@ -16557,6 +16559,7 @@ window.quizResumePendingScan = quizResumePendingScan;
 
 function quizPaywallClose(){
   onbState.pendingScan = false;
+  _quizStoreKitVerifiedAt = 0;
   _quizStaticPhotoScanOnce = false;
   const _qpSync = el("qpSyncStatus"); if (_qpSync) _qpSync.textContent = "";
   // If the user completed the quiz before (was once a paying customer),
