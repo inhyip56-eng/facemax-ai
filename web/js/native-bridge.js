@@ -597,6 +597,16 @@
         if (!ok) return false;
         try {
           await Purchases.logIn({ appUserID: userId });
+          // Never continue under the previous RevenueCat customer after an
+          // account switch. That can expose an old customer's active entitlement
+          // and make a paywall skip StoreKit entirely.
+          if (typeof Purchases.getAppUserID === "function") {
+            const current = await Purchases.getAppUserID();
+            const actual = current && current.appUserID ? String(current.appUserID) : "";
+            if (!actual || actual !== String(userId)) {
+              throw new Error("revenuecat_identity_mismatch");
+            }
+          }
           _rcConfiguredUserId = userId;
           _cachedSubscriptionStatus = null;
           _cachedSubscriptionStatusAt = 0;
@@ -604,9 +614,12 @@
           _subscriptionStatusInFlight = null;
           _subscriptionStatusInFlightUserId = null;
         } catch (e) {
-          // logIn failing is non-fatal — the SDK is still running and purchases
-          // will complete under the previously-configured identity.
-          console.warn("[facemax] RC logIn failed, continuing with existing identity:", e);
+          // Fail closed. Keep the already-configured SDK promise available for
+          // a later retry, but do not read CustomerInfo or purchase under the
+          // previous RevenueCat identity in this call.
+          purchasesReady = prevReady;
+          console.warn("[facemax] RC logIn failed; refusing previous identity:", e);
+          return false;
         }
         return true;
       })();
@@ -1056,6 +1069,9 @@
       if (!ready) return { ok: false, error: "revenuecat_unavailable" };
       try {
         const Purchases = window.Capacitor.Plugins.Purchases;
+        if (options.forceRefresh && typeof Purchases.invalidateCustomerInfoCache === "function") {
+          try { await Purchases.invalidateCustomerInfoCache(); } catch (_) {}
+        }
         const result = await Purchases.getCustomerInfo();
         const customerInfo = (result && result.customerInfo) || result || null;
         const entitlement = activeEntitlementFromCustomerInfo(customerInfo, "premium");
