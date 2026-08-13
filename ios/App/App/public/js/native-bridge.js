@@ -471,6 +471,12 @@
   const _cachedPackagesByProductId = new Map();
   const _cachedStoreProductsByProductId = new Map();
   let _nativePurchaseInFlight = null;
+  let _cachedSubscriptionStatus = null;
+  let _cachedSubscriptionStatusAt = 0;
+  let _cachedSubscriptionStatusUserId = null;
+  let _subscriptionStatusInFlight = null;
+  let _subscriptionStatusInFlightUserId = null;
+  const RC_SUBSCRIPTION_STATUS_TTL_MS = 15000;
   const RC_BRIDGE_ACCOUNT_KEY = "facemax_rc_bridge_account_v1";
   const RC_BRIDGE_USER_KEY = "facemax_rc_bridge_user_v1";
 
@@ -554,6 +560,11 @@
         try { await Purchases.setLogLevel({ level: "WARN" }); } catch (_) {}
         await Purchases.configure({ apiKey, appUserID: userId || null });
         _rcConfiguredUserId = userId || null;
+        _cachedSubscriptionStatus = null;
+        _cachedSubscriptionStatusAt = 0;
+        _cachedSubscriptionStatusUserId = null;
+        _subscriptionStatusInFlight = null;
+        _subscriptionStatusInFlightUserId = null;
         // ── Warmup: fetch offerings immediately after configure() so the SDK
         // network stack, auth token and offering cache are all primed BEFORE
         // the user taps "Buy". Without this, the very first getOfferings() call
@@ -562,8 +573,9 @@
         // is settled by then). Swallowing errors here is intentional — a failed
         // warmup is non-fatal; findPackageForProduct will retry on demand.
         try {
-          const warmOfferings = await Purchases.getOfferings();
-          rememberOfferings(warmOfferings);
+          Promise.resolve(Purchases.getOfferings())
+            .then(function(warmOfferings){ rememberOfferings(warmOfferings); })
+            .catch(function(){});
         } catch (_) {}
         return true;
       })();
@@ -586,6 +598,11 @@
         try {
           await Purchases.logIn({ appUserID: userId });
           _rcConfiguredUserId = userId;
+          _cachedSubscriptionStatus = null;
+          _cachedSubscriptionStatusAt = 0;
+          _cachedSubscriptionStatusUserId = null;
+          _subscriptionStatusInFlight = null;
+          _subscriptionStatusInFlightUserId = null;
         } catch (e) {
           // logIn failing is non-fatal — the SDK is still running and purchases
           // will complete under the previously-configured identity.
@@ -618,6 +635,9 @@
   // on-screen banner code in index.html once the real cause is found.
   let _lastPriceError = null;
   facemax.getLastPriceError = function () { return _lastPriceError; };
+  facemax.getCachedPrices = function () {
+    return Object.assign({}, _cachedPrices || _emptyPrices);
+  };
   // ------------------------------------------------------------------------
 
   // Wait for the Capacitor Purchases plugin to register (it appears on
@@ -689,7 +709,11 @@
   }
 
   facemax.loadPrices = async function (userId, forceRefresh) {
-    if (_cachedPrices && !forceRefresh) return _cachedPrices;
+    const corePricesReady = !!(_cachedPrices &&
+      _cachedPrices.weekly && _cachedPrices.weekly !== "…" &&
+      _cachedPrices.monthly && _cachedPrices.monthly !== "…" &&
+      _cachedPrices.yearly && _cachedPrices.yearly !== "…");
+    if (corePricesReady && !forceRefresh) return Object.assign({}, _cachedPrices);
     // On web (non-native) StoreKit is unavailable — keep showing "…" so no
     // hardcoded price is ever displayed. Prices only render in the native app.
     if (!facemax.native) { return Object.assign({}, _emptyPrices); }
@@ -713,6 +737,53 @@
         return Object.assign({}, _emptyPrices);
       }
       const Purchases = window.Capacitor.Plugins.Purchases;
+
+      // Fast path: the product identifiers are known, so ask StoreKit directly
+      // for the three products used by the single in-app paywall. This avoids
+      // making price rendering wait for RevenueCat Offering retries. Packages
+      // are still warmed in the background and checkout can always fall back to
+      // purchaseStoreProduct with these exact StoreProducts.
+      try {
+        const quickMap = Object.assign({}, _emptyPrices);
+        const desiredIds = ["weekly","monthly","yearly"]
+          .map(function(name){ return facemax.products[name] && facemax.products[name].appleId; })
+          .filter(Boolean);
+        const direct = await Purchases.getProducts({ productIdentifiers: desiredIds });
+        const directProducts = direct && Array.isArray(direct.products) ? direct.products : [];
+        directProducts.forEach(function(product){
+          const pid = revenueCatProductId(product);
+          if (!pid) return;
+          _cachedStoreProductsByProductId.set(pid, product);
+          if (pid === facemax.products.weekly.appleId) {
+            if (product.priceString) quickMap.weekly = product.priceString;
+            const intro = product.introPrice || null;
+            quickMap.weeklyHasFreeTrial = !!(intro && Number(intro.price) === 0);
+            quickMap.weeklyTrialPeriod = intro && intro.period || null;
+          } else if (pid === facemax.products.monthly.appleId) {
+            if (product.priceString) quickMap.monthly = product.priceString;
+          } else if (pid === facemax.products.yearly.appleId) {
+            if (product.priceString) quickMap.yearly = product.priceString;
+            const n = Number(product.price);
+            if (Number.isFinite(n) && n > 0) quickMap.yearlyPrice = n;
+          }
+        });
+        const quickReady = ["weekly","monthly","yearly"].every(function(k){
+          return quickMap[k] && quickMap[k] !== "…";
+        });
+        if (quickReady) {
+          _cachedPrices = Object.assign({}, _cachedPrices || _emptyPrices, quickMap);
+          _lastPriceError = null;
+          try {
+            Promise.resolve(Purchases.getOfferings())
+              .then(function(o){ rememberOfferings(o); })
+              .catch(function(){});
+          } catch (_) {}
+          return Object.assign({}, _cachedPrices);
+        }
+      } catch (_) {
+        // Fall through to offering-based recovery below.
+      }
+
       // Use retry wrapper — getOfferings() can silently return empty on first
       // launch while StoreKit fetches products in the background.
       // NOTE: the resolved value IS the PurchasesOfferings object itself
@@ -769,6 +840,39 @@
         if (id.includes("yearly") || id.includes("annual")) { map.yearly = price; if (priceNum) map.yearlyPrice = priceNum; }
         if (id.includes("lifetime")) map.lifetime = price;
       }
+      // The quiz offering may intentionally contain only Weekly, while the
+      // single in-app expired-subscription paywall must always show all three
+      // products. Fill any missing StoreProducts directly from StoreKit rather
+      // than depending on the current RevenueCat offering shape.
+      try {
+        const desiredIds = ["weekly","monthly","yearly"]
+          .map(function(name){ return facemax.products[name] && facemax.products[name].appleId; })
+          .filter(Boolean);
+        const direct = await Purchases.getProducts({ productIdentifiers: desiredIds });
+        const products = direct && Array.isArray(direct.products) ? direct.products : [];
+        products.forEach(function(product){
+          const pid = revenueCatProductId(product);
+          if (!pid) return;
+          _cachedStoreProductsByProductId.set(pid, product);
+          const price = product.priceString;
+          if (pid === facemax.products.weekly.appleId) {
+            if (price) map.weekly = price;
+            weeklyProductId = pid;
+            const intro = product.introPrice || null;
+            if (intro) {
+              map.weeklyHasFreeTrial = Number(intro.price) === 0;
+              map.weeklyTrialPeriod = intro.period || null;
+            }
+          } else if (pid === facemax.products.monthly.appleId) {
+            if (price) map.monthly = price;
+          } else if (pid === facemax.products.yearly.appleId) {
+            if (price) map.yearly = price;
+            const n = Number(product.price);
+            if (Number.isFinite(n) && n > 0) map.yearlyPrice = n;
+          }
+        });
+      } catch (_) {}
+
       // Intro/free-trial eligibility is tied to the current Apple account.
       // RevenueCat exposes the iOS eligibility check directly; never fake it.
       if (weeklyProductId && map.weeklyHasFreeTrial === true && typeof Purchases.checkTrialOrIntroductoryPriceEligibility === "function") {
@@ -802,15 +906,41 @@
   };
 
   facemax.prefetchWeeklyProduct = async function (userId) {
-    const prices = await facemax.loadPrices(userId, false);
     const productId = facemax.products.weekly && facemax.products.weekly.appleId;
-    return {
-      ok: !!(productId && _cachedStoreProductsByProductId.get(productId)),
-      product_id: productId || null,
-      priceString: prices && prices.weekly !== "…" ? prices.weekly : null,
-      has_free_trial: prices ? prices.weeklyHasFreeTrial : null,
-      trial_eligible: prices ? prices.weeklyTrialEligible : null,
-    };
+    if (!facemax.native || !productId) return { ok:false, product_id:productId || null };
+    try {
+      const ready = await initRevenueCat(userId);
+      if (!ready) return { ok:false, product_id:productId, error:"revenuecat_unavailable" };
+      const Purchases = window.Capacitor.Plugins.Purchases;
+      let product = _cachedStoreProductsByProductId.get(productId) || null;
+      if (!product) {
+        const direct = await Purchases.getProducts({ productIdentifiers:[productId] });
+        product = direct && direct.products && direct.products[0] || null;
+        if (product) _cachedStoreProductsByProductId.set(productId, product);
+      }
+      if (!product) return { ok:false, product_id:productId, error:"product_unavailable" };
+
+      const intro = product.introPrice || null;
+      const hasFreeTrial = !!(intro && Number(intro.price) === 0);
+      _cachedPrices = Object.assign({}, _cachedPrices || _emptyPrices, {
+        weekly: product.priceString || ((_cachedPrices && _cachedPrices.weekly) || "…"),
+        weeklyHasFreeTrial: hasFreeTrial,
+        // Do not block the quiz-paywall warmup on a second StoreKit eligibility
+        // request. The Apple purchase sheet is authoritative for whether the
+        // configured introductory trial applies to the current account.
+        weeklyTrialEligible: (_cachedPrices && _cachedPrices.weeklyTrialEligible) ?? null,
+        weeklyTrialPeriod: intro && intro.period || null,
+      });
+      return {
+        ok:true,
+        product_id:productId,
+        priceString:product.priceString || null,
+        has_free_trial:hasFreeTrial,
+        trial_eligible:(_cachedPrices && _cachedPrices.weeklyTrialEligible) ?? null,
+      };
+    } catch (err) {
+      return { ok:false, product_id:productId, error:(err && err.message) || String(err) };
+    }
   };
 
   // Pull the entitlement expiration as epoch-ms, tolerating the different field
@@ -896,28 +1026,70 @@
   // Source of truth for native UI gating. The backend mirror is needed for API
   // endpoints, but the on-device RevenueCat entitlement decides whether the
   // paywall should be visible.
-  facemax.getSubscriptionStatus = async function (userId) {
+  facemax.getSubscriptionStatus = async function (userId, options) {
+    options = options || {};
     if (!facemax.native) return { ok: false, error: "not_native" };
-    const ready = await initRevenueCat(userId);
-    if (!ready) return { ok: false, error: "revenuecat_unavailable" };
+    userId = effectiveRevenueCatUserId(userId);
+    const keyUser = userId || null;
+    const now = Date.now();
+    if (!options.forceRefresh && _cachedSubscriptionStatus &&
+        _cachedSubscriptionStatusUserId === keyUser &&
+        now - _cachedSubscriptionStatusAt < RC_SUBSCRIPTION_STATUS_TTL_MS) {
+      const cachedUntil = Number(_cachedSubscriptionStatus.premium_until || 0);
+      if (!_cachedSubscriptionStatus.active || !cachedUntil || cachedUntil > now) {
+        return Object.assign({}, _cachedSubscriptionStatus, { cached: true });
+      }
+      _cachedSubscriptionStatus = null;
+      _cachedSubscriptionStatusAt = 0;
+    }
+
+    // Quiz prewarm, premium guard and checkout can all ask for CustomerInfo
+    // within the same few milliseconds. Join that one native request instead
+    // of firing multiple StoreKit/RevenueCat bridge calls back-to-back.
+    if (!options.forceRefresh && _subscriptionStatusInFlight &&
+        _subscriptionStatusInFlightUserId === keyUser) {
+      return await _subscriptionStatusInFlight;
+    }
+
+    const run = (async function(){
+      const ready = await initRevenueCat(userId);
+      if (!ready) return { ok: false, error: "revenuecat_unavailable" };
+      try {
+        const Purchases = window.Capacitor.Plugins.Purchases;
+        const result = await Purchases.getCustomerInfo();
+        const customerInfo = (result && result.customerInfo) || result || null;
+        const entitlement = activeEntitlementFromCustomerInfo(customerInfo, "premium");
+        const revenueCatAppUserId = await currentRevenueCatAppUserId(
+          Purchases,
+          userId || (customerInfo && customerInfo.originalAppUserId) || null
+        );
+        const status = {
+          ok: true,
+          active: !!entitlement,
+          premium_until: entitlementExpirationMs(entitlement) || null,
+          product_id: entitlement && (entitlement.productIdentifier || entitlement.productId) || null,
+          revenuecat_app_user_id: revenueCatAppUserId,
+        };
+        _cachedSubscriptionStatus = status;
+        _cachedSubscriptionStatusAt = Date.now();
+        _cachedSubscriptionStatusUserId = keyUser;
+        return Object.assign({}, status);
+      } catch (err) {
+        return { ok: false, error: (err && err.message) || String(err) };
+      }
+    })();
+
+    if (!options.forceRefresh) {
+      _subscriptionStatusInFlight = run;
+      _subscriptionStatusInFlightUserId = keyUser;
+    }
     try {
-      const Purchases = window.Capacitor.Plugins.Purchases;
-      const result = await Purchases.getCustomerInfo();
-      const customerInfo = (result && result.customerInfo) || result || null;
-      const entitlement = activeEntitlementFromCustomerInfo(customerInfo, "premium");
-      const revenueCatAppUserId = await currentRevenueCatAppUserId(
-        Purchases,
-        userId || (customerInfo && customerInfo.originalAppUserId) || null
-      );
-      return {
-        ok: true,
-        active: !!entitlement,
-        premium_until: entitlementExpirationMs(entitlement) || null,
-        product_id: entitlement && (entitlement.productIdentifier || entitlement.productId) || null,
-        revenuecat_app_user_id: revenueCatAppUserId,
-      };
-    } catch (err) {
-      return { ok: false, error: (err && err.message) || String(err) };
+      return await run;
+    } finally {
+      if (_subscriptionStatusInFlight === run) {
+        _subscriptionStatusInFlight = null;
+        _subscriptionStatusInFlightUserId = null;
+      }
     }
   };
 
@@ -1067,18 +1239,27 @@
       // RevenueCat Capacitor v11 removed `purchaseProduct`. Buy via the
       // configured offering package, falling back to a direct store product.
       let customerInfo;
-      const pkg = await findPackageForProduct(Purchases, product.appleId);
+      // Prefer already-warmed purchase objects so tapping a CTA opens StoreKit
+      // immediately instead of waiting for another offering network round-trip.
+      let pkg = _cachedPackagesByProductId.get(product.appleId) || null;
+      let storeProduct = _cachedStoreProductsByProductId.get(product.appleId) || null;
+
       if (pkg) {
         ({ customerInfo } = await Purchases.purchasePackage({ aPackage: pkg }));
+      } else if (storeProduct) {
+        ({ customerInfo } = await Purchases.purchaseStoreProduct({ product: storeProduct }));
       } else {
-        let storeProduct = _cachedStoreProductsByProductId.get(product.appleId) || null;
-        if (!storeProduct) {
+        // Cold fallback: try a package once, then fetch the exact StoreProduct.
+        pkg = await findPackageForProduct(Purchases, product.appleId);
+        if (pkg) {
+          ({ customerInfo } = await Purchases.purchasePackage({ aPackage: pkg }));
+        } else {
           const { products } = await Purchases.getProducts({ productIdentifiers: [product.appleId] });
           storeProduct = products && products[0];
           if (storeProduct) _cachedStoreProductsByProductId.set(product.appleId, storeProduct);
+          if (!storeProduct) return { ok: false, error: "product_unavailable" };
+          ({ customerInfo } = await Purchases.purchaseStoreProduct({ product: storeProduct }));
         }
-        if (!storeProduct) return { ok: false, error: "product_unavailable" };
-        ({ customerInfo } = await Purchases.purchaseStoreProduct({ product: storeProduct }));
       }
       // A successful StoreKit sheet is not enough by itself: only an active
       // RevenueCat entitlement unlocks the app. Briefly refresh CustomerInfo to
@@ -1095,6 +1276,15 @@
       // still uses the install ID rather than the app's current local user ID.
       syncServerPremiumBackground(userId, revenueCatAppUserId, true);
 
+      _cachedSubscriptionStatus = {
+        ok: true,
+        active: true,
+        premium_until: premiumUntil || null,
+        product_id: product.appleId,
+        revenuecat_app_user_id: revenueCatAppUserId,
+      };
+      _cachedSubscriptionStatusAt = Date.now();
+      _cachedSubscriptionStatusUserId = effectiveRevenueCatUserId(userId) || null;
       return {
         ok: true,
         premium_until: premiumUntil,

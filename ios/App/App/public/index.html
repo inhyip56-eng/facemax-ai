@@ -1055,33 +1055,35 @@ html.fm-native .bottom{bottom:0;padding-bottom:calc(5px + env(safe-area-inset-bo
 
 
 /* ===== Smart Daily Plan — adaptive execution layer ===== */
-.smart-daily-card{margin:4px 0 18px;padding:18px;border-radius:24px;background:radial-gradient(100% 120% at 0% 0%,rgba(139,92,246,.18),transparent 60%),linear-gradient(155deg,rgba(255,255,255,.065),rgba(255,255,255,.028));border:1px solid rgba(196,181,253,.18);box-shadow:0 16px 36px rgba(0,0,0,.22)}
-.smart-daily-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.smart-daily-eyebrow{font-size:9.5px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#c4b5fd;margin-bottom:5px}
-.smart-daily-head h2{margin:0;font-size:25px;line-height:1.04;letter-spacing:-.04em;color:#fff}
-.smart-daily-date{font-size:10.5px;font-weight:750;color:rgba(255,255,255,.42);padding-top:2px;white-space:nowrap}
-.smart-daily-focus{margin:9px 0 0;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.66);font-weight:600}
-.smart-daily-progress{margin-top:16px}
+.smart-daily-card{margin:4px 0 22px;padding:20px 18px 16px;border-radius:26px;background:linear-gradient(180deg,rgba(27,22,34,.96),rgba(17,14,22,.98));border:1px solid rgba(255,255,255,.075);box-shadow:0 16px 42px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.025)}
+.smart-daily-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.smart-daily-eyebrow{font-size:9.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:#bca7ff;margin-bottom:6px}
+.smart-daily-head h2{margin:0;font-size:24px;line-height:1.06;letter-spacing:-.035em;color:#fff}
+.smart-daily-date{font-size:11px;font-weight:700;color:rgba(255,255,255,.34);padding-top:3px;white-space:nowrap}
+.smart-daily-focus{display:inline-flex;align-items:center;max-width:100%;margin:12px 0 0;padding:7px 10px;border-radius:999px;background:rgba(139,92,246,.085);border:1px solid rgba(167,139,250,.11);font-size:11.5px;line-height:1.2;color:rgba(237,231,255,.78);font-weight:650}
+.smart-daily-progress{margin-top:17px}
 .smart-daily-progress-copy{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px}
-.smart-daily-progress-copy b{font-size:13px;font-weight:850;color:#fff}
-.smart-daily-progress-copy span{font-size:10.5px;color:rgba(255,255,255,.42);font-weight:700}
-.smart-daily-track{height:6px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.smart-daily-progress-copy b{font-size:12px;font-weight:760;color:rgba(255,255,255,.78)}
+.smart-daily-progress-copy span{display:none!important}
+.smart-daily-track{height:4px;border-radius:999px;background:rgba(255,255,255,.065);overflow:hidden}
 .smart-daily-track>i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#8b5cf6,#c084fc);transition:width .28s ease}
-.smart-daily-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.smart-daily-task{width:100%;min-height:66px;padding:10px 11px;border-radius:17px;border:1px solid rgba(255,255,255,.075);background:rgba(18,16,24,.78);color:#fff;display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;text-align:left;-webkit-tap-highlight-color:transparent;transition:transform .1s,background .15s,border-color .15s}
-.smart-daily-task:active{transform:scale(.993);background:rgba(27,24,34,.92)}
-.smart-daily-task.done{background:rgba(74,222,128,.045);border-color:rgba(74,222,128,.20)}
-.smart-daily-icon{width:38px;height:38px;border-radius:12px;background:rgba(167,139,250,.11);border:1px solid rgba(167,139,250,.14);display:grid;place-items:center;color:#d8ccff;font-size:17px;font-weight:900}
-.smart-daily-task.done .smart-daily-icon{background:rgba(74,222,128,.09);border-color:rgba(74,222,128,.18);color:#86efac}
-.smart-daily-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
-.smart-daily-copy b{font-size:14.25px;font-weight:820;letter-spacing:-.018em;line-height:1.16;color:#fff}
-.smart-daily-copy small{font-size:11px;line-height:1.32;color:rgba(255,255,255,.48);font-weight:580}
-.smart-daily-task.done .smart-daily-copy b{color:rgba(255,255,255,.58)}
-.smart-daily-state{width:27px;height:27px;display:grid;place-items:center;border-radius:999px;color:rgba(255,255,255,.32);font-size:20px;font-weight:850}
-.smart-daily-state.done{font-size:13px;background:rgba(74,222,128,.11);border:1px solid rgba(74,222,128,.30);color:#86efac}
-.smart-daily-foot{display:flex;align-items:center;gap:7px;margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.055);font-size:10.5px;color:rgba(255,255,255,.38);font-weight:650;line-height:1.35}
-.smart-daily-foot .spark{color:#c4b5fd;font-size:14px}
-.smart-daily-tools-label{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.44);margin:2px 2px 9px}
+.smart-daily-list{display:flex;flex-direction:column;margin-top:16px;border-radius:20px;background:rgba(6,5,9,.30);overflow:hidden}
+.smart-daily-task{width:100%;min-height:72px;padding:13px 12px;border:0;border-bottom:1px solid rgba(255,255,255,.055);border-radius:0;background:transparent;color:#fff;display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;text-align:left;-webkit-tap-highlight-color:transparent;transition:background .15s,transform .1s}
+.smart-daily-task:last-child{border-bottom:0}
+.smart-daily-task:active{transform:scale(.995);background:rgba(255,255,255,.035)}
+.smart-daily-task.done{background:rgba(61,184,124,.035)}
+.smart-daily-icon{width:40px;height:40px;border-radius:13px;background:rgba(139,92,246,.095);border:1px solid rgba(167,139,250,.10);display:grid;place-items:center;color:#d9ccff}
+.smart-daily-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.smart-daily-task.done .smart-daily-icon{background:rgba(74,222,128,.07);border-color:rgba(74,222,128,.12);color:#86efac}
+.smart-daily-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.smart-daily-copy b{font-size:14px;font-weight:760;letter-spacing:-.012em;line-height:1.2;color:#fff}
+.smart-daily-copy small{font-size:11.5px;line-height:1.32;color:rgba(255,255,255,.43);font-weight:510}
+.smart-daily-task.done .smart-daily-copy b{color:rgba(255,255,255,.72)}
+.smart-daily-state{width:26px;height:26px;display:grid;place-items:center;border-radius:999px;border:1.35px solid rgba(255,255,255,.18);color:rgba(255,255,255,.38)}
+.smart-daily-state svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round}
+.smart-daily-state.done{background:rgba(74,222,128,.09);border-color:rgba(74,222,128,.26);color:#86efac}
+.smart-daily-foot{display:none!important}
+.smart-daily-tools-label{font-size:9.5px;font-weight:850;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);margin:5px 2px 11px}
 
 /* ===== Food scan ===== */
 .fs-ring-wrap{position:relative;width:150px;height:150px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
@@ -2965,7 +2967,7 @@ html.cam-active .app { background:transparent !important; }
       <button class="btn btn-welcome-cta" id="prePayWeeklyBtn" onclick="quizHaptic();prePayWeeklyAction()" style="width:100%;height:60px;font-size:17px;font-weight:700;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:none!important;background:#7C3AED!important;">
         <span>🔓 Unlock for</span><b data-price-plan="weekly" style="font-size:17px;">…</b><span>/ week</span>
       </button>
-      <button class="btn ghost" id="prePayTrialBtn" data-trial-unavailable="1" disabled onclick="quizHaptic();prePayWeeklyAction()" style="width:100%;height:44px;margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;">🎁 Start free trial</button>
+      <button class="btn ghost" id="prePayTrialBtn" onclick="quizHaptic();prePayWeeklyAction()" style="width:100%;height:44px;margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;">🎁 Start free trial</button>
       <p style="font-size:10px;color:rgba(255,255,255,.28);text-align:center;margin:8px 0 0;line-height:1.5;padding:0 4px;">Subscription auto-renews until canceled. Cancel anytime in App Store settings at least 24 hours before the end of the billing period.</p>
       <div style="display:flex;justify-content:space-around;align-items:center;width:100%;margin:8px 0 0;padding:0 8px;box-sizing:border-box;">
         <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;padding:6px 0;">Terms of Use</a>
@@ -3959,17 +3961,17 @@ html.cam-active .app { background:transparent !important; }
     <div class="smart-daily-head">
       <div>
         <div class="smart-daily-eyebrow">TODAY'S PLAN</div>
-        <h2 id="dailyGreeting">Your priorities</h2>
+        <h2 id="dailyGreeting">Today’s priorities</h2>
       </div>
       <div class="smart-daily-date" id="smartDailyDate"></div>
     </div>
-    <p class="smart-daily-focus" id="smartDailyFocus">Built from your latest scan, goals and recent consistency.</p>
+    <p class="smart-daily-focus" id="smartDailyFocus">A focused plan for today.</p>
     <div class="smart-daily-progress">
-      <div class="smart-daily-progress-copy"><b id="smartDailyDone">0 of 4 completed</b><span id="smartDailyLevel">adaptive</span></div>
+      <div class="smart-daily-progress-copy"><b id="smartDailyDone">0 of 4 completed</b><span id="smartDailyLevel"></span></div>
       <div class="smart-daily-track"><i id="smartDailyFill"></i></div>
     </div>
     <div class="smart-daily-list" id="smartDailyTasks"></div>
-    <div class="smart-daily-foot"><span class="spark">✦</span><span id="smartDailyFoot">Tomorrow adapts to what you complete today.</span></div>
+    <div class="smart-daily-foot"><span class="spark">✦</span><span id="smartDailyFoot">Your progress is saved automatically.</span></div>
   </div>
 
   <div class="smart-daily-tools-label">Daily tools</div>
@@ -4370,7 +4372,7 @@ html.cam-active .app { background:transparent !important; }
 <!-- =============================== WATER =============================== -->
 <section id="water" class="screen">
   <div class="screen-topbar">
-    <button type="button" class="stb-back" onclick="openScreen('daily')">
+    <button type="button" class="stb-back" onclick="openDailyHub()">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
@@ -4405,7 +4407,7 @@ html.cam-active .app { background:transparent !important; }
 <!-- =============================== ROUTINE =============================== -->
 <section id="routine" class="screen">
   <div class="screen-topbar">
-    <button type="button" class="stb-back" onclick="openScreen('daily')">
+    <button type="button" class="stb-back" onclick="openDailyHub()">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
@@ -4426,7 +4428,7 @@ html.cam-active .app { background:transparent !important; }
 <!-- =============================== EXERCISES =============================== -->
 <section id="exercises" class="screen">
   <div class="screen-topbar">
-    <button type="button" class="stb-back" onclick="openScreen('daily')">
+    <button type="button" class="stb-back" onclick="openDailyHub()">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
@@ -4459,7 +4461,7 @@ html.cam-active .app { background:transparent !important; }
 <!-- =============================== EXERCISE DETAIL =============================== -->
 <section id="exerciseDetail" class="screen design-exercise-detail">
   <div class="screen-topbar">
-    <button type="button" class="stb-back" onclick="openExercises(true)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button type="button" class="stb-back" onclick="openExercises()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
     <span class="stb-title" id="edTitleTopbar">Exercise</span>
   </div>
@@ -5652,6 +5654,20 @@ async function handleAppleSignInResult(result) {
     updateSignInUI();
     fmHideMandatoryAppleGate();
 
+    // Start RevenueCat immediately after the Apple-backed user id is stored.
+    // Do not wait for D1/cloud reconciliation: product/CustomerInfo warmup can
+    // run in parallel with account sync and be ready before the quiz paywall.
+    try {
+      if (window.facemax && typeof window.facemax.prefetchWeeklyProduct === "function") {
+        Promise.resolve(window.facemax.prefetchWeeklyProduct(currentUserId()))
+          .then(() => { try { window.renderStoreKitPrices && window.renderStoreKitPrices(false); } catch {} })
+          .catch(() => null);
+      }
+      if (window.facemax && typeof window.facemax.getSubscriptionStatus === "function") {
+        Promise.resolve(window.facemax.getSubscriptionStatus(currentUserId())).catch(() => null);
+      }
+    } catch {}
+
     // Repair the subscription identity before any subsequent premium check can
     // interpret the Apple-account switch as an expired subscription.
     const subRepair = await fmRepairSubscriptionAccountLink({ legacy_user_id: legacyUserId }).catch(() => null);
@@ -5667,7 +5683,15 @@ async function handleAppleSignInResult(result) {
     // RevenueCat was deliberately warmed before Apple sign-in. Refresh after
     // logIn so free-trial eligibility and localized weekly price are tied to the
     // authenticated Apple-backed FaceMax account before the quiz paywall opens.
-    try { if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(true); } catch {}
+    try {
+      if (window.facemax && typeof window.facemax.prefetchWeeklyProduct === "function") {
+        Promise.resolve(window.facemax.prefetchWeeklyProduct(currentUserId())).catch(() => null);
+      }
+      if (window.facemax && typeof window.facemax.getSubscriptionStatus === "function") {
+        Promise.resolve(window.facemax.getSubscriptionStatus(currentUserId())).catch(() => null);
+      }
+      if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(true);
+    } catch {}
     return true;
   } catch (e) {
     console.warn("Apple auth error", e);
@@ -7807,7 +7831,7 @@ window.openGlowUpHub = async function(_premiumChecked) {
     if (focusEl) focusEl.textContent = "—";
     if (stepsEl) stepsEl.innerHTML = `<div style="padding:24px 0;text-align:center;color:var(--muted);font-size:14px">`
       + `<div style="margin-bottom:12px">${escapeHtml(msg)}</div>`
-      + `<button class="btn secondary" type="button" onclick="openGlowUpHub(true)" style="width:auto;min-width:150px"><span>Try again</span></button>`
+      + `<button class="btn secondary" type="button" onclick="openGlowUpHub()" style="width:auto;min-width:150px"><span>Try again</span></button>`
       + `</div>`;
     const scanWrap = el("ghScanCardWrap");
     if (scanWrap) { scanWrap.style.display = "block"; _renderGhScanCard(last); }
@@ -7875,10 +7899,15 @@ else document.addEventListener("DOMContentLoaded", wireNavTabPressFeedback);
 const _screenHistory = [];
 const _BACK_SCREENS = new Set(["tool","gate"]);
 
-window.goBack = function(){
+window.goBack = async function(){
   if (_screenHistory.length > 1) {
     _screenHistory.pop(); // remove current
     const prev = _screenHistory.pop(); // get previous (openScreen will re-push it)
+    const paid = ["aiFeatures","tool","compare","daily","glowupHub","foodScan","calories","water","routine","exercises","meals","report"].includes(prev);
+    if (paid) {
+      const ok = await ensurePremiumForAction(() => openScreen(prev), "FaceMax AI Premium", "Choose a plan to continue.");
+      if (!ok) return;
+    }
     openScreen(prev);
   } else {
     openScreen("home");
@@ -7887,7 +7916,15 @@ window.goBack = function(){
 
 let _aiFeaturesContext = false;
 const _AI_FEATURE_CHILD_SCREENS = new Set(["aiFeatures","tool","compare","foodScan","meals"]);
-window.openAiFeatures = function(){
+window.openAiFeatures = async function(_premiumChecked){
+  if (!_premiumChecked) {
+    const ok = await ensurePremiumForAction(
+      () => window.openAiFeatures(true),
+      "FaceMax AI Premium",
+      "Choose a plan to continue."
+    );
+    if (!ok) return;
+  }
   _aiFeaturesContext = true;
   openScreen("aiFeatures");
 };
@@ -7968,7 +8005,10 @@ window.closePremiumGate = function(){
   _pendingPremiumAction = null;
   dropGateFromHistory();
   const prev = _screenHistory[_screenHistory.length - 1] || "home";
-  openScreen(prev);
+  // If the paywall was forced because Premium expired while a paid function
+  // was already on-screen, closing it must not reveal that paid screen again.
+  const paid = ["aiFeatures","tool","compare","daily","glowupHub","foodScan","calories","water","routine","exercises","meals","report"].includes(prev);
+  openScreen(paid ? "home" : prev);
 };
 
 window.showGate = function(title, text, resumeAction){
@@ -7989,10 +8029,13 @@ window.showGate = function(title, text, resumeAction){
     return;
   }
   _pendingPremiumAction = typeof resumeAction === "function" ? resumeAction : null;
-  el("gateTitle").textContent = title || "Premium feature";
-  el("gateText").textContent = text || "Choose a plan to continue.";
+  // One single in-app paywall is used for every expired/locked Premium entry
+  // point. Feature-specific copy used to make the app feel like multiple
+  // different paywalls and made expired-access routing inconsistent.
+  el("gateTitle").textContent = "Unlock FaceMax AI Premium";
+  el("gateText").textContent = "Choose a plan to continue using Premium features.";
   openScreen("gate");
-  if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices();
+  if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(false);
 };
 
 async function ensurePremiumForAction(resumeAction, title, text){
@@ -8001,13 +8044,27 @@ async function ensurePremiumForAction(resumeAction, title, text){
     fmShowMandatoryAppleGate();
     return false;
   }
-  // Every paid entry point uses this fresh RevenueCat check. Sharing an in-flight
-  // promise prevents several rapid taps from opening multiple paywalls/checkouts.
+  // On iOS RevenueCat CustomerInfo is the access source of truth. Do not wait
+  // for the Worker mirror here: that added a visible 1-5 second pause and could
+  // briefly expose a paid screen while an expired server cache caught up.
   if (!_premiumCheckInFlight) {
-    _premiumCheckInFlight = Promise.resolve()
-      .then(() => checkPremium(false))
-      .catch(() => false)
-      .finally(() => { _premiumCheckInFlight = null; });
+    _premiumCheckInFlight = Promise.resolve().then(async () => {
+      if (fmIsNative() && window.facemax && typeof window.facemax.getSubscriptionStatus === "function") {
+        const status = await window.facemax.getSubscriptionStatus(currentUserId()).catch(() => null);
+        if (status && status.ok) {
+          if (status.active) {
+            markPremiumActiveLocally(status.premium_until || null);
+            return true;
+          }
+          premium = false;
+          premiumUntil = null;
+          clearLocalPremiumUnlock();
+          try { document.body.classList.remove("is-premium"); } catch {}
+          return false;
+        }
+      }
+      return await checkPremium(false).catch(() => false);
+    }).finally(() => { _premiumCheckInFlight = null; });
   }
   const active = await _premiumCheckInFlight;
   if (active) return true;
@@ -9764,9 +9821,9 @@ function _applyAvatarCrop(cropUrl) {
   });
 }
 
-function applySelectedPhoto(dataUrl, stayOnCurrentScreen){
+function applySelectedPhoto(dataUrl, stayOnCurrentScreen, preservePrePayCrop){
   _avatarCropUrl = null;
-  _prePayCropUrl = null;
+  if (!preservePrePayCrop) _prePayCropUrl = null;
   _preparedScanImage = null;
   _preparedScanImageSource = null;
   _preparedScanImagePromise = null;
@@ -11952,7 +12009,31 @@ function _sdCommitmentMinutes(){
 function _sdBuildPlan(){
   const day=_sdDateKey();
   const existing=localStorage.getItem(_sdPlanStorageKey(day));
-  if(existing){ try { const p=JSON.parse(existing); if(p&&Array.isArray(p.tasks)&&p.tasks.length>=3) return p; } catch {} }
+  if(existing){
+    try {
+      const p=JSON.parse(existing);
+      if(p&&Array.isArray(p.tasks)&&p.tasks.length>=3){
+        // Migrate the old developer-facing copy in-place so users do not have
+        // to wait until tomorrow to lose strings such as
+        // "Tasks scale ... not random difficulty" or duplicated "skin + skin".
+        let f=String(p.focus||"");
+        if(f && !/^Today\s*·/i.test(f)){
+          f=f.replace(/^Primary focus:\s*/i,"")
+             .replace(/^Focus today:\s*/i,"")
+             .replace(/\.\s*Tasks scale with your recent completion, not random difficulty\.?$/i,"")
+             .replace(/\.\s*Complete consistently to unlock a slightly stronger plan\.?$/i,"")
+             .replace(/\.$/,"");
+          const parts=f.split("+").map(x=>x.trim()).filter(Boolean);
+          const uniq=parts.filter((x,i,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===i);
+          const pretty=(s)=>String(s||"").replace(/\b\w/g,c=>c.toUpperCase());
+          p.focus="Today · "+(uniq.length?uniq.map(pretty).join(" · "):"Balanced Glow-Up");
+          try { localStorage.setItem(_sdPlanStorageKey(day),JSON.stringify(p)); } catch {}
+          try { localStorage.setItem(_sdPlanStorageKey(day),JSON.stringify(p)); } catch {}
+        }
+        return p;
+      }
+    } catch {}
+  }
 
   const last=_sdLatestScan();
   const metrics=_sdMetricMap(last);
@@ -11995,41 +12076,41 @@ function _sdBuildPlan(){
   // One execution anchor every day. The Glow task always points to whichever
   // 06:00 Glow cycle is currently active, so the Smart Daily list itself stays
   // deterministic regardless of what time the user first opens the app.
-  add({id:"glow",category:"glow",icon:"✦",title:`Complete ${glowTarget} Glow Up task${glowTarget===1?"":"s"}`,desc:"Work through today's highest-impact FaceMax actions.",type:"glow",target:glowTarget,route:"glow",priority:96});
-  add({id:"water",category:"water",icon:"◇",title:`Reach ${waterTarget} glasses`,desc:"Use Water Tracker so hydration progress is visible.",type:"water",target:waterTarget,route:"water",priority:66+(concerns.includes("bloating")?24:0)});
-  add({id:"nutrition",category:"nutrition",icon:"◔",title:`Log ${foodTarget} meal${foodTarget===1?"":"s"}`,desc:"Keep calories and meal quality visible instead of guessing.",type:"food",target:foodTarget,route:"calories",priority:64+(goals.includes("glowup")?8:0)});
-  add({id:"exercise",category:"movement",icon:"◎",title:`Finish ${exerciseTarget} face-care exercise${exerciseTarget===1?"":"s"}`,desc:"Use the guided Daily sequence with light, comfortable pressure.",type:"exercise",target:exerciseTarget,route:"exercises",priority:58+(goals.includes("jawline")?12:0)+(concerns.includes("bloating")?10:0)});
-  add({id:"routine",category:"routine",icon:"☼",title:`Complete ${routineTarget} routine step${routineTarget===1?"":"s"}`,desc:"Keep the routine short enough to repeat tomorrow.",type:"routine",target:routineTarget,route:"routine",priority:54+(qa.routine==="none"?12:0)});
+  add({id:"glow",category:"glow",icon:"✦",title:`Complete ${glowTarget} Glow Up task${glowTarget===1?"":"s"}`,desc:"Open your Glow Up Plan and finish today's next steps.",type:"glow",target:glowTarget,route:"glow",priority:96});
+  add({id:"water",category:"water",icon:"◇",title:`Reach ${waterTarget} glasses`,desc:"Track your water as you go.",type:"water",target:waterTarget,route:"water",priority:66+(concerns.includes("bloating")?24:0)});
+  add({id:"nutrition",category:"nutrition",icon:"◔",title:`Log ${foodTarget} meal${foodTarget===1?"":"s"}`,desc:"Keep today's meals and macros in one place.",type:"food",target:foodTarget,route:"calories",priority:64+(goals.includes("glowup")?8:0)});
+  add({id:"exercise",category:"movement",icon:"◎",title:`Finish ${exerciseTarget} guided exercise${exerciseTarget===1?"":"s"}`,desc:"Follow today's short guided sequence.",type:"exercise",target:exerciseTarget,route:"exercises",priority:58+(goals.includes("jawline")?12:0)+(concerns.includes("bloating")?10:0)});
+  add({id:"routine",category:"routine",icon:"☼",title:`Complete ${routineTarget} routine step${routineTarget===1?"":"s"}`,desc:"Finish today's routine at your own pace.",type:"routine",target:routineTarget,route:"routine",priority:54+(qa.routine==="none"?12:0)});
 
   const skinVariants=[
-    ["Protect your skin barrier","AM: gentle cleanse, moisturize, then SPF 30+."],
-    ["Keep skincare simple today","Use moisturizer + SPF; skip unnecessary new actives."],
-    ["Lock in an SPF day","Apply SPF 30+ evenly and reapply when exposure calls for it."]
+    ["Apply SPF 30+ today","Use an even layer after moisturizer and reapply when needed."],
+    ["Keep skincare simple","Cleanse gently, moisturize, and use SPF."],
+    ["Moisturize and protect","Keep today's routine simple and consistent."]
   ];
   const eyeVariants=[
-    ["Refresh the eye area","Use a cool compress for 2 minutes; avoid rubbing."],
-    ["Give the eye area a reset","Cool gently, then use a simple moisturizer around the orbital area."],
-    ["Protect tonight's sleep window","Aim for a consistent bedtime instead of chasing a quick fix."]
+    ["2-minute eye-area reset","Use a cool compress briefly and avoid rubbing."],
+    ["Cool and moisturize","Keep the eye area comfortable with a simple routine."],
+    ["Protect your sleep tonight","Aim for a consistent bedtime and enough rest."]
   ];
   const jawVariants=[
-    ["Reset posture for cleaner presentation","4 minutes: neutral chin, shoulders down, gentle neck mobility."],
-    ["Do a posture check","Keep your head stacked over shoulders; avoid forcing the jaw forward."],
-    ["Use a light neck mobility block","Slow pain-free neck turns and posture reset for 4 minutes."]
+    ["4-minute posture reset","Neutral chin, relaxed shoulders, gentle neck mobility."],
+    ["Check your posture","Keep your head comfortably stacked over your shoulders."],
+    ["Gentle neck mobility","Use slow, comfortable neck turns for a few minutes."]
   ];
   const hairVariants=[
-    ["Refine your hair framing","Style the front and sides to frame your actual face shape."],
-    ["Clean up the hair silhouette","Keep the outline intentional around temples, sides and top."],
-    ["Test one better hair arrangement","Use the same lighting and compare how the framing changes your face."]
+    ["Refine your hair framing","Adjust the front and sides to suit your face shape."],
+    ["Clean up the hair outline","Keep the shape around the temples, sides and top intentional."],
+    ["Try one better hair setup","Use the same lighting and compare which framing suits you best."]
   ];
   const photoVariants=[
-    ["Practice one stronger photo angle","Take one front-lit photo at eye level with a neutral head tilt."],
-    ["Fix the camera setup","Eye-level camera, soft front light, relaxed expression — one practice shot."],
-    ["Repeat your best presentation setup","Use consistent light and distance so progress photos are comparable."]
+    ["Practice one better photo angle","Use soft front light and keep the camera near eye level."],
+    ["Improve your camera setup","Try eye-level framing, soft light and a relaxed expression."],
+    ["Repeat your best photo setup","Keep light, distance and head position consistent."]
   ];
   const balanceVariants=[
-    ["Balance the presentation","Check lighting and grooming on both sides before your next photo."],
-    ["Keep both sides visually consistent","Use even front lighting and tidy asymmetric grooming details."],
-    ["Standardize your progress photos","Same distance, lens and head position for a fair comparison."]
+    ["Keep your photo setup consistent","Use even light and the same camera position for progress photos."],
+    ["Use even front lighting","Keep both sides of your face lit as consistently as possible."],
+    ["Standardize your progress photos","Use the same distance, lens and head position each time."]
   ];
 
   const targeted=[
@@ -12073,13 +12154,17 @@ function _sdBuildPlan(){
 
   const metricEntries=Object.entries(metrics).filter(([,v])=>v!=null).sort((a,b)=>a[1]-b[1]);
   const labelMap={skin:"skin",jawline:"jawline",eyes:"eye area",hair:"hair framing",photo:"photo setup",symmetry:"symmetry",harmony:"overall harmony",cheekbones:"cheekbones"};
-  let focus="Build consistency with a short, realistic plan.";
+  let focus="Today · balanced glow-up";
   if(metricEntries.length){
     const weakest=metricEntries[0][0];
-    const goalTxt=goals.length?` + ${goals[0].replace("glowup","overall glow-up")}`:"";
-    focus=`Primary focus: ${labelMap[weakest]||weakest}${goalTxt}. Tasks scale with your recent completion, not random difficulty.`;
+    const primary=labelMap[weakest]||weakest;
+    const goalRaw=goals.length?String(goals[0]).replace("glowup","overall glow-up"):"";
+    const goal=goalRaw && goalRaw.toLowerCase() !== String(primary).toLowerCase() ? goalRaw : "";
+    const pretty=(s)=>String(s||"").replace(/\b\w/g,c=>c.toUpperCase());
+    focus=`Today · ${pretty(primary)}${goal ? " · " + pretty(goal) : ""}`;
   } else if(goals.length){
-    focus=`Primary focus: ${goals[0].replace("glowup","overall glow-up")}. Complete consistently to unlock a slightly stronger plan.`;
+    const goal=String(goals[0]).replace("glowup","overall glow-up");
+    focus=`Today · ${goal.replace(/\b\w/g,c=>c.toUpperCase())}`;
   }
 
   const plan={version:FM_SMART_DAILY_VERSION,day,created_at:Date.now(),level,task_count:chosen.length,focus,tasks:chosen};
@@ -12136,23 +12221,46 @@ window.smartDailyTaskAction=function(taskId){
   }
   _sdRoute(task);
 };
+function _sdIconSvg(category){
+  const icons={
+    glow:'<svg viewBox="0 0 24 24"><path d="m12 3 1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7L12 3Z"/><path d="m18.5 15 .8 2 .2.2 2 .8-2 .8-.8 2-.8-2-.2-.2-2-.8 2-.8.8-2Z"/></svg>',
+    water:'<svg viewBox="0 0 24 24"><path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z"/></svg>',
+    nutrition:'<svg viewBox="0 0 24 24"><path d="M7 4v6a5 5 0 0 0 10 0V4"/><path d="M12 15v5"/><path d="M9 20h6"/></svg>',
+    movement:'<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="m10 9 4 2 3 4"/><path d="m11 11-3 4-3 1"/><path d="m13 13-1 6"/><path d="m15 10 3-2"/></svg>',
+    routine:'<svg viewBox="0 0 24 24"><path d="M8 3h8"/><path d="M9 3v4l-3 4v8h12v-8l-3-4V3"/><path d="M8 13h8"/></svg>',
+    skin:'<svg viewBox="0 0 24 24"><path d="M12 3c4.4 0 7 3.3 7 7.4 0 5-3.2 9.6-7 10.6-3.8-1-7-5.6-7-10.6C5 6.3 7.6 3 12 3Z"/><path d="M9.5 10h.01M14.5 10h.01"/><path d="M10 14c1.3.8 2.7.8 4 0"/></svg>',
+    eyes:'<svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"/><circle cx="12" cy="12" r="2.5"/></svg>',
+    jawline:'<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2"/><path d="M12 10.2v3.3"/><path d="M6.5 20c.7-3.6 2.5-5.4 5.5-5.4s4.8 1.8 5.5 5.4"/><path d="M8.5 13.2c1 .7 2.2 1.1 3.5 1.1s2.5-.4 3.5-1.1"/></svg>',
+    hair:'<svg viewBox="0 0 24 24"><path d="M5 12c0-5 3-8 7-8s7 3 7 8"/><path d="M7 10c1-3 3-4 5-4 3 0 5 2 5 5"/><path d="M7 12v5M17 12v5"/></svg>',
+    photo:'<svg viewBox="0 0 24 24"><path d="M5 7h3l1.5-2h5L16 7h3v12H5z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    balance:'<svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M4 12h16"/><path d="M7 8.5 4 12l3 3.5"/><path d="m17 8.5 3 3.5-3 3.5"/></svg>',
+    scan:'<svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="11" r="3"/><path d="M8 18c1-2 2.3-3 4-3s3 1 4 3"/></svg>',
+    mealplan:'<svg viewBox="0 0 24 24"><path d="M5 4v7M8 4v7M5 8h3M6.5 11v9"/><path d="M15 4v16"/><path d="M15 4c3 2 4 5 4 8h-4"/></svg>',
+    recovery:'<svg viewBox="0 0 24 24"><path d="M18 15.5A7 7 0 0 1 8.5 6 7.5 7.5 0 1 0 18 15.5Z"/></svg>'
+  };
+  return icons[category]||icons.glow;
+}
 function renderSmartDailyPlan(){
   const host=el("smartDailyTasks"); if(!host)return;
   const plan=_sdBuildPlan();
   const rows=(plan.tasks||[]).map(task=>({task,state:_sdTaskProgress(task)}));
   const done=rows.filter(x=>x.state.done).length, total=Math.max(1,rows.length), pct=Math.round(done/total*100);
   const dateEl=el("smartDailyDate"); if(dateEl){ try{dateEl.textContent=new Intl.DateTimeFormat(undefined,{month:"short",day:"numeric"}).format(new Date())}catch{dateEl.textContent="Today"} }
-  const focusEl=el("smartDailyFocus"); if(focusEl) focusEl.textContent=plan.focus||"Built from your latest scan, goals and recent consistency.";
-  const doneEl=el("smartDailyDone"); if(doneEl) doneEl.textContent=`${done} of ${total} completed`;
-  const lvl=el("smartDailyLevel"); if(lvl) lvl.textContent=plan.level==="PROGRESS"?"progressing":plan.level==="RESET"?"lighter day":"adaptive";
+  const focusEl=el("smartDailyFocus"); if(focusEl) focusEl.textContent=plan.focus||"A focused plan for today.";
+  const doneEl=el("smartDailyDone"); if(doneEl) doneEl.textContent=`${done} / ${total} complete`;
+  const lvl=el("smartDailyLevel"); if(lvl) lvl.textContent="";
   const fill=el("smartDailyFill"); if(fill) fill.style.width=pct+"%";
-  const foot=el("smartDailyFoot"); if(foot) foot.textContent=done>=total?"Done for today. Tomorrow's plan adapts from this completion.":"Tomorrow adapts to what you complete today.";
+  const foot=el("smartDailyFoot"); if(foot) foot.textContent=done>=total?"All done for today.":"Your progress is saved automatically.";
   host.innerHTML=rows.map(({task,state})=>{
     const auto=task.type!=="manual";
     const desc=auto?state.sub:String(task.desc||"");
-    const stateHtml=state.done?'<span class="smart-daily-state done">✓</span>':(auto?'<span class="smart-daily-state">›</span>':'<span class="smart-daily-state">○</span>');
+    const stateHtml=state.done
+      ? '<span class="smart-daily-state done"><svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-9"/></svg></span>'
+      : (auto
+          ? '<span class="smart-daily-state"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>'
+          : '<span class="smart-daily-state" aria-label="Mark complete"></span>');
     return `<button class="smart-daily-task${state.done?" done":""}" type="button" onclick="smartDailyTaskAction('${escapeHtml(task.id)}')">`+
-      `<span class="smart-daily-icon">${escapeHtml(task.icon||"✦")}</span>`+
+      `<span class="smart-daily-icon">${_sdIconSvg(task.category)}</span>`+
       `<span class="smart-daily-copy"><b>${escapeHtml(task.title||"")}</b><small>${escapeHtml(desc)}</small></span>${stateHtml}</button>`;
   }).join("");
   try { localStorage.setItem(_sdSummaryStorageKey(),JSON.stringify({day:_sdDateKey(),done,total,pct,updated_at:Date.now()})); } catch {}
@@ -12162,9 +12270,8 @@ window.renderSmartDailyPlan=renderSmartDailyPlan;
 
 // ---------- Greeting ----------
 function refreshDailyGreeting(){
-  const h = new Date().getHours();
-  const name = h < 5 ? "Late night, hero" : h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
-  const dg = el("dailyGreeting"); if (dg) dg.textContent = name;
+  const dg = el("dailyGreeting");
+  if (dg) dg.textContent = "Today’s priorities";
 }
 
 // ---------- Daily hub ----------
@@ -15421,6 +15528,14 @@ async function onbSetPhoto(dataUrl){
     }
     // Store the processed version (replaces the raw dataUrl saved above)
     onbState[photoTarget] = out;
+    // Precompute the quiz-paywall portrait from the FRONT photo while the user
+    // is still taking/reviewing the side photo. This removes the old 1–2 second
+    // image decode/canvas wait between the second-photo Continue tap and paywall.
+    if (photoTarget === "front" && typeof _makeInstantCrop === "function") {
+      Promise.resolve(_makeInstantCrop(out)).then(crop => {
+        if (crop && onbState.front === out) _prePayCropUrl = crop;
+      }).catch(() => {});
+    }
     // Refresh the preview image with the final processed version
     try { const si = document.getElementById("capShotImg"); if (si && si.src !== out) si.src = out; } catch {}
   })();
@@ -15523,16 +15638,29 @@ async function onbProceedToScan(){
   }
   selectedImageData = frontPhoto;
   selectedSideImageData = onbState.side || "";
-  try { if (typeof applySelectedPhoto === "function" && selectedImageData) applySelectedPhoto(selectedImageData, true); } catch {}
-  const li = el("loadingImg"); if (li && selectedImageData) li.src = selectedImageData;
-  // Old working behaviour: finish one deterministic square crop before the
-  // quiz paywall is revealed. This prevents the portrait from changing while
-  // the user is looking at it and preserves the full lower face much better
-  // than the later experimental prePay crop pipeline.
+  // Start RevenueCat work before the crop/paywall transition. It runs in
+  // parallel with image preparation, so by the time the user sees/taps the
+  // paywall the weekly StoreProduct and CustomerInfo are usually cached.
   try {
-    const stableCrop = _avatarCropUrl || await _makeInstantCrop(selectedImageData).catch(() => null);
-    if (stableCrop) _applyAvatarCrop(stableCrop);
+    if (fmIsNative() && window.facemax) {
+      if (typeof window.facemax.prefetchWeeklyProduct === "function") {
+        Promise.resolve(window.facemax.prefetchWeeklyProduct(currentUserId()))
+          .then(() => { try { window.renderStoreKitPrices && window.renderStoreKitPrices(false); } catch {} })
+          .catch(() => null);
+      }
+      if (typeof window.facemax.getSubscriptionStatus === "function") {
+        Promise.resolve(window.facemax.getSubscriptionStatus(currentUserId())).catch(() => null);
+      }
+    }
   } catch {}
+  try { if (typeof applySelectedPhoto === "function" && selectedImageData) applySelectedPhoto(selectedImageData, true, true); } catch {}
+  const li = el("loadingImg"); if (li && selectedImageData) li.src = selectedImageData;
+  // Do not block this transition on image decoding/canvas work. The front-photo
+  // crop was prepared while the user was taking the second photo; if it is not
+  // ready yet, the raw photo is shown with object-fit:cover and stays stable.
+  if (_prePayCropUrl) {
+    try { _avatarCropUrl = _prePayCropUrl; } catch {}
+  }
   // After the SECOND photo in onboarding always show the one-product weekly
   // paywall. Existing Premium users still see the screen, but tapping it just
   // continues and never buys the same subscription twice.
@@ -16224,15 +16352,9 @@ window.quizContinueAfterVerifiedEntitlement = quizContinueAfterVerifiedEntitleme
 
 async function prePayWeeklyAction(){
   if (_quizCheckingOut || _purchaseInFlight) return;
-  // Existing subscribers may continue without a new purchase, but ONLY when
-  // current RevenueCat CustomerInfo contains the active premium entitlement.
-  const status = await quizRevenueCatEntitlementStatus();
-  if (status && status.active === true) {
-    await quizContinueAfterVerifiedEntitlement();
-    return;
-  }
-  // Both visible quiz CTAs intentionally buy the same weekly StoreKit product.
-  // If that product carries an eligible free trial, StoreKit applies it.
+  // Keep the tap path identical to the old working paywall: go straight into
+  // the weekly checkout. handlePurchase() still performs the real RevenueCat
+  // entitlement check before StoreKit, but normally hits the pre-warmed cache.
   quizBuyPlan("weekly");
 }
 window.prePayWeeklyAction = prePayWeeklyAction;
@@ -16248,7 +16370,7 @@ function showPrePay(){
   _quizStaticPhotoScanOnce = true;
   var img = el('prePayImg');
   if (img) {
-    const stable = _avatarCropUrl || selectedImageData || "";
+    const stable = _prePayCropUrl || _avatarCropUrl || selectedImageData || "";
     img.src = stable;
     img.style.objectFit = "cover";
     img.style.objectPosition = "center center";
@@ -16344,7 +16466,7 @@ function quizSetPurchaseButtonsBusy(busy){
   ["prePayWeeklyBtn", "prePayTrialBtn", "quizPaywallPrimaryBtn"].forEach((id) => {
     const button = el(id);
     if (!button) return;
-    button.disabled = !!busy || (id === "prePayTrialBtn" && button.dataset.trialUnavailable === "1");
+    button.disabled = !!busy;
     button.setAttribute("aria-busy", busy ? "true" : "false");
   });
 }
@@ -16696,22 +16818,69 @@ if (window.facemax && window.facemax.native) {
 
 let _premiumResumeTimer = null;
 let _premiumResumeRefreshInFlight = false;
+const _FM_PAID_SCREEN_IDS = new Set([
+  "aiFeatures","tool","compare","daily","glowupHub","foodScan","calories",
+  "water","routine","exercises","meals","report"
+]);
+
+async function fmEnforceExpiredPremium(){
+  if (_premiumResumeRefreshInFlight) return;
+  if (typeof _quizCheckingOut !== "undefined" && _quizCheckingOut) return;
+  const activeEl = document.querySelector(".screen.active");
+  const activeId = activeEl && activeEl.id || "";
+  if (activeId === "gate" || activeId === "prePay" || activeId === "quizPaywall") return;
+
+  _premiumResumeRefreshInFlight = true;
+  try {
+    let active = false;
+    if (fmIsNative() && window.facemax && typeof window.facemax.getSubscriptionStatus === "function") {
+      const status = await window.facemax.getSubscriptionStatus(currentUserId(), { forceRefresh:true }).catch(() => null);
+      if (status && status.ok) {
+        active = status.active === true;
+        if (active) {
+          markPremiumActiveLocally(status.premium_until || null);
+        } else {
+          premium = false;
+          premiumUntil = null;
+          clearLocalPremiumUnlock();
+          try { document.body.classList.remove("is-premium"); } catch {}
+        }
+      } else {
+        active = await checkPremium(false).catch(() => false);
+      }
+    } else {
+      active = await checkPremium(false).catch(() => false);
+    }
+
+    // If Premium ended while the app was backgrounded (or while it stayed
+    // open), never leave a paid function visible. Route every paid screen to
+    // the same three-plan internal paywall.
+    if (!active && _FM_PAID_SCREEN_IDS.has(activeId)) {
+      showGate("FaceMax AI Premium", "Choose a plan to continue.", null);
+    }
+  } catch (_) {}
+  finally { _premiumResumeRefreshInFlight = false; }
+}
+window.fmEnforceExpiredPremium = fmEnforceExpiredPremium;
+
 function schedulePremiumRefreshAfterResume(){
-  // iOS may emit several visibility/foreground transitions around StoreKit and
-  // other system sheets. Collapse that burst into one non-blocking refresh so
-  // RevenueCat + backend checks cannot pile up while WKWebView is relaying out.
+  // Collapse the iOS foreground burst into one fast RevenueCat refresh.
   if (_premiumResumeTimer) clearTimeout(_premiumResumeTimer);
-  const delay = (premium || hasUnlockedAccess()) ? 3000 : 900;
   _premiumResumeTimer = setTimeout(async () => {
     _premiumResumeTimer = null;
-    if (_premiumResumeRefreshInFlight) return;
-    if (typeof _quizCheckingOut !== "undefined" && _quizCheckingOut) return;
-    _premiumResumeRefreshInFlight = true;
-    try { await checkPremium(false); }
-    catch (_) {}
-    finally { _premiumResumeRefreshInFlight = false; }
-  }, delay);
+    await fmEnforceExpiredPremium();
+  }, 350);
 }
+
+// Also catch an expiry while the app remains open in the foreground. This is
+// only a local timestamp check; RevenueCat is contacted only once the expiry
+// boundary is actually reached.
+setInterval(() => {
+  try {
+    const until = premiumTimestampMs(premiumUntil || localStorage.getItem("FACEMAX_PREMIUM_UNTIL"));
+    if (until && until <= Date.now() + 1000) fmEnforceExpiredPremium();
+  } catch {}
+}, 15000);
 
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState !== "visible") return;
@@ -17101,6 +17270,21 @@ window.downloadResultCard = async function() {
 (function schedulePrices() {
   async function renderPrices(forceRefresh) {
     try {
+      // Paint whatever the fast weekly prefetch already knows BEFORE awaiting
+      // the full three-product refresh. This keeps the quiz paywall responsive
+      // even if Monthly/Yearly StoreKit metadata is still loading.
+      try {
+        const cached = (window.facemax && typeof window.facemax.getCachedPrices === "function")
+          ? window.facemax.getCachedPrices()
+          : null;
+        if (cached) {
+          document.querySelectorAll("[data-price-plan]").forEach(function(node) {
+            var p = node.getAttribute("data-price-plan");
+            if (cached[p] && cached[p] !== "…") node.textContent = cached[p];
+          });
+        }
+      } catch (_) {}
+
       const prices = (window.facemax && typeof window.facemax.loadPrices === "function")
         ? await window.facemax.loadPrices(typeof currentUserId === "function" ? currentUserId() : null, !!forceRefresh)
         : { weekly: "…", monthly: "…", yearly: "…" };
@@ -17109,18 +17293,15 @@ window.downloadResultCard = async function() {
         var plan = el.getAttribute("data-price-plan");
         if (prices[plan] && prices[plan] !== "…") el.textContent = prices[plan];
       });
-      // The gift CTA is real: it purchases the weekly StoreProduct whose
-      // introductory offer comes from App Store Connect/RevenueCat. Never claim
-      // a free trial when StoreKit says this product has no zero-price intro.
+      // Match the old working quiz paywall: keep the real Weekly CTA visible
+      // and clickable. The purchase itself is still RevenueCat/StoreKit; Apple
+      // decides whether the introductory free trial applies to this account.
+      // Eligibility metadata is retained in `prices` for diagnostics only and
+      // must never turn the checkout button into a dead "unavailable" control.
       var trialBtn = document.getElementById("prePayTrialBtn");
       if (trialBtn) {
-        var trialReady = prices.weeklyHasFreeTrial === true && prices.weeklyTrialEligible === true;
-        var trialKnownUnavailable = prices.weeklyHasFreeTrial === false || prices.weeklyTrialEligible === false;
-        trialBtn.dataset.trialUnavailable = trialReady ? "0" : "1";
-        trialBtn.textContent = trialReady
-          ? "🎁 Start free trial"
-          : (trialKnownUnavailable ? "🎁 Free trial unavailable" : "🎁 Checking free trial…");
-        trialBtn.disabled = !trialReady || !!_quizCheckingOut || !!_purchaseInFlight;
+        trialBtn.textContent = "🎁 Start free trial";
+        trialBtn.disabled = !!_quizCheckingOut || !!_purchaseInFlight;
       }
       var weeklyBtn = document.getElementById("prePayWeeklyBtn");
       if (weeklyBtn) weeklyBtn.disabled = !!_quizCheckingOut || !!_purchaseInFlight;
@@ -17444,8 +17625,15 @@ window.selectInternalPlan = function(plan) {
   var cta = document.querySelector('#internalPaywallCta span');
   if (cta) cta.textContent = 'Continue with ' + ({weekly:'weekly',monthly:'monthly',yearly:'yearly'}[window._internalPaywallPlan] || 'yearly');
 };
-window.purchaseInternalSelectedPlan = function() {
-  return handlePurchase(window._internalPaywallPlan || 'yearly');
+window.purchaseInternalSelectedPlan = async function() {
+  if (_purchaseInFlight) return false;
+  var btn=document.getElementById('internalPaywallCta');
+  if(btn){btn.disabled=true;btn.setAttribute('aria-busy','true');}
+  try {
+    return await handlePurchase(window._internalPaywallPlan || 'yearly');
+  } finally {
+    if(btn){btn.disabled=false;btn.setAttribute('aria-busy','false');}
+  }
 };
 window.setTDEESex = function(value) {
   var s = document.getElementById('tdeeSex'); if (s) s.value = value;
