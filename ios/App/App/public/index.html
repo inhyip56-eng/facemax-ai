@@ -2965,7 +2965,7 @@ html.cam-active .app { background:transparent !important; }
       <button class="btn btn-welcome-cta" id="prePayWeeklyBtn" onclick="quizHaptic();prePayWeeklyAction()" style="width:100%;height:60px;font-size:17px;font-weight:700;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:none!important;background:#7C3AED!important;">
         <span>🔓 Unlock for</span><b data-price-plan="weekly" style="font-size:17px;">…</b><span>/ week</span>
       </button>
-      <button class="btn ghost" id="prePayTrialBtn" onclick="quizHaptic();prePayWeeklyAction()" style="width:100%;height:44px;margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;">🎁 Start free trial</button>
+      <button class="btn ghost" id="prePayTrialBtn" data-trial-unavailable="1" disabled onclick="quizHaptic();prePayWeeklyAction()" style="width:100%;height:44px;margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;">🎁 Start free trial</button>
       <p style="font-size:10px;color:rgba(255,255,255,.28);text-align:center;margin:8px 0 0;line-height:1.5;padding:0 4px;">Subscription auto-renews until canceled. Cancel anytime in App Store settings at least 24 hours before the end of the billing period.</p>
       <div style="display:flex;justify-content:space-around;align-items:center;width:100%;margin:8px 0 0;padding:0 8px;box-sizing:border-box;">
         <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;padding:6px 0;">Terms of Use</a>
@@ -2992,7 +2992,7 @@ html.cam-active .app { background:transparent !important; }
     <p style="text-align:center;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 14px">FaceMax AI Premium · Auto-Renewable Subscription</p>
 
     <div class="qp-plans" id="qpPlans">
-      <button class="qp-plan" data-plan="weekly" onclick="quizBuyPlan('weekly')">
+      <button class="qp-plan selected" data-plan="weekly" onclick="quizBuyPlan('weekly')">
         <span class="qp-plan-radio"></span>
         <span class="qp-plan-info">
           <span class="qp-plan-name">1 week</span>
@@ -3000,29 +3000,11 @@ html.cam-active .app { background:transparent !important; }
         </span>
         <span class="qp-plan-price"><b data-price-plan="weekly">…</b><span class="qp-plan-unit">/ week</span></span>
       </button>
-      <button class="qp-plan" data-plan="monthly" onclick="quizBuyPlan('monthly')">
-        <span class="qp-plan-tag">Most popular</span>
-        <span class="qp-plan-radio"></span>
-        <span class="qp-plan-info">
-          <span class="qp-plan-name">1 month</span>
-          <span class="qp-plan-meta">Full access · Cancel anytime</span>
-        </span>
-        <span class="qp-plan-price"><b data-price-plan="monthly">…</b><span class="qp-plan-unit">/ month</span></span>
-      </button>
-      <button class="qp-plan" data-plan="yearly" onclick="quizBuyPlan('yearly')">
-        <span class="qp-plan-tag">Best value</span>
-        <span class="qp-plan-radio"></span>
-        <span class="qp-plan-info">
-          <span class="qp-plan-name">1 year</span>
-          <span class="qp-plan-meta qp-plan-meta-yearly" data-price-yearly-row hidden>Billed annually · <span data-price-yearly-monthly>…</span> / month</span>
-        </span>
-        <span class="qp-plan-price"><b data-price-plan="yearly">…</b><span class="qp-plan-unit">/ year</span></span>
-      </button>
     </div>
     <div class="qp-sync-status" id="qpSyncStatus" aria-live="polite"></div>
     <div class="qp-existing-banner" id="qpExistingPremiumBanner">Premium is already active on this Apple account. Continue to your Face Scan.</div>
     <button class="btn ghost" id="quizPaywallPrimaryBtn" onclick="quizHaptic();quizPaywallPrimaryAction()" style="width:100%;height:44px;margin-top:12px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;"><span id="quizPaywallPrimaryLabel">🎁 Start free trial</span></button>
-    <p class="qp-pay-disclosure" style="margin-top:14px;font-size:11px;">Weekly, monthly and yearly plans auto-renew until canceled. Cancel anytime in App Store settings at least 24 hours before the end of the current billing period.</p>
+    <p class="qp-pay-disclosure" style="margin-top:14px;font-size:11px;">Weekly subscription auto-renews until canceled. Cancel anytime in App Store settings at least 24 hours before the end of the current billing period.</p>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:0 4px;">
       <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" style="flex:1;text-align:center;color:rgba(255,255,255,.55);text-decoration:none;font-size:13px;font-weight:500;padding:8px 0;">Terms of Use</a>
       <a href="#" onclick="restoreApplePurchases();return false;" style="flex:1;text-align:center;color:rgba(255,255,255,.55);text-decoration:none;font-size:13px;font-weight:500;padding:8px 0;">Restore Purchase</a>
@@ -5105,6 +5087,62 @@ function _fmCloudMergeInbox(aRaw, bRaw) {
   return JSON.stringify(Array.from(map.values()).sort((x,y)=>(Number(y.ts)||0)-(Number(x.ts)||0)).slice(0,80));
 }
 
+function _fmNormalizeGlowProgress(raw) {
+  const parsed = _fmCloudParse(raw, null);
+  if (Array.isArray(parsed)) {
+    return { schema:2, cycle:null, tasks:{}, legacy_completed:Array.from(new Set(parsed)), updated_at:0 };
+  }
+  if (!parsed || typeof parsed !== "object") {
+    return { schema:2, cycle:null, tasks:{}, legacy_completed:[], updated_at:0 };
+  }
+  const tasks = {};
+  const src = parsed.tasks && typeof parsed.tasks === "object" ? parsed.tasks : {};
+  Object.entries(src).forEach(([id, entry]) => {
+    if (!id) return;
+    if (entry && typeof entry === "object") {
+      tasks[id] = { completed:entry.completed === true, updated_at:Number(entry.updated_at)||0 };
+    } else {
+      tasks[id] = { completed:entry === true, updated_at:0 };
+    }
+  });
+  return {
+    schema:2,
+    cycle:parsed.cycle || null,
+    tasks,
+    legacy_completed:Array.isArray(parsed.legacy_completed) ? Array.from(new Set(parsed.legacy_completed)) : [],
+    updated_at:Number(parsed.updated_at)||0,
+  };
+}
+
+function _fmCloudMergeGlowProgress(aRaw, bRaw) {
+  const a = _fmNormalizeGlowProgress(aRaw);
+  const b = _fmNormalizeGlowProgress(bRaw);
+  const out = {
+    schema:2,
+    cycle:b.cycle || a.cycle || null,
+    tasks:{},
+    legacy_completed:Array.from(new Set([...(a.legacy_completed||[]), ...(b.legacy_completed||[])])),
+    updated_at:Math.max(Number(a.updated_at)||0, Number(b.updated_at)||0),
+  };
+  const ids = new Set([...Object.keys(a.tasks||{}), ...Object.keys(b.tasks||{})]);
+  ids.forEach((id) => {
+    const left = a.tasks[id];
+    const right = b.tasks[id];
+    if (!left) { out.tasks[id] = right; return; }
+    if (!right) { out.tasks[id] = left; return; }
+    const lt = Number(left.updated_at)||0;
+    const rt = Number(right.updated_at)||0;
+    if (rt > lt) out.tasks[id] = right;
+    else if (lt > rt) out.tasks[id] = left;
+    else {
+      // Exact-timestamp conflicts are fail-safe for completion: true wins.
+      // A stale false can therefore never erase an equally-newer completed task.
+      out.tasks[id] = { completed:!!(left.completed || right.completed), updated_at:lt };
+    }
+  });
+  return JSON.stringify(out);
+}
+
 function _fmCloudMergePayloads(cloudPayload, localPayload) {
   const cloud = cloudPayload && cloudPayload.keys ? cloudPayload.keys : {};
   const local = localPayload && localPayload.keys ? localPayload.keys : {};
@@ -5143,6 +5181,17 @@ function _fmCloudMergePayloads(cloudPayload, localPayload) {
     }
     if (!c.deleted && !l.deleted && key === "facemax_notification_inbox_v1") {
       merged[key] = { value:_fmCloudMergeInbox(c.value,l.value), ts:Math.max(Number(c.ts)||0,Number(l.ts)||0), deleted:false };
+      return;
+    }
+    if (!c.deleted && !l.deleted && key.startsWith("gu_progress_")) {
+      // Glow completion is merged per stable task id, not as one last-write-wins
+      // array snapshot. This prevents a delayed server/device snapshot containing
+      // `false`/missing completion from erasing a newer local `true`.
+      merged[key] = {
+        value:_fmCloudMergeGlowProgress(c.value,l.value),
+        ts:Math.max(Number(c.ts)||0,Number(l.ts)||0),
+        deleted:false
+      };
       return;
     }
 
@@ -5615,6 +5664,10 @@ async function handleAppleSignInResult(result) {
     else if (synced && synced.error === "progress_db_not_configured") showToast("Signed in. Connect D1 to enable backup.", 3500);
     else showToast("Signed in — your account is linked", 3500);
     try { await checkPremium(false); } catch {}
+    // RevenueCat was deliberately warmed before Apple sign-in. Refresh after
+    // logIn so free-trial eligibility and localized weekly price are tied to the
+    // authenticated Apple-backed FaceMax account before the quiz paywall opens.
+    try { if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(true); } catch {}
     return true;
   } catch (e) {
     console.warn("Apple auth error", e);
@@ -5943,6 +5996,35 @@ let _guCurrentPlanData = null;
 // Dynamic step count — set when AI plan loads, used by progress helpers
 let _guCurrentTotal = 6;
 
+function _guTaskStableId(step, index) {
+  const explicit = step && (step.task_id || step.id);
+  if (explicit) return String(explicit);
+  const canonical = [step && step.label, step && step.sub, step && step.e]
+    .map(v => String(v || "").trim().toLowerCase().replace(/\s+/g, " "))
+    .join("|");
+  // FNV-1a: deterministic across restarts/devices and independent of array order.
+  let h = 2166136261;
+  for (let i = 0; i < canonical.length; i++) {
+    h ^= canonical.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return "gu_" + (h >>> 0).toString(16).padStart(8, "0");
+}
+
+function _guEnsureStableTaskIds(data) {
+  if (!data || !Array.isArray(data.steps)) return data;
+  data.steps.forEach((step, index) => {
+    if (step && typeof step === "object" && !step.task_id) step.task_id = _guTaskStableId(step, index);
+  });
+  return data;
+}
+
+function _guStepIsDone(done, step, index) {
+  if (!Array.isArray(done)) return false;
+  const id = _guTaskStableId(step, index);
+  return done.includes(id) || done.includes(index) || done.includes(String(index));
+}
+
 // A cached Glow Up plan is usable only when every task still has the
 // AI-selected sticker required by the current schema. Older/partial responses
 // must never render as empty sticker boxes.
@@ -6022,16 +6104,28 @@ function _guCompletedPlanLockKey(last) {
   const dailyKey = _guDailyPlanKey(last);
   return dailyKey ? dailyKey + "_completed_lock" : null;
 }
+function _guStartedPlanLockKey(last) {
+  const dailyKey = _guDailyPlanKey(last);
+  return dailyKey ? dailyKey + "_started_lock" : null;
+}
 
 function _guRememberPlan(last, data) {
   if (!_guIsValidAiPlanData(data)) return;
+  _guEnsureStableTaskIds(data);
   _guCurrentPlanData = data;
-  // Once all six tasks are complete, persist the exact plan that was completed.
-  // The lock is scoped only to the current 06:00 local Glow cycle. A new scan,
-  // app restart or Goals & Preferences change cannot replace it before 06:00.
+  // As soon as one task is completed, freeze this exact six-task plan for the
+  // current 06:00 local Glow cycle. A refresh/regeneration can no longer swap the
+  // task list underneath stable completion IDs.
   try {
-    const done = _guGetProgress();
-    if (!Array.isArray(done) || done.length < 6) return;
+    const done = _guGetProgress(data);
+    if (!Array.isArray(done) || done.length < 1) return;
+    const startedKey = _guStartedPlanLockKey(last);
+    if (startedKey) {
+      localStorage.setItem(startedKey, JSON.stringify({
+        source:"openrouter", data, ts:Date.now(), started:true
+      }));
+    }
+    if (done.length < 6) return;
     const key = _guCompletedPlanLockKey(last);
     if (!key) return;
     localStorage.setItem(key, JSON.stringify({
@@ -6041,6 +6135,26 @@ function _guRememberPlan(last, data) {
       completed: true,
     }));
   } catch {}
+}
+
+function _guLoadStartedPlanLock(last) {
+  try {
+    const done = _guGetProgress();
+    if (!Array.isArray(done) || done.length < 1) return null;
+    const key = _guStartedPlanLockKey(last);
+    if (!key) return null;
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const entry = JSON.parse(raw);
+    if (entry && entry.started === true && entry.source === "openrouter" && _guIsValidAiPlanData(entry.data)) {
+      _guEnsureStableTaskIds(entry.data);
+      _guEnsureStableTaskIds(entry.data);
+      _guCurrentPlanData = entry.data;
+      return entry.data;
+    }
+    localStorage.removeItem(key);
+  } catch {}
+  return null;
 }
 
 function _guLoadCompletedPlanLock(last) {
@@ -6159,10 +6273,10 @@ async function _fetchAiGlowPlan(last, _premiumRetried) {
   _guMigrateLegacyCycleState(last);
   const dailyKey = _guDailyPlanKey(last);
 
-  // A completed 6/6 plan is immutable for this 06:00 local Glow cycle. Prefer the
-  // locked snapshot before every cache/network path so opening Meal Plan,
-  // switching screens, background/resume, rescanning, changing preferences or
-  // reopening Glow cannot replace it before the next 06:00 boundary.
+  // Once the user checks even one task, the exact plan is immutable until the
+  // next 06:00 cycle. Completed 6/6 remains locked by the stronger legacy lock.
+  const startedLock = _guLoadStartedPlanLock(last);
+  if (startedLock) return startedLock;
   const completedLock = _guLoadCompletedPlanLock(last);
   if (completedLock) return completedLock;
 
@@ -6338,27 +6452,128 @@ function _guScanKey() {
   return "gu_progress_cycle_" + _guStorageUserKey() + "_" + _guCycleDateKey();
 }
 
-function _guGetProgress() {
-  try {
-    const key = _guScanKey();
-    if (!key) return [];
-    return JSON.parse(localStorage.getItem(key) || "[]");
-  } catch { return []; }
+function _guEmptyProgressState() {
+  return { schema:2, cycle:_guCycleDateKey(), tasks:{}, legacy_completed:[], updated_at:0 };
 }
-function _guSaveProgress(done) {
+
+function _guReadProgressState() {
   try {
     const key = _guScanKey();
-    if (key) localStorage.setItem(key, JSON.stringify(done));
-    // Save daily completion % so tomorrow's AI plan knows how consistent you were
+    if (!key) return _guEmptyProgressState();
+    const parsed = JSON.parse(localStorage.getItem(key) || "null");
+    if (Array.isArray(parsed)) {
+      const state = _guEmptyProgressState();
+      state.legacy_completed = Array.from(new Set(parsed));
+      return state;
+    }
+    if (!parsed || typeof parsed !== "object") return _guEmptyProgressState();
+    const state = _guEmptyProgressState();
+    state.cycle = parsed.cycle || state.cycle;
+    state.updated_at = Number(parsed.updated_at) || 0;
+    state.legacy_completed = Array.isArray(parsed.legacy_completed) ? Array.from(new Set(parsed.legacy_completed)) : [];
+    if (parsed.tasks && typeof parsed.tasks === "object") {
+      Object.entries(parsed.tasks).forEach(([id, entry]) => {
+        if (!id) return;
+        state.tasks[id] = entry && typeof entry === "object"
+          ? { completed:entry.completed === true, updated_at:Number(entry.updated_at)||0 }
+          : { completed:entry === true, updated_at:0 };
+      });
+    }
+    return state;
+  } catch { return _guEmptyProgressState(); }
+}
+
+function _guWriteProgressState(state) {
+  try {
+    const key = _guScanKey();
+    if (!key) return;
+    state.schema = 2;
+    state.cycle = _guCycleDateKey();
+    state.updated_at = Math.max(Number(state.updated_at)||0, Date.now());
+    localStorage.setItem(key, JSON.stringify(state));
+  } catch {}
+}
+
+function _guMigrateProgressForPlan(state, planData) {
+  if (!state || !Array.isArray(state.legacy_completed) || !state.legacy_completed.length || !planData || !Array.isArray(planData.steps)) return false;
+  _guEnsureStableTaskIds(planData);
+  let changed = false;
+  const ts = Number(state.updated_at) || Date.now();
+  state.legacy_completed.forEach((legacy) => {
+    let id = null;
+    if (typeof legacy === "number" || /^\d+$/.test(String(legacy))) {
+      const index = Number(legacy);
+      const step = planData.steps[index];
+      if (step) id = _guTaskStableId(step, index);
+    } else if (legacy) {
+      id = String(legacy);
+    }
+    if (!id) return;
+    const prev = state.tasks[id];
+    if (!prev || prev.completed !== true) state.tasks[id] = { completed:true, updated_at:Math.max(Number(prev && prev.updated_at)||0, ts) };
+    changed = true;
+  });
+  if (changed) state.legacy_completed = [];
+  return changed;
+}
+
+function _guGetProgress(planData) {
+  const state = _guReadProgressState();
+  const plan = planData || _guCurrentPlanData;
+  if (_guMigrateProgressForPlan(state, plan)) _guWriteProgressState(state);
+  const completed = Object.entries(state.tasks || {})
+    .filter(([,entry]) => entry && entry.completed === true)
+    .map(([id]) => id);
+  // Before a plan is loaded, retain legacy values only for count/back-compat.
+  if (!completed.length && state.legacy_completed.length && !plan) return state.legacy_completed.slice();
+  return completed;
+}
+
+function _guSaveWeekCompletion(count) {
+  try {
     const total = _guGetPlanTotal();
-    const pct = Math.round((done.length / total) * 100);
+    const pct = Math.round((Math.min(total, Number(count)||0) / total) * 100);
     const weekCompKey = "gu_week_completion";
     const weekComp = JSON.parse(localStorage.getItem(weekCompKey) || "{}");
     weekComp[_guCycleDateKey()] = pct;
-    // Keep only last 14 days to avoid localStorage bloat
     const keys = Object.keys(weekComp).sort().reverse();
     if (keys.length > 14) keys.slice(14).forEach(k => delete weekComp[k]);
     localStorage.setItem(weekCompKey, JSON.stringify(weekComp));
+  } catch {}
+}
+
+function _guSetTaskCompletion(taskId, completed, planData) {
+  if (!taskId) return _guGetProgress(planData);
+  const state = _guReadProgressState();
+  _guMigrateProgressForPlan(state, planData || _guCurrentPlanData);
+  const now = Date.now();
+  state.tasks[String(taskId)] = { completed:completed === true, updated_at:now };
+  state.updated_at = now;
+  _guWriteProgressState(state);
+  const done = _guGetProgress(planData || _guCurrentPlanData);
+  _guSaveWeekCompletion(done.length);
+  return done;
+}
+
+// Compatibility helper for older call sites/tests. New UI toggles use
+// _guSetTaskCompletion() so explicit false states retain their own timestamp.
+function _guSaveProgress(done, planData) {
+  try {
+    const plan = planData || _guCurrentPlanData;
+    const state = _guReadProgressState();
+    _guMigrateProgressForPlan(state, plan);
+    const now = Date.now();
+    (Array.isArray(done) ? done : []).forEach((value) => {
+      let id = String(value);
+      if (plan && Array.isArray(plan.steps) && (typeof value === "number" || /^\d+$/.test(id))) {
+        const index = Number(value);
+        if (plan.steps[index]) id = _guTaskStableId(plan.steps[index], index);
+      }
+      if (id) state.tasks[id] = { completed:true, updated_at:now };
+    });
+    state.updated_at = now;
+    _guWriteProgressState(state);
+    _guSaveWeekCompletion(_guGetProgress(plan).length);
   } catch {}
 }
 
@@ -6643,15 +6858,17 @@ function _guTodaySteps(data) {
 function _populateGlowUpBody(data, chipList) {
   const focusEl = el("guFocus");
   if (focusEl) focusEl.textContent = data.focus;
-  const done = _guGetProgress();
+  _guEnsureStableTaskIds(data);
+  const done = _guGetProgress(data);
   const planLocked = done.length >= _guGetPlanTotal();
   const checkSvg = '<svg viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></svg>';
   const stepsEl = el("guSteps");
   const todaySteps = _guTodaySteps(data);
   if (stepsEl) stepsEl.innerHTML = todaySteps.map((s, i) => {
-    const isDone = done.includes(i);
+    const taskId = _guTaskStableId(s, i);
+    const isDone = _guStepIsDone(done, s, i);
     const sub = s.sub ? `<span class="gu-step-sub">${escapeHtml(s.sub)}</span>` : "";
-    return `<div class="gu-step${isDone ? ' done' : ''}${planLocked ? ' locked' : ''}"${planLocked ? ' aria-disabled="true"' : ` onclick="guToggleStep(this,${i});"`}>`
+    return `<div class="gu-step${isDone ? ' done' : ''}${planLocked ? ' locked' : ''}" data-gu-task-id="${taskId}"${planLocked ? ' aria-disabled="true"' : ` onclick="guToggleStep(this);"`}>`
       + `<span class="gu-step-box">${checkSvg}</span>`
       + `<span class="gu-step-label">${escapeHtml(s.label)}</span>`
       + sub
@@ -6663,18 +6880,18 @@ function _populateGlowUpBody(data, chipList) {
   ).join("");
 }
 
-function guToggleStep(el_, idx) {
-  const before = _guGetProgress();
+function guToggleStep(el_) {
+  const before = _guGetProgress(_guCurrentPlanData);
   if (Array.isArray(before) && before.length >= _guGetPlanTotal()) {
     _guEnsureCompletionState();
     return;
   }
-  el_.classList.toggle("done");
-  const done = before;
-  const i = done.indexOf(idx);
-  const adding = i === -1;
-  if (adding) done.push(idx); else done.splice(i, 1);
-  _guSaveProgress(done);
+  const taskId = String(el_ && el_.dataset && el_.dataset.guTaskId || "");
+  if (!taskId) return;
+  const adding = !before.includes(taskId);
+  const done = _guSetTaskCompletion(taskId, adding, _guCurrentPlanData);
+  el_.classList.toggle("done", adding);
+  if (adding) _guLockCurrentStartedPlan();
   _guUpdateProgressUI();
   // Duolingo-style semantics: a streak day is earned only when the whole
   // personalised plan is completed. Partial progress still persists, but it
@@ -6685,26 +6902,34 @@ function guToggleStep(el_, idx) {
     try { renderHomeStats(); renderGlowUpPlan(); } catch {}
     try { if (notifLoadPrefs().dailyOn) scheduleRetentionPack(); } catch {}
   }
-  // refresh hub progress if open
   _guUpdateHubProgress();
   try { if (typeof renderSmartDailyPlan === "function") renderSmartDailyPlan(); } catch {}
   _renderWeekDots(el("guWeekDots"), el("guWeekLabels"), el("guStreakMini"), "small");
 }
 window.guToggleStep = guToggleStep;
 
+function _guLockCurrentStartedPlan() {
+  try {
+    if (!scanHistory.length) { try { loadHistory(); } catch {} }
+    const last = scanHistory[0] || null;
+    if (!last || !_guIsValidAiPlanData(_guCurrentPlanData)) return;
+    _guRememberPlan(last, _guCurrentPlanData);
+  } catch {}
+}
+
 // hub-side toggle
-function guHubToggleStep(el_, idx) {
-  const before = _guGetProgress();
+function guHubToggleStep(el_) {
+  const before = _guGetProgress(_guCurrentPlanData);
   if (Array.isArray(before) && before.length >= _guGetPlanTotal()) {
     _guEnsureCompletionState();
     return;
   }
-  el_.classList.toggle("done");
-  const done = before;
-  const i = done.indexOf(idx);
-  const adding = i === -1;
-  if (adding) done.push(idx); else done.splice(i, 1);
-  _guSaveProgress(done);
+  const taskId = String(el_ && el_.dataset && el_.dataset.guTaskId || "");
+  if (!taskId) return;
+  const adding = !before.includes(taskId);
+  const done = _guSetTaskCompletion(taskId, adding, _guCurrentPlanData);
+  el_.classList.toggle("done", adding);
+  if (adding) _guLockCurrentStartedPlan();
   _guUpdateProgressUI();
   if (adding && done.length >= _guGetPlanTotal()) {
     _guCompleteToday(true);
@@ -6776,12 +7001,13 @@ window.guHubToggleStep = guHubToggleStep;
 function _guUpdateHubProgress() {
   // Sync hub step visuals and physically lock every task after 6/6. The toggle
   // functions also keep a logic-level guard, so completion cannot be undone.
-  const done = _guGetProgress();
+  const done = _guGetProgress(_guCurrentPlanData);
   const locked = done.length >= _guGetPlanTotal();
   const host = document.getElementById("ghSteps");
   if (host) host.classList.toggle("completed-locked", locked);
-  document.querySelectorAll("#ghSteps .gu-hub-step").forEach((stepEl, i) => {
-    stepEl.classList.toggle("done", done.includes(i));
+  document.querySelectorAll("#ghSteps .gu-hub-step").forEach((stepEl) => {
+    const taskId = String(stepEl.dataset.guTaskId || "");
+    stepEl.classList.toggle("done", !!taskId && done.includes(taskId));
     stepEl.classList.toggle("locked", locked);
     if (locked) stepEl.setAttribute("aria-disabled", "true");
     else stepEl.removeAttribute("aria-disabled");
@@ -7037,7 +7263,7 @@ window.openGlowUpHub = async function(_premiumChecked) {
   const plan = await _fetchAiGlowPlan(last);
   if (_genPhraseTimer) clearInterval(_genPhraseTimer);
   const checkSvg = '<svg viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></svg>';
-  const done = _guGetProgress();
+  let done = _guGetProgress();
 
   // ── helper: update progress ring + bar ──
   function _ghUpdateProgress(steps, done) {
@@ -7070,7 +7296,9 @@ window.openGlowUpHub = async function(_premiumChecked) {
   }
 
   if (plan) {
+    _guEnsureStableTaskIds(plan);
     _guRememberPlan(last, plan);
+    done = _guGetProgress(plan);
     if (titleEl) titleEl.textContent = plan.focus || "Today's focus";
     if (subEl)   subEl.textContent   = plan.motivation || "Your personalised daily plan";
     if (focusEl) focusEl.textContent = plan.focus || "—";
@@ -7090,10 +7318,11 @@ window.openGlowUpHub = async function(_premiumChecked) {
     const planLocked = done.length >= _guCurrentTotal;
     if (stepsEl) stepsEl.classList.toggle("completed-locked", planLocked);
     if (stepsEl) stepsEl.innerHTML = (plan.steps || []).map((s, i) => {
-      const isDone = done.includes(i);
+      const taskId = _guTaskStableId(s, i);
+      const isDone = _guStepIsDone(done, s, i);
       const emoji = String(s.e || "").trim();
       const sub = _guTrimSub(s.sub);
-      return `<div class="gu-hub-step${isDone ? " done" : ""}${planLocked ? " locked" : ""}"${planLocked ? ' aria-disabled="true"' : ` onclick="guHubToggleStep(this,${i});"`}>`
+      return `<div class="gu-hub-step${isDone ? " done" : ""}${planLocked ? " locked" : ""}" data-gu-task-id="${taskId}"${planLocked ? ' aria-disabled="true"' : ` onclick="guHubToggleStep(this);"`}>`
         + `<div class="gu-hub-step-emoji">${escapeHtml(emoji)}</div>`
         + `<div class="gu-hub-step-text">`
         +   `<div class="gu-hub-step-label">${escapeHtml(s.label)}</div>`
@@ -11387,14 +11616,25 @@ async function _handlePurchaseInternal(plan){
   if (raw === "yearly" || raw === "annual") plan = "yearly";
   else if (raw === "weekly" || raw === "starter") plan = "weekly";
   else plan = "monthly";
-  if (premium) {
-    const activeScreen = document.querySelector(".screen.active");
-    if (activeScreen && activeScreen.id === "gate") await resumePendingPremiumAction();
-    return true;
-  }
-
   if (fmIsNative()) {
     try {
+      // Existing access is accepted only after a fresh RevenueCat entitlement
+      // check. A stale in-memory/localStorage/backend premium flag must never
+      // skip the system App Store purchase sheet for a new/inactive account.
+      if (window.facemax && typeof window.facemax.getSubscriptionStatus === "function") {
+        const existing = await window.facemax.getSubscriptionStatus(currentUserId()).catch(() => null);
+        if (existing && existing.ok && existing.active) {
+          markPremiumActiveLocally(existing.premium_until || null);
+          const activeScreen = document.querySelector(".screen.active");
+          if (activeScreen && activeScreen.id === "gate") await resumePendingPremiumAction();
+          return true;
+        }
+        if (existing && existing.ok && !existing.active) {
+          premium = false;
+          premiumUntil = null;
+          clearLocalPremiumUnlock();
+        }
+      }
       const appleProduct =
         (plan === "weekly" || plan === "starter") ? "weekly" :
         (plan === "yearly")   ? "yearly"   : "monthly";
@@ -15933,16 +16173,66 @@ function quizResultToScan(){
 }
 window.quizResultToScan = quizResultToScan;
 
+// Quiz purchase gating must use RevenueCat CustomerInfo as the native source of
+// truth. Local flags/backend mirrors are useful caches, but they are never allowed
+// to skip StoreKit for a new account.
+async function quizRevenueCatEntitlementStatus(){
+  if (!fmIsNative()) return { ok:false, active:false, error:"not_native" };
+  if (!window.facemax || typeof window.facemax.getSubscriptionStatus !== "function") {
+    return { ok:false, active:false, error:"revenuecat_unavailable" };
+  }
+  try {
+    const status = await window.facemax.getSubscriptionStatus(currentUserId());
+    if (status && status.ok && status.active) {
+      markPremiumActiveLocally(status.premium_until || null);
+      return status;
+    }
+    // A fresh RevenueCat inactive result invalidates any stale local unlock.
+    if (status && status.ok && !status.active) {
+      premium = false;
+      premiumUntil = null;
+      clearLocalPremiumUnlock();
+    }
+    return status || { ok:false, active:false, error:"empty_status" };
+  } catch (err) {
+    return { ok:false, active:false, error:(err && err.message) || String(err) };
+  }
+}
+window.quizRevenueCatEntitlementStatus = quizRevenueCatEntitlementStatus;
+
+async function quizContinueAfterVerifiedEntitlement(){
+  const status = await quizRevenueCatEntitlementStatus();
+  if (!status || status.active !== true) return false;
+
+  const sync = el("qpSyncStatus");
+  if (sync) sync.textContent = "Premium verified — starting your scan…";
+  // RevenueCat is the checkout gate. Backend mirroring is still triggered so
+  // premium API endpoints converge quickly, but a slow webhook/network mirror
+  // must not hold the user on the paywall after StoreKit already succeeded.
+  try {
+    if (window.facemax && typeof window.facemax.syncPremiumNow === "function") {
+      Promise.resolve(window.facemax.syncPremiumNow(currentUserId(), true)).catch(() => false);
+    }
+  } catch {}
+
+  onbState.pendingScan = true;
+  _quizStaticPhotoScanOnce = true;
+  if (!quizResumePendingScan() && typeof window.startScan === "function") window.startScan(true);
+  return true;
+}
+window.quizContinueAfterVerifiedEntitlement = quizContinueAfterVerifiedEntitlement;
+
 async function prePayWeeklyAction(){
-  if (_quizCheckingOut) return;
-  const active = !!(premium || hasUnlockedAccess() || await checkPremium(false).catch(() => false));
-  if (active) {
-    onbState.pendingScan = true;
-    _quizStaticPhotoScanOnce = true;
-    if (!quizResumePendingScan() && typeof window.startScan === "function") window.startScan(true);
+  if (_quizCheckingOut || _purchaseInFlight) return;
+  // Existing subscribers may continue without a new purchase, but ONLY when
+  // current RevenueCat CustomerInfo contains the active premium entitlement.
+  const status = await quizRevenueCatEntitlementStatus();
+  if (status && status.active === true) {
+    await quizContinueAfterVerifiedEntitlement();
     return;
   }
-  // Exactly the old quiz monetisation: both visible CTAs buy the single weekly product.
+  // Both visible quiz CTAs intentionally buy the same weekly StoreKit product.
+  // If that product carries an eligible free trial, StoreKit applies it.
   quizBuyPlan("weekly");
 }
 window.prePayWeeklyAction = prePayWeeklyAction;
@@ -15967,7 +16257,7 @@ function showPrePay(){
   openScreen('prePay');
 
   // Keep the exact old paywall UI, but still refresh the real StoreKit price.
-  try { if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(true); } catch {}
+  try { if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(false); } catch {}
 
   // Prepare the AI payload only after the paywall has painted. This work never
   // touches the visible paywall image, so it cannot cause flashing.
@@ -15985,30 +16275,18 @@ function quizSetPaywallAccessMode(active){
   if (active && sync && !sync.textContent) sync.textContent = "Your subscription is active.";
 }
 window.quizPaywallPrimaryAction = async function(){
-  if (_quizCheckingOut) return;
-  const active = !!(premium || hasUnlockedAccess() || await checkPremium(false).catch(() => false));
+  if (_quizCheckingOut || _purchaseInFlight) return;
+  const status = await quizRevenueCatEntitlementStatus();
+  const active = !!(status && status.active === true);
   quizSetPaywallAccessMode(active);
   if (active) {
-    const sync = el("qpSyncStatus");
     const primary = el("quizPaywallPrimaryBtn");
     if (primary) primary.disabled = true;
-    if (sync) sync.textContent = "Preparing your Face Scan…";
-    const serverReady = await quizBackendPremiumReady(12000);
-    if (primary) primary.disabled = false;
-    if (!serverReady) {
-      if (sync) sync.textContent = "Premium is active on this iPhone, but secure access is still syncing. Tap Continue to retry.";
-      return;
-    }
-    if (sync) sync.textContent = "Premium verified — starting your scan…";
-    onbState.pendingScan = true;
-    if (!quizResumePendingScan()) {
-      // A current entitlement is enough to continue; this path only exists if
-      // the pending flag was lost during a WKWebView lifecycle transition.
-      window.startScan(true);
-    }
+    try { await quizContinueAfterVerifiedEntitlement(); }
+    finally { if (primary) primary.disabled = false; }
     return;
   }
-  quizBuyPlan(_quizSelectedPlan);
+  quizBuyPlan("weekly");
 };
 function quizShowPaywall(){
   // Legacy entry point kept for compatibility; the onboarding paywall is the
@@ -16016,10 +16294,10 @@ function quizShowPaywall(){
   showPrePay();
 }
 
-let _quizSelectedPlan = "monthly";
+let _quizSelectedPlan = "weekly";
 function quizSelectPlan(plan){
-  const allowed = ["weekly", "monthly", "yearly"];
-  _quizSelectedPlan = allowed.includes(plan) ? plan : "monthly";
+  // Quiz monetisation intentionally exposes only the weekly product.
+  _quizSelectedPlan = "weekly";
   document.querySelectorAll("#qpPlans .qp-plan").forEach(p => p.classList.toggle("selected", p.dataset.plan === _quizSelectedPlan));
   quizHaptic();
 }
@@ -16062,52 +16340,66 @@ async function quizAwaitPremiumServerMirror(maxWaitMs = 12000){
 
 // Tap a plan to buy directly — there is no separate pay button.
 let _quizCheckingOut = false;
+function quizSetPurchaseButtonsBusy(busy){
+  ["prePayWeeklyBtn", "prePayTrialBtn", "quizPaywallPrimaryBtn"].forEach((id) => {
+    const button = el(id);
+    if (!button) return;
+    button.disabled = !!busy || (id === "prePayTrialBtn" && button.dataset.trialUnavailable === "1");
+    button.setAttribute("aria-busy", busy ? "true" : "false");
+  });
+}
+
 function quizBuyPlan(plan){
-  if (_quizCheckingOut) return;
-  quizSelectPlan(plan);
+  if (_quizCheckingOut || _purchaseInFlight) return;
+  quizSelectPlan("weekly");
   _quizCheckingOut = true;
   const plans = el("qpPlans");
   const syncStatus = el("qpSyncStatus");
   if (syncStatus) syncStatus.textContent = "Opening Apple checkout…";
   if (plans) plans.classList.add("qp-busy");
+  quizSetPurchaseButtonsBusy(true);
   Promise.resolve()
     .then(() => quizCheckout())
     .catch(() => {})
-    .finally(() => { _quizCheckingOut = false; if (plans) plans.classList.remove("qp-busy"); });
+    .finally(() => {
+      _quizCheckingOut = false;
+      if (plans) plans.classList.remove("qp-busy");
+      quizSetPurchaseButtonsBusy(false);
+    });
 }
 window.quizBuyPlan = quizBuyPlan;
 
 async function quizCheckout(){
   quizHaptic();
-  if (!quizRequireAppleSignIn()) return;
+  if (!quizRequireAppleSignIn()) return false;
   const native = fmIsNative();
-  const btn = el("quizPayBtn");
-  if (btn) { btn.disabled = true; const sp = btn.querySelector("span"); if (sp) sp.textContent = "Opening checkout…"; }
-  try {
-    if (native) {
-      // Restore the old working flow: RevenueCat/StoreKit confirms ownership,
-      // local Premium is marked immediately, and the pending scan resumes.
-      // Server reconciliation continues in the native bridge in background.
-      await window.handlePurchase(_quizSelectedPlan);
-    } else {
-      showToast("Web preview — no billing", 2500);
-    }
-  } catch (err) { showToast("Checkout error"); }
-  if (btn) { btn.disabled = false; const sp = btn.querySelector("span"); if (sp) sp.textContent = "Unlock my full analysis"; }
-
-  if (premium || hasUnlockedAccess()) {
-    if (!quizResumePendingScan()) quizPaywallClose();
-  } else if (native) {
-    let tries = 0;
-    const resumeWhenReady = () => {
-      if (premium || hasUnlockedAccess()) {
-        if (!quizResumePendingScan()) quizPaywallClose();
-        return;
-      }
-      if (++tries < 20) setTimeout(resumeWhenReady, 500);
-    };
-    setTimeout(resumeWhenReady, 300);
+  if (!native) {
+    showToast("Web preview — no billing", 2500);
+    return false;
   }
+
+  let purchased = false;
+  try {
+    // handlePurchase() returns true only after native-bridge verified the active
+    // RevenueCat entitlement created/restored by the real StoreKit transaction.
+    purchased = (await window.handlePurchase(_quizSelectedPlan)) === true;
+  } catch (err) {
+    showToast("Checkout error");
+    purchased = false;
+  }
+
+  // Cancel/error/inactive entitlement: remain on the paywall and never start Scan.
+  if (!purchased) {
+    const sync = el("qpSyncStatus");
+    if (sync && !sync.textContent.includes("cancel")) sync.textContent = "Purchase not completed. Your scan has not started.";
+    return false;
+  }
+
+  // Re-read RevenueCat CustomerInfo before navigation. This prevents any stale
+  // local/backend premium flag from being the condition that launches Scan.
+  const continued = await quizContinueAfterVerifiedEntitlement();
+  if (!continued) return false;
+  return true;
 }
 
 // Resume the analysis that was deferred until payment. Called after a
@@ -16809,7 +17101,6 @@ window.downloadResultCard = async function() {
 (function schedulePrices() {
   async function renderPrices(forceRefresh) {
     try {
-      if (window.facemax && window.facemax.native && typeof isSignedInWithApple === "function" && !isSignedInWithApple()) return;
       const prices = (window.facemax && typeof window.facemax.loadPrices === "function")
         ? await window.facemax.loadPrices(typeof currentUserId === "function" ? currentUserId() : null, !!forceRefresh)
         : { weekly: "…", monthly: "…", yearly: "…" };
@@ -16818,13 +17109,21 @@ window.downloadResultCard = async function() {
         var plan = el.getAttribute("data-price-plan");
         if (prices[plan] && prices[plan] !== "…") el.textContent = prices[plan];
       });
-      // Keep the original quiz paywall copy exactly: one weekly price CTA plus
-      // a separate gift CTA. Both are live weekly purchase actions; the UI must
-      // not silently rename or hide the free-trial button while StoreKit warms up.
+      // The gift CTA is real: it purchases the weekly StoreProduct whose
+      // introductory offer comes from App Store Connect/RevenueCat. Never claim
+      // a free trial when StoreKit says this product has no zero-price intro.
       var trialBtn = document.getElementById("prePayTrialBtn");
-      if (trialBtn) { trialBtn.textContent = "🎁 Start free trial"; trialBtn.disabled = false; }
+      if (trialBtn) {
+        var trialReady = prices.weeklyHasFreeTrial === true && prices.weeklyTrialEligible === true;
+        var trialKnownUnavailable = prices.weeklyHasFreeTrial === false || prices.weeklyTrialEligible === false;
+        trialBtn.dataset.trialUnavailable = trialReady ? "0" : "1";
+        trialBtn.textContent = trialReady
+          ? "🎁 Start free trial"
+          : (trialKnownUnavailable ? "🎁 Free trial unavailable" : "🎁 Checking free trial…");
+        trialBtn.disabled = !trialReady || !!_quizCheckingOut || !!_purchaseInFlight;
+      }
       var weeklyBtn = document.getElementById("prePayWeeklyBtn");
-      if (weeklyBtn) weeklyBtn.disabled = false;
+      if (weeklyBtn) weeklyBtn.disabled = !!_quizCheckingOut || !!_purchaseInFlight;
       // Fill the "Billed annually · X / month" helper span with the
       // per-month equivalent derived from the yearly price when available.
       // We display the raw yearly price string as-is (e.g. "$39.99 / year")
@@ -16903,7 +17202,6 @@ window.downloadResultCard = async function() {
   setTimeout(function() {
     try {
       if (window.facemax && typeof window.facemax.loadPrices === 'function') {
-        if (window.facemax.native && typeof isSignedInWithApple === 'function' && !isSignedInWithApple()) return;
         var uid = (typeof currentUserId === 'function') ? currentUserId() : null;
         window.facemax.loadPrices(uid).catch(function() {});
       }
