@@ -1,6 +1,6 @@
 {
   "appId": "ai.facemax.app",
-  "appName": "FaceMax AI: Glow Up Lab",
+  "appName": "FaceMax AI",
   "webDir": "web",
   "bundledWebRuntime": false,
   "ios": {
