@@ -60,6 +60,17 @@ final class CameraOvalEmbeddedView: UIView {
     private var configured = false
     private let sessionQueue = DispatchQueue(label: "ai.facemax.cameraoval.session")
 
+    // True once the preview layer is actually rendering live camera frames
+    // (not just present in the view hierarchy / unhidden). Used by the
+    // "warm reopen" path in CameraOvalPlugin to avoid resolving startEmbedded
+    // while the layer could still be showing a stale/black frame.
+    var isPreviewLive: Bool {
+        if #available(iOS 15.0, *) {
+            return previewLayer?.isPreviewing ?? false
+        }
+        return session.isRunning
+    }
+
     private var pendingCaptureCompletion: ((String?, String?) -> Void)?
 
     // True once AVCaptureSession is running AND auto-exposure has stabilised.
@@ -655,10 +666,40 @@ public class CameraOvalPlugin: CAPPlugin {
             view.configure(position: position, ovalAspectRatio: aspectRatio,
                            shape: shape, adaptiveZoom: adaptiveZoom)
         } else {
-            // Same camera/mode: session stayed warm while hidden.
+            // Same camera/mode: session stayed warm while hidden. The preview
+            // layer can still be showing a stale/black frame from right before
+            // it was hidden (backgrounding, a prior capture, or iOS briefly
+            // interrupting the capture connection) — unhiding it and resolving
+            // immediately used to let that stale frame (or a plain black
+            // layer) become visible, which is what showed up as "black circle
+            // stuck in the oval" and, if the user tapped the shutter fast,
+            // could also end up baked into the actual captured photo.
+            // Wait for a real live frame (isPreviewing, iOS 15+) or a short
+            // safety delay (iOS 14) before telling JS the camera is ready.
             view.isHidden = false
             view.updateLayout()
-            call.resolve()
+            self.resolveWhenPreviewIsLive(view: view, call: call)
+        }
+    }
+
+    // Polls AVCaptureVideoPreviewLayer.isPreviewing (iOS 15+) for up to
+    // ~600ms so the JS side never treats a stale/black frame as "camera
+    // ready". Falls back to a fixed short delay on iOS 14, where
+    // isPreviewing isn't available.
+    private func resolveWhenPreviewIsLive(view: CameraOvalEmbeddedView, call: CAPPluginCall, attempt: Int = 0) {
+        if #available(iOS 15.0, *) {
+            if view.isPreviewLive || attempt >= 12 {
+                call.resolve()
+                return
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self, weak view] in
+                guard let self = self, let view = view else { call.resolve(); return }
+                self.resolveWhenPreviewIsLive(view: view, call: call, attempt: attempt + 1)
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                call.resolve()
+            }
         }
     }
 
