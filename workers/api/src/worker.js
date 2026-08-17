@@ -80,6 +80,18 @@ function cleanUrl(raw) {
 
 function premiumKey(userId) { return "premium:" + String(userId); }
 function aiToolCacheKey(userId, type) { return "ai_tool_cache:" + String(userId) + ":" + String(type); }
+// Cheap deterministic string hash (FNV-1a). Used so the AI-tool cache is keyed
+// off the ACTUAL scan values, not just the client-supplied scan_id — a stale or
+// duplicated scan_id must never cause a different scan's numbers to be served.
+function fnv1aHash(str) {
+  let h = 0x811c9dc5;
+  const s = String(str || "");
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = (h * 0x01000193) >>> 0;
+  }
+  return h.toString(16).padStart(8, "0");
+}
 function authSessionKey(token) { return "authsession:" + String(token); }
 const AUTH_SESSION_TTL_SECONDS = 180 * 24 * 60 * 60; // 180 days; the app asks for Apple re-auth after expiry
 function revenueCatLinkKey(userId) { return "rc-link:" + String(userId); }
@@ -2280,11 +2292,39 @@ async function simpleTool(request, env, type) {
   const scanId = String(body.scan_id || body.scanId || "").trim().slice(0, 80);
   const regenerate = body.regenerate === true;
   const cacheKey = aiToolCacheKey(userId, type);
+
+  // Parse the scan values FIRST so the cache can be keyed off what was
+  // actually scanned, not just the client-supplied scan_id. A stale or
+  // duplicated scan_id must never cause a different scan's numbers/photo to
+  // silently reuse someone else's cached advice.
+  const scoreHint = Number.isFinite(Number(body.score)) ? Math.max(0, Math.min(100, Math.round(Number(body.score)))) : null;
+  const allowedShapes = new Set(["Oval","Round","Square","Heart","Diamond","Oblong","Pear"]);
+  const rawShape = String(body.face_shape || "").trim();
+  const faceShapeHint = allowedShapes.has(rawShape) ? rawShape : null;
+  const gender = String(body.gender || "").toLowerCase().startsWith("f") ? "female" : "male";
+  const suppliedMetrics = (body.metrics && typeof body.metrics === "object") ? body.metrics : {};
+  const metrics = {};
+  for (const [key,value] of Object.entries(suppliedMetrics)) {
+    const n = Number(value);
+    if (Number.isFinite(n)) metrics[key] = Math.max(0, Math.min(100, Math.round(n)));
+  }
+  if (scoreHint == null || Object.keys(metrics).length < 4) return json({ ok:false, error:"scan_data_required", reason:"A real Face Scan is required before this tool can generate advice." }, 422);
+  const metricLines = Object.entries(metrics).map(([key,value]) => `${key}: ${value}/100`).join("\n");
+
+  // Fingerprint of the actual scan data driving this request. Two requests
+  // only get the same cached result if BOTH the scan_id AND the underlying
+  // score/shape/metrics match — this is what stops the tool from ever
+  // serving identical text for genuinely different scans.
+  const dataFingerprint = fnv1aHash(
+    gender + "|" + scoreHint + "|" + (faceShapeHint || "") + "|" +
+    Object.entries(metrics).sort((a,b) => a[0].localeCompare(b[0])).map(([k,v]) => k + ":" + v).join(",")
+  );
+
   if (!regenerate && env.PREMIUM_KV && scanId) {
     try {
       const rawCached = await env.PREMIUM_KV.get(cacheKey);
       const cached = rawCached ? JSON.parse(rawCached) : null;
-      if (cached && cached.scan_id === scanId && cached.data && cached.data.text && Array.isArray(cached.data.steps)) {
+      if (cached && cached.scan_id === scanId && cached.fingerprint === dataFingerprint && cached.data && cached.data.text && Array.isArray(cached.data.steps)) {
         return json({ ok:true, source:"openrouter", cached:true, data:cached.data });
       }
     } catch {}
@@ -2302,20 +2342,6 @@ async function simpleTool(request, env, type) {
   }
 
   if (!String(env.OPENROUTER_API_KEY || "").trim()) return json({ ok:false, error:"ai_unavailable", reason:"OPENROUTER_API_KEY missing" }, 503);
-
-  const scoreHint = Number.isFinite(Number(body.score)) ? Math.max(0, Math.min(100, Math.round(Number(body.score)))) : null;
-  const allowedShapes = new Set(["Oval","Round","Square","Heart","Diamond","Oblong","Pear"]);
-  const rawShape = String(body.face_shape || "").trim();
-  const faceShapeHint = allowedShapes.has(rawShape) ? rawShape : null;
-  const gender = String(body.gender || "").toLowerCase().startsWith("f") ? "female" : "male";
-  const suppliedMetrics = (body.metrics && typeof body.metrics === "object") ? body.metrics : {};
-  const metrics = {};
-  for (const [key,value] of Object.entries(suppliedMetrics)) {
-    const n = Number(value);
-    if (Number.isFinite(n)) metrics[key] = Math.max(0, Math.min(100, Math.round(n)));
-  }
-  if (scoreHint == null || Object.keys(metrics).length < 4) return json({ ok:false, error:"scan_data_required", reason:"A real Face Scan is required before this tool can generate advice." }, 422);
-  const metricLines = Object.entries(metrics).map(([key,value]) => `${key}: ${value}/100`).join("\n");
 
   const typeRules = {
     "skin-plan": `Build a concrete skin-improvement plan. Prioritize the supplied skin and eye_area scores. The opening summary MUST explicitly cite the user's overall score and skin score, and cite eye-area only if it is supplied. Cover AM, PM, lifestyle and nutrition. Do not diagnose disease or prescribe medication.
@@ -2378,7 +2404,7 @@ Rules:
     if (!text || steps.length !== 6) return json({ ok:false, error:"invalid_ai_response", reason:"AI tool response was incomplete" }, 502);
     const data = { title:meta.title, text, steps };
     if (env.PREMIUM_KV && scanId) {
-      try { await env.PREMIUM_KV.put(cacheKey, JSON.stringify({ scan_id:scanId, data, updated_at:Date.now() })); } catch {}
+      try { await env.PREMIUM_KV.put(cacheKey, JSON.stringify({ scan_id:scanId, fingerprint:dataFingerprint, data, updated_at:Date.now() })); } catch {}
     }
     await incrementDailyUsageAfterSuccess(env, userId, body.local_date, dailyConfig.bucket, dailyConfig.limit);
     return json({ ok:true, source:"openrouter", cached:false, data });
