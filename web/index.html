@@ -12,9 +12,9 @@
 <meta name="theme-color" content="#100A14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="FaceMax AI: Glow Up Lab">
+<meta name="apple-mobile-web-app-title" content="FaceMax">
 <meta name="format-detection" content="telephone=no">
-<title>FaceMax AI: Glow Up Lab — AI Face Analysis</title>
+<title>FaceMax — AI Face Analysis</title>
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -231,7 +231,14 @@ h3{margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-size:12.5px;
 .orb-stat{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;pointer-events:none}
 .orb-stat-num{font-size:52px;font-weight:800;letter-spacing:-0.05em;line-height:1;font-variant-numeric:tabular-nums;color:#fff;padding:0 .04em;text-shadow:0 2px 12px rgba(0,0,0,.45),0 0 22px rgba(167,139,250,.55)}
 .orb-stat-lbl{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px}
-.last-scan-card{display:flex;align-items:center;gap:0;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(232,121,249,.08));border:1px solid rgba(167,139,250,.28);border-radius:44px;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;width:100%;box-sizing:border-box;overflow:hidden}
+.scan-home-title{margin:2px 0 12px;font-size:26px;font-weight:800;color:#fff;letter-spacing:-.01em;text-align:center}
+.scan-home-photo{position:relative;width:100%;aspect-ratio:3/4;border-radius:28px;overflow:hidden;background:#14091A;border:1px solid rgba(196,181,253,.26);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:6px}
+.scan-home-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 15%;transform:scale(1.18);display:block}
+.scan-home-photo-caption{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 24px;background:linear-gradient(180deg,transparent,rgba(10,6,16,.86) 62%);display:flex;align-items:flex-end}
+.scan-home-photo-caption .shp-title{font-size:22px;line-height:1.24;font-weight:800;color:#fff;text-align:center;width:100%}
+.scan-home-cta{margin-top:4px}
+.scan-home-cta #scanHomeBtnLabel{font-size:18px;font-weight:800}
+.last-scan-card{display:flex;align-items:center;gap:0;background:linear-gradient(180deg,rgba(167,139,250,.06),rgba(167,139,250,.02));border:1px solid rgba(167,139,250,.12);border-radius:44px;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;width:100%;box-sizing:border-box;overflow:hidden;margin-bottom:14px}
 .last-scan-card:active{transform:scale(.984)}
 .lsc-ring{width:90px;height:90px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#1A1320;border:3px solid rgba(196,181,253,.9);box-shadow:0 0 20px rgba(167,139,250,.55),0 0 0 1px rgba(255,255,255,.15);margin:14px 0 14px 14px}
 .lsc-ring img{width:100%;height:100%;object-fit:cover;display:block}
@@ -247,12 +254,11 @@ h3{margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-size:12.5px;
 .lsc-score-divider{width:1px;height:36px;background:rgba(255,255,255,.18);flex-shrink:0}
 .lsc-chevron{width:20px;height:20px;flex-shrink:0;color:rgba(167,139,250,.55);margin-right:14px}
 .last-scan-card.hidden{display:none}
-.last-scan-card.empty{cursor:default;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(232,121,249,.08));border:1px solid rgba(167,139,250,.28)}
+.last-scan-card.empty{cursor:default;background:linear-gradient(180deg,rgba(167,139,250,.06),rgba(167,139,250,.02));border:1px solid rgba(167,139,250,.12)}
 .last-scan-card.empty:active{transform:none}
 .last-scan-card.empty .lsc-ring{display:grid;place-items:center;background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.10);box-shadow:none}
 .last-scan-card.empty .lsc-ring img{display:none}
 .last-scan-card.empty .lsc-ring::before{content:"";width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.12)}
-.last-scan-card.empty .lsc-info,.last-scan-card.empty .lsc-scores,.last-scan-card.empty .lsc-chevron{display:none}
 #orbWrap{display:none!important}
 
 .home-title{font-size:19px;line-height:1.12;letter-spacing:-0.035em;margin:0;font-weight:800;text-align:center;max-width:18ch}
@@ -313,7 +319,15 @@ h3{margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-size:12.5px;
 .ai-features-intro{margin:2px 0 14px;padding:17px 18px;border-radius:26px;background:linear-gradient(135deg,rgba(91,141,245,.18),rgba(124,92,245,.18) 38%,rgba(168,85,247,.16) 72%,rgba(217,70,239,.12));border:1px solid rgba(196,181,253,.20);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .ai-features-intro b{display:block;font-size:22px;font-weight:850;letter-spacing:-.025em;color:#fff}
 .ai-features-intro span{display:block;margin-top:5px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.62);font-weight:560}
+.ai-feature-glowup{margin-bottom:14px}
 .ai-feature-list{display:flex;flex-direction:column;gap:14px;padding-bottom:22px}
+.food-hub-grid{display:flex;flex-direction:column;gap:14px;padding-top:6px}
+.food-hub-card{width:100%;min-height:110px;padding:16px;border:0;border-radius:28px;display:flex;align-items:center;gap:16px;text-align:left;color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent;background:linear-gradient(135deg,#5b8df5 0%,#7c5cf5 35%,#a855f7 70%,#d946ef 100%);box-shadow:0 10px 26px rgba(124,58,237,.28),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .12s ease}
+.food-hub-card:active{transform:scale(.98)}
+.food-hub-icon{width:76px;height:76px;border-radius:20px;flex:0 0 76px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.13)}
+.food-hub-text{display:flex;flex-direction:column;gap:4px}
+.food-hub-text b{font-size:19px;font-weight:800}
+.food-hub-text span{font-size:13px;color:rgba(255,255,255,.72);font-weight:520}
 .ai-feature-card{width:100%;min-height:100px;padding:12px 16px;border:0;border-radius:28px;display:flex;align-items:center;gap:16px;text-align:left;color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent;background:linear-gradient(135deg,#5b8df5 0%,#7c5cf5 35%,#a855f7 70%,#d946ef 100%);box-shadow:0 10px 26px rgba(124,58,237,.28),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .12s ease,filter .15s ease}
 .ai-feature-card:active{transform:scale(.975);filter:brightness(.96)}
 .ai-feature-icon{width:76px;height:76px;border-radius:20px;flex:0 0 76px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.13)}
@@ -537,6 +551,10 @@ h3{margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-size:12.5px;
 
 /* chevron */
 .gu-header-chevron{width:15px;height:15px;flex-shrink:0;stroke:var(--muted);opacity:.6;transition:transform .25s cubic-bezier(.34,1.2,.5,1)}
+.gu-header-tap-hint{width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;margin-left:6px}
+.gu-header-tap-hint .gu-header-chevron{opacity:.9;stroke:#fff}
+.gu-header-tappable{position:relative}
+.gu-header-tappable::after{content:"Tap to open";position:absolute;right:16px;bottom:8px;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.02em}
 #glowupActive.open .gu-header-chevron{transform:rotate(180deg)}
 
 /* expanded body */
@@ -739,16 +757,16 @@ h3{margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-size:12.5px;
  * to "jump" because `safe-area-inset-bottom` changes value during that
  * transition. Lock to a small static offset and let the parent body have
  * enough bottom padding so content isn't covered. */
-.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(calc(100vw - 16px),438px);background:rgba(13,13,17,.86);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-radius:20px 20px 0 0;padding:5px 5px calc(5px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,1fr);gap:2px;z-index:50;box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 .5px rgba(255,255,255,.04);will-change:auto}
+.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(calc(100vw - 16px),438px);background:rgba(13,13,17,.86);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-radius:20px 20px 0 0;padding:8px 5px calc(8px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,1fr);gap:2px;z-index:50;box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 .5px rgba(255,255,255,.04);will-change:auto}
 @supports (padding: env(safe-area-inset-bottom)){
-  .bottom{bottom:0;padding-bottom:calc(5px + env(safe-area-inset-bottom))}
+  .bottom{bottom:0;padding-bottom:calc(8px + env(safe-area-inset-bottom))}
 }
-html.fm-native .bottom{bottom:0;padding-bottom:calc(5px + env(safe-area-inset-bottom,0px))}
-.nav{height:54px;width:100%;border:0;background:transparent;color:var(--dim);border-radius:14px;font-weight:600;font-size:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;cursor:pointer;transition:background .22s cubic-bezier(.34,1.3,.4,1),color .22s ease;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+html.fm-native .bottom{bottom:0;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+.nav{height:64px;width:100%;border:0;background:transparent;color:var(--dim);border-radius:14px;font-weight:600;font-size:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:background .22s cubic-bezier(.34,1.3,.4,1),color .22s ease;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .nav.active{background:rgba(167,139,250,.22);color:#C4B5FD}
 .nav.active svg{transform:translateY(-1px) scale(1.06)}
 .nav:active svg{transform:scale(.88)}
-.nav svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s cubic-bezier(.34,1.5,.4,1);pointer-events:none}
+.nav svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s cubic-bezier(.34,1.5,.4,1);pointer-events:none}
 .nav > *{pointer-events:none}
 
 /* ===== v2: bottom nav with center Scan FAB (4 tabs + floating scan button) ===== */
@@ -758,6 +776,7 @@ html.fm-native .bottom{bottom:0;padding-bottom:calc(5px + env(safe-area-inset-bo
  * this rule also set `position:relative` which made the nav scroll with
  * the page on Safari — the cause of the "nav jumps up and down" bug. */
 .bottom-v2{grid-template-columns:1fr 1fr 70px 1fr 1fr;overflow:visible}
+.bottom-v2.bottom-v3{grid-template-columns:1fr 1fr 1fr 1fr}
 .bottom-v2 .nav-scan-spacer{width:70px;height:50px;pointer-events:none}
 .nav-scan-fab{position:absolute;left:50%;top:-12px;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;
   background:radial-gradient(120% 120% at 30% 25%,#C4B5FD 0%,#A78BFA 35%,#8B5CF6 75%,#7C3AED 100%);
@@ -2509,9 +2528,9 @@ html.cam-active .app { background:transparent !important; }
 
 /* Profile */
 .profile-hero-v4{display:flex;align-items:center;gap:16px;padding:18px;background:linear-gradient(145deg,rgba(139,92,246,.17),rgba(255,255,255,.035) 58%);border:1px solid rgba(196,181,253,.18);border-radius:26px;margin:8px 0 12px;box-shadow:0 18px 38px rgba(0,0,0,.16)}
-.profile-hero-v4 .profile-avatar{width:74px;height:74px;margin:0;flex:0 0 74px}.profile-hero-copy{min-width:0;flex:1}.profile-hero-copy .profile-name{font-size:22px}.profile-hero-copy .status-badge{margin-top:8px;padding:5px 10px;font-size:11px}.profile-hero-copy .premium-until{margin-top:6px;font-size:11.5px}
+.profile-hero-v4 .profile-avatar{width:74px;height:74px;margin:0;flex:0 0 74px}.profile-hero-copy{min-width:0;flex:1}.profile-hero-copy .profile-name{font-size:22px}.profile-hero-copy .status-badge{margin-top:8px;padding:6px 11px;font-size:12.5px}.profile-hero-copy .premium-until{margin-top:6px;font-size:13px}
 .profile-stats-v4{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.profile-stat-v4{padding:13px 10px;border-radius:17px;background:var(--v4-card);border:1px solid var(--v4-border);display:flex;flex-direction:column;gap:4px}.profile-stat-v4 span{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:750}.profile-stat-v4 b{font-size:22px;letter-spacing:-.03em}.profile-chart-v4{border-radius:22px!important;margin-bottom:18px!important}
-.settings-section-v4{margin-top:18px}.settings-title-v4{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5);margin:0 5px 9px}.settings-card-v4{overflow:hidden;background:var(--v4-card);border:1px solid var(--v4-border);border-radius:22px}.settings-row-v4{display:flex;align-items:center;gap:12px;padding:14px 14px;min-height:68px}.settings-button-v4{width:100%;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.settings-divider-v4{height:1px;background:rgba(255,255,255,.07);margin-left:60px}.settings-icon-v4{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:0 0 34px}.settings-icon-v4 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.settings-icon-v4.purple{background:rgba(167,139,250,.15);color:#c4b5fd}.settings-icon-v4.blue{background:rgba(96,165,250,.14);color:#93c5fd}.settings-icon-v4.green{background:rgba(74,222,128,.12);color:#86efac}.settings-icon-v4.gray{background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)}.settings-icon-v4.red{background:rgba(248,113,113,.12);color:#fca5a5}.settings-copy-v4{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.settings-copy-v4 b{font-size:16px;font-weight:700;letter-spacing:-.01em}.settings-copy-v4 span{font-size:13px;color:var(--muted);line-height:1.35}.settings-chevron-v4{width:18px;height:18px;stroke:rgba(255,255,255,.28);fill:none;stroke-width:2;flex:0 0 18px}.settings-footnote-v4{font-size:12px;color:rgba(255,255,255,.4);margin:8px 8px 0;line-height:1.45}.gender-row-v4{flex-wrap:wrap}.gender-row-v4 .settings-copy-v4{min-width:155px}.gender-pills-v4{display:flex;gap:5px;margin-left:46px;width:calc(100% - 46px)}.gender-pill-v4{flex:1;border:1px solid var(--v4-border);background:rgba(255,255,255,.045);color:var(--muted);border-radius:11px;padding:8px;font-size:11.5px;font-weight:750}.gender-pill-v4.active,.gender-pill-v4[aria-pressed="true"]{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.38);color:#ddd6fe}.danger-section-v4{padding-bottom:16px}.danger-row-v4 .settings-copy-v4 b{color:#fca5a5}
+.settings-section-v4{margin-top:18px}.settings-title-v4{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.55);margin:0 5px 9px}.settings-card-v4{overflow:hidden;background:var(--v4-card);border:1px solid var(--v4-border);border-radius:22px}.settings-row-v4{display:flex;align-items:center;gap:12px;padding:14px 14px;min-height:68px}.settings-button-v4{width:100%;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.settings-divider-v4{height:1px;background:rgba(255,255,255,.07);margin-left:60px}.settings-icon-v4{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:0 0 34px}.settings-icon-v4 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.settings-icon-v4.purple{background:rgba(167,139,250,.15);color:#c4b5fd}.settings-icon-v4.blue{background:rgba(96,165,250,.14);color:#93c5fd}.settings-icon-v4.green{background:rgba(74,222,128,.12);color:#86efac}.settings-icon-v4.gray{background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)}.settings-icon-v4.red{background:rgba(248,113,113,.12);color:#fca5a5}.settings-copy-v4{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.settings-copy-v4 b{font-size:16px;font-weight:700;letter-spacing:-.01em}.settings-copy-v4 span{font-size:13px;color:var(--muted);line-height:1.35}.settings-chevron-v4{width:18px;height:18px;stroke:rgba(255,255,255,.28);fill:none;stroke-width:2;flex:0 0 18px}.settings-footnote-v4{font-size:12.5px;color:rgba(255,255,255,.42);margin:8px 8px 0;line-height:1.45}.gender-row-v4{flex-wrap:wrap}.gender-row-v4 .settings-copy-v4{min-width:155px}.gender-pills-v4{display:flex;gap:5px;margin-left:46px;width:calc(100% - 46px)}.gender-pill-v4{flex:1;border:1px solid var(--v4-border);background:rgba(255,255,255,.045);color:var(--muted);border-radius:11px;padding:9px;font-size:13px;font-weight:750}.gender-pill-v4.active,.gender-pill-v4[aria-pressed="true"]{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.38);color:#ddd6fe}.danger-section-v4{padding-bottom:16px}.danger-row-v4 .settings-copy-v4 b{color:#fca5a5}
 .gu-personal-focus{font-size:10.5px;color:#b8afc1;font-weight:650;line-height:1.3;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
 .goal-prefs-modal{position:fixed;inset:0;z-index:10050;background:rgba(5,3,8,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;padding:0}.goal-prefs-modal.hidden{display:none}.goal-prefs-sheet{width:min(100%,620px);max-height:88vh;overflow:auto;background:#17121d;border:1px solid rgba(255,255,255,.11);border-radius:28px 28px 0 0;padding:18px 18px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 60px rgba(0,0,0,.42)}.goal-prefs-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}.goal-prefs-head h3{margin:0;font-size:21px;letter-spacing:-.025em;text-transform:none}.goal-prefs-head p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.4}.goal-prefs-close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#fff;font-size:22px;line-height:1}.goal-prefs-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.42);margin:16px 2px 8px}.goal-prefs-options{display:flex;flex-wrap:wrap;gap:7px}.goal-pref-chip{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);color:#c8c1cc;border-radius:13px;padding:9px 11px;font-size:12px;font-weight:700}.goal-pref-chip.active{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.45);color:#ede9fe}.goal-pref-save{width:100%;height:52px;border:0;border-radius:17px;margin-top:20px;background:linear-gradient(135deg,#8b5cf6,#c35bea);color:#fff;font-size:14px;font-weight:800}.goal-prefs-note{font-size:10.5px;color:rgba(255,255,255,.38);line-height:1.45;margin-top:10px;text-align:center}
 
@@ -2544,7 +2563,8 @@ html.cam-active .app { background:transparent !important; }
 }
 
 /* Remaining non-scan screens — one visual language */
-#daily .daily-big-cards{gap:11px;padding-top:0}
+#daily .home-stats{margin-bottom:14px}
+#daily .daily-big-cards{gap:11px;padding-top:14px}
 #daily .daily-big-card{border-radius:27px;border:1px solid rgba(255,255,255,.09);box-shadow:0 16px 34px rgba(0,0,0,.25)}
 #daily .dbc-img-wrap{min-height:168px}
 #daily .dbc-overlay{padding:46px 18px 17px;background:linear-gradient(to top,rgba(5,4,10,.94),rgba(5,4,10,.08))}
@@ -2567,8 +2587,10 @@ html.cam-active .app { background:transparent !important; }
 
 /* Bottom navigation */
 .bottom-v2{background:rgba(13,9,20,.88)!important;border-top:1px solid rgba(255,255,255,.07)!important;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-.bottom-v2 .nav{font-size:9.5px!important;color:rgba(255,255,255,.40)!important}
-.bottom-v2 .nav.active{color:#c4b5fd!important}
+.bottom-v2 .nav{font-size:11px!important;color:rgba(255,255,255,.55)!important}
+.bottom-v2 .nav svg{stroke:rgba(255,255,255,.55)!important;opacity:1!important}
+.bottom-v2 .nav.active{color:#c4b5fd!important;background:rgba(167,139,250,.28)!important}
+.bottom-v2 .nav.active svg{stroke:#c4b5fd!important}
 .bottom-v2 .nav-scan-fab{box-shadow:0 13px 30px rgba(124,58,237,.45),0 0 0 7px rgba(139,92,246,.10)!important}
 </style>
 <style id="brand-avatar-default">
@@ -2625,7 +2647,7 @@ html.cam-active .app { background:transparent !important; }
 <div id="fmSplash" aria-hidden="true">
   <div class="fm-splash-glow"></div>
   <div class="fm-splash-logo"><img src="assets/logo.png" alt=""></div>
-  <div class="fm-splash-name">FaceMax AI: Glow Up Lab</div>
+  <div class="fm-splash-name">FaceMax</div>
   <div class="fm-splash-sub">AI face analysis</div>
 </div>
 <script>
@@ -3020,10 +3042,10 @@ html.cam-active .app { background:transparent !important; }
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
 </button>
 
-<!-- =============================== HOME =============================== -->
+<!-- =============================== HOME / SCAN =============================== -->
 <section id="home" class="screen active">
 
-  <div class="home-v2">
+  <div class="home-v2 scan-home">
 
     <div class="home-inbox-row">
       <button type="button" class="fm-notif-bell" onclick="openNotificationInbox()" aria-label="Notifications">
@@ -3032,29 +3054,19 @@ html.cam-active .app { background:transparent !important; }
       </button>
     </div>
 
-    <!-- Last scan card (umax-style) -->
-    <div class="last-scan-card empty" id="lastScanCard" onclick="openLatestScanFromHome()" role="button" aria-label="No scan yet">
-      <div class="lsc-ring" id="homeScanRing">
-        <img id="homeScanImg" alt="">
+    <h1 class="scan-home-title" id="scanHomeTitle">Face scan</h1>
+
+    <!-- Square reference/preview photo. Shows the gender reference image by
+         default; swaps to the user's own last scan photo once one exists. -->
+    <div class="scan-home-photo" id="scanHomePhoto" onclick="scanHomePhotoTap()" role="button" aria-label="Start face scan">
+      <img id="scanHomeImg" alt="" src="assets/gender/male-ref.jpg">
+      <div class="scan-home-photo-caption" id="scanHomeCaption">
+        <span class="shp-title">See your score and a plan to improve it</span>
       </div>
-      <div class="lsc-info">
-        <div class="lsc-scores">
-          <div class="lsc-score-block">
-            <span class="lsc-score-label">Overall</span>
-            <span class="lsc-score-num" id="homeScanOverall">--</span>
-          </div>
-          <div class="lsc-score-divider"></div>
-          <div class="lsc-score-block">
-            <span class="lsc-score-label">Potential</span>
-            <span class="lsc-score-num lsc-potential" id="homeScanPotential">--</span>
-          </div>
-        </div>
-      </div>
-      <svg class="lsc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
 
-    <!-- Empty state orb (shown when no scans yet) -->
-    <div class="orb-wrap" id="orbWrap">
+    <!-- kept for JS compat; no longer shown as a big orb on the home screen -->
+    <div class="orb-wrap hidden" id="orbWrap" style="display:none">
       <div class="orb-glow"></div>
       <div class="orb-ring">
         <svg class="orb-mesh" viewBox="0 0 200 200" aria-hidden="true">
@@ -3074,115 +3086,11 @@ html.cam-active .app { background:transparent !important; }
       </div>
     </div>
 
+    <button class="btn scan-home-cta" id="scanHomeBtn" type="button" onclick="startGenderScan()">
+      <span id="scanHomeBtnLabel">Scan My Face</span>
+    </button>
 
-    <div class="home-stats">
-      <div class="hs hs-streak" id="homeStreakTile">
-        <span class="hs-num" id="homeStreak">0</span>
-        <span class="hs-lbl" id="homeStreakLabel">day streak</span>
-      </div>
-      <div class="hs">
-        <span class="hs-num" id="homeScans">0</span>
-        <span class="hs-lbl">scans done</span>
-      </div>
-      <div class="hs">
-        <span class="hs-num" id="homeBest">—</span>
-        <span class="hs-lbl">best score</span>
-      </div>
-    </div>
-
-    <!-- Glow Up Plan — home only, above AI tools. renderGlowUpPlan() toggles states. -->
-    <div class="glowup" id="glowupPlan">
-      <!-- STATE A: no scan yet -->
-      <button class="gu-empty hidden" id="glowupEmpty" type="button" onclick="startGenderScan()">
-        <span class="gu-empty-title">GLOW UP PLAN</span>
-        <span class="gu-empty-sub">Scan your face to unlock today’s plan</span>
-      </button>
-
-      <!-- STATE B: scan exists — inline accordion -->
-      <div class="gu-active hidden" id="glowupActive">
-        <!-- stale scan banner -->
-        <div id="guStaleBanner" style="display:none;background:rgba(234,179,8,.12);border:1px solid rgba(234,179,8,.35);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:8px;text-align:center;cursor:pointer" onclick="startGenderScan()"></div>
-
-        <!-- ── Preview card (click → opens glowupHub screen) ── -->
-        <button class="gu-header" id="glowupHeader" type="button" onclick="openGlowUpHub()">
-          <div class="gu-header-left">
-            <span class="gu-header-icon">✨</span>
-            <div class="gu-header-text">
-              <div class="gu-header-top-row">
-                <span class="gu-header-title">GLOW UP PLAN</span>
-              </div>
-              <div class="gu-personal-focus" id="guPersonalFocus" style="display:none"></div>
-              <!-- progress bar row -->
-              <div class="gu-progress-row">
-                <div class="gu-progress-bar"><div class="gu-progress-fill" id="guProgressFill" style="width:0%"></div></div>
-                <span class="gu-progress-label" id="guProgressLabel">0 / 6 done</span>
-              </div>
-              <div class="gu-momentum-status progress" id="guMomentumStatus">Complete today's plan to build your streak</div>
-              <!-- streak callout (shown when streak >= 1, sits at bottom of card) -->
-              <div class="gu-header-streak-row" id="guHeaderStreakRow" style="display:none">
-                <span id="guHeaderStreakText"></span>
-              </div>
-            </div>
-          </div>
-          <svg class="gu-header-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-
-      </div>
-    </div>
-
-    <div class="tools-grid compact">
-      <div class="tool featured" onclick="openDailyHub()" style="position:relative">
-        
-        <span class="tool-center" style="position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:12px"><svg width="34" height="34" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="13,1 4,13 11,13 9,21 18,9 11,9" fill="#FFD600" stroke="#FFA500" stroke-width="0.8" stroke-linejoin="round"/></svg><b style="font-size:19px;color:#fff;font-weight:800">Daily debloat</b></span>
-      </div>
-      <div class="tool tool-food" onclick="openFoodScan()">
-        <span class="tool-ico tool-sticker">
-<svg viewBox="0 0 36 36" width="42" height="42" fill="none">
-  <defs>
-    <linearGradient id="cg2" x1="3" y1="11" x2="33" y2="32" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FDE68A"/>
-      <stop offset="1" stop-color="#F59E0B"/>
-    </linearGradient>
-  </defs>
-  <rect x="3" y="11" width="30" height="21" rx="6" fill="url(#cg2)"/>
-  <rect x="13" y="6" width="10" height="7" rx="3" fill="#F59E0B"/>
-  <circle cx="18" cy="22" r="7" fill="#78350F" opacity=".7"/>
-  <circle cx="18" cy="22" r="4.5" fill="#1c0a00"/>
-  <circle cx="15.5" cy="19.5" r="1.5" fill="rgba(255,255,255,0.45)"/>
-  <rect x="6" y="14" width="5" height="3" rx="1.5" fill="rgba(255,255,255,0.55)"/>
-</svg>
-</span>
-        
-        <div class="tool-text"><b>Food scanner</b></div>
-      </div>
-      <div class="tool tool-compare" onclick="openAiFeatures()">
-        <span class="tool-ico tool-sticker">
-<svg viewBox="0 0 36 36" width="42" height="42" aria-hidden="true">
-  <defs>
-    <linearGradient id="cg3" x1="3" y1="3" x2="33" y2="33" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FDE68A"/>
-      <stop offset="1" stop-color="#F59E0B"/>
-    </linearGradient>
-  </defs>
-  <path d="M18 3.5 21.1 14.9 32.5 18 21.1 21.1 18 32.5 14.9 21.1 3.5 18 14.9 14.9 18 3.5Z" fill="url(#cg3)"/>
-</svg>
-</span>
-        <div class="tool-text"><b>AI Features</b></div>
-      </div>
-    </div>
-
-    <!-- Daily Calorie Widget (home) — at bottom, clickable → opens calories screen -->
-    <div class="fm-cal-widget" id="homeCalWidget" onclick="openCaloriesScreen()" style="cursor:pointer;display:none;margin-top:0">
-      <div class="fm-cal-header">
-        <span class="fm-cal-title">Today's calories</span>
-        <span class="fm-cal-numbers"><b id="homeCalEaten">0</b> / <b id="homeCalGoal">2000</b> kcal</span>
-      </div>
-      <div class="fm-cal-bar-track"><div class="fm-cal-bar-fill" id="homeCalBarFill" style="width:0%"></div></div>
-      <div class="fm-cal-stats">
-        <div class="fm-cal-stat"><span class="fm-cal-stat-val" id="homeCalEatenStat">0</span><span class="fm-cal-stat-lbl">eaten</span></div>
-        <div class="fm-cal-stat"><span class="fm-cal-stat-val accent" id="homeCalRemainder">2000</span><span class="fm-cal-stat-lbl">left</span></div>
-      </div>
-    </div>
+    <!-- Daily Calorie Widget moved to the Daily tab, right after Glow Up Plan -->
 
   </div>
 
@@ -3502,7 +3410,7 @@ html.cam-active .app { background:transparent !important; }
     <p id="reportSummary" class="muted center" style="margin:14px 0 0">Generating breakdown…</p>
   </div>
 
-  <div class="sec-hdr"><h3>Full breakdown</h3><span class="dim" id="reportSource">FaceMax AI: Glow Up Lab</span></div>
+  <div class="sec-hdr"><h3>Full breakdown</h3><span class="dim" id="reportSource">FaceMax</span></div>
   <div class="card" style="padding:14px" id="reportMetrics"></div>
 
   <div class="boost hidden" id="reportFastUpgrade">
@@ -3703,7 +3611,6 @@ html.cam-active .app { background:transparent !important; }
         </div>
       </div>
     </div>
-    <p class="settings-footnote-v4">Progress and Premium stay linked to your Apple Account. Original photos stay on this iPhone; only small Face/Food history thumbnails are backed up privately for cross-device history.</p>
   </div>
 
   <div class="settings-section-v4">
@@ -3856,43 +3763,99 @@ html.cam-active .app { background:transparent !important; }
   <div class="ai-feature-list">
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
       <span class="ai-feature-icon ai-feature-emoji">😎</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Skin — Skin quality + personalised care plan</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Skin</span></span><span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('haircut')">
       <span class="ai-feature-icon ai-feature-emoji">✂️</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Haircut — Styles matched to your face shape</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Haircut</span></span><span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('jawline')">
       <span class="ai-feature-icon ai-feature-emoji">🦴</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Jawline — Definition analysis + safe actions</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Jawline</span></span><span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('photo')">
       <span class="ai-feature-icon ai-feature-emoji">📸</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Profile Photo — Lighting · angle · expression coaching</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Profile Photo</span></span><span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureFoodScanner()">
+      <span class="ai-feature-icon ai-feature-emoji">🍎</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Food Scanner</span></span><span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureNutrition()">
       <span class="ai-feature-icon ai-feature-emoji">🥗</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Nutrition — AI meal plan with kcal & macros</span></span><span class="ai-feature-arrow">›</span>
-    </button>
-
-    <button class="ai-feature-card" type="button" onclick="openAiFeatureFoodScanner()">
-      <span class="ai-feature-icon ai-feature-emoji">🍽️</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Food Scanner — Meal photo → calories + face impact</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Meal Plan</span></span><span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureCompare()">
       <span class="ai-feature-icon ai-feature-emoji">🔄</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Compare Scans — Before / after progress</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy"><span class="ai-feature-line">Compare Scans</span></span><span class="ai-feature-arrow">›</span>
+    </button>
+  </div>
+</section>
+
+<!-- =============================== FOOD HUB (Food Scanner / Meal Plan) =============================== -->
+<section id="foodHub" class="screen">
+  <div class="screen-topbar">
+    <button type="button" class="stb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
+    <span class="stb-title">Food</span>
+  </div>
+
+  <div class="food-hub-grid">
+    <button class="food-hub-card" type="button" onclick="openAiFeatureFoodScanner()">
+      <span class="food-hub-icon" aria-hidden="true">
+        <svg viewBox="0 0 36 36" width="42" height="42" fill="none">
+          <defs>
+            <linearGradient id="fhCg1" x1="3" y1="11" x2="33" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/>
+            </linearGradient>
+          </defs>
+          <rect x="3" y="11" width="30" height="21" rx="6" fill="url(#fhCg1)"/>
+          <rect x="13" y="6" width="10" height="7" rx="3" fill="#F59E0B"/>
+          <circle cx="18" cy="22" r="7" fill="#78350F" opacity=".7"/>
+          <circle cx="18" cy="22" r="4.5" fill="#1c0a00"/>
+          <circle cx="15.5" cy="19.5" r="1.5" fill="rgba(255,255,255,0.45)"/>
+          <rect x="6" y="14" width="5" height="3" rx="1.5" fill="rgba(255,255,255,0.55)"/>
+        </svg>
+      </span>
+      <span class="food-hub-text"><b>Food Scanner</b><span>Snap a photo, get instant calories</span></span>
+    </button>
+
+    <button class="food-hub-card" type="button" onclick="openAiFeatureNutrition()">
+      <span class="food-hub-icon" aria-hidden="true">
+        <svg viewBox="0 0 36 36" width="42" height="42" aria-hidden="true">
+          <defs>
+            <linearGradient id="fhCg2" x1="3" y1="3" x2="33" y2="33" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#86EFAC"/><stop offset="1" stop-color="#22C55E"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="6" width="28" height="24" rx="6" fill="url(#fhCg2)"/>
+          <rect x="9" y="12" width="18" height="2.6" rx="1.3" fill="rgba(20,40,20,.55)"/>
+          <rect x="9" y="17" width="18" height="2.6" rx="1.3" fill="rgba(20,40,20,.4)"/>
+          <rect x="9" y="22" width="12" height="2.6" rx="1.3" fill="rgba(20,40,20,.4)"/>
+        </svg>
+      </span>
+      <span class="food-hub-text"><b>Meal Plan</b><span>A plan tailored to your goals</span></span>
     </button>
   </div>
 </section>
 
 <!-- =============================== TOOL (haircut/skin/jawline detail) =============================== -->
 <section id="tool" class="screen">
+  <div class="screen-topbar">
+    <button type="button" class="stb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
+    <span class="stb-title">AI Tool</span>
+  </div>
   <div class="tool-hero">
     <div class="photo-mini" id="toolPhoto">
       <img id="toolImg" alt="">
@@ -3917,7 +3880,6 @@ html.cam-active .app { background:transparent !important; }
   <div id="toolDetails"></div>
   <div class="tool-sec-hdr" id="toolStepsHdr" style="display:none">WHAT TO DO</div>
   <div class="list" id="toolSteps"></div>
-  <button class="btn ghost compact mt-12" onclick="goBack()">Back</button>
 </section>
 
 <!-- =============================== COMPARE SCANS =============================== -->
@@ -3963,7 +3925,45 @@ html.cam-active .app { background:transparent !important; }
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
     <span class="stb-title">Daily</span>
   </div>
-  <div class="smart-daily-card" id="smartDailyCard">
+
+  <!-- Last-scan mini stats strip (photo ring + Overall/Potential), shown only once a scan exists -->
+  <div class="last-scan-card empty" id="lastScanCard" onclick="openLatestScanFromHome()" role="button" aria-label="No scan yet">
+    <div class="lsc-ring" id="homeScanRing">
+      <img id="homeScanImg" alt="">
+    </div>
+    <div class="lsc-info">
+      <div class="lsc-scores">
+        <div class="lsc-score-block">
+          <span class="lsc-score-label">Overall</span>
+          <span class="lsc-score-num" id="homeScanOverall">--</span>
+        </div>
+        <div class="lsc-score-divider"></div>
+        <div class="lsc-score-block">
+          <span class="lsc-score-label">Potential</span>
+          <span class="lsc-score-num lsc-potential" id="homeScanPotential">--</span>
+        </div>
+      </div>
+    </div>
+    <svg class="lsc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </div>
+
+  <div class="home-stats">
+    <div class="hs hs-streak" id="homeStreakTile">
+      <span class="hs-num" id="homeStreak">0</span>
+      <span class="hs-lbl" id="homeStreakLabel">day streak</span>
+    </div>
+    <div class="hs">
+      <span class="hs-num" id="homeScans">0</span>
+      <span class="hs-lbl">scans done</span>
+    </div>
+    <div class="hs">
+      <span class="hs-num" id="homeBest">—</span>
+      <span class="hs-lbl">best score</span>
+    </div>
+  </div>
+
+  <!-- kept hidden for JS compat: some code reads/writes smart-daily-* ids -->
+  <div class="smart-daily-card hidden" id="smartDailyCard" style="display:none">
     <div class="smart-daily-head">
       <div>
         <div class="smart-daily-eyebrow">TODAY'S PLAN</div>
@@ -3980,7 +3980,49 @@ html.cam-active .app { background:transparent !important; }
     <div class="smart-daily-foot"><span class="spark">✦</span><span id="smartDailyFoot">Your progress is saved automatically.</span></div>
   </div>
 
-  <div class="smart-daily-tools-label">Daily tools</div>
+  <!-- Glow Up Plan — the one and only "today's plan" card on Daily -->
+  <div class="glowup" id="glowupPlan">
+    <button class="gu-empty hidden" id="glowupEmpty" type="button" onclick="startGenderScan()">
+      <span class="gu-empty-title">GLOW UP PLAN</span>
+      <span class="gu-empty-sub">Scan your face to unlock today’s plan</span>
+    </button>
+    <div class="gu-active hidden" id="glowupActive">
+      <div id="guStaleBanner" style="display:none;background:rgba(234,179,8,.12);border:1px solid rgba(234,179,8,.35);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:8px;text-align:center;cursor:pointer" onclick="startGenderScan()"></div>
+      <button class="gu-header gu-header-tappable" id="glowupHeader" type="button" onclick="openGlowUpHub()">
+        <div class="gu-header-left">
+          <span class="gu-header-icon">✨</span>
+          <div class="gu-header-text">
+            <div class="gu-header-top-row"><span class="gu-header-title">GLOW UP PLAN</span></div>
+            <div class="gu-personal-focus" id="guPersonalFocus" style="display:none"></div>
+            <div class="gu-progress-row">
+              <div class="gu-progress-bar"><div class="gu-progress-fill" id="guProgressFill" style="width:0%"></div></div>
+              <span class="gu-progress-label" id="guProgressLabel">0 / 6 done</span>
+            </div>
+            <div class="gu-momentum-status progress" id="guMomentumStatus">Complete today's plan to build your streak</div>
+            <div class="gu-header-streak-row" id="guHeaderStreakRow" style="display:none"><span id="guHeaderStreakText"></span></div>
+          </div>
+        </div>
+        <span class="gu-header-tap-hint">
+          <svg class="gu-header-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Daily Calorie Widget — lives on Daily, right after Glow Up Plan -->
+  <div class="fm-cal-widget" id="homeCalWidget" onclick="openCaloriesScreen()" style="cursor:pointer;display:none;margin-top:14px">
+    <div class="fm-cal-header">
+      <span class="fm-cal-title">Today's calories</span>
+      <span class="fm-cal-numbers"><b id="homeCalEaten">0</b> / <b id="homeCalGoal">2000</b> kcal</span>
+    </div>
+    <div class="fm-cal-bar-track" style="margin-bottom:0"><div class="fm-cal-bar-fill" id="homeCalBarFill" style="width:0%"></div></div>
+    <!-- eaten/left stats kept for JS compat, hidden here since the header already shows eaten/goal -->
+    <div class="fm-cal-stats" style="display:none">
+      <div class="fm-cal-stat"><span class="fm-cal-stat-val" id="homeCalEatenStat">0</span><span class="fm-cal-stat-lbl">eaten</span></div>
+      <div class="fm-cal-stat"><span class="fm-cal-stat-val accent" id="homeCalRemainder">2000</span><span class="fm-cal-stat-lbl">left</span></div>
+    </div>
+  </div>
+
   <div class="daily-big-cards">
 
     <div class="daily-big-card" onclick="openWater()">
@@ -4009,23 +4051,7 @@ html.cam-active .app { background:transparent !important; }
       </div>
     </div>
 
-    <div class="daily-big-card" onclick="openMeals()">
-      <div class="dbc-img-wrap">
-        <img src="assets/daily-meal.png" alt="Meal Plan">
-        <div class="dbc-overlay">
-          <div class="dbc-label">
-            <span class="dbc-title">Meal Plan</span>
-            <span class="dbc-sub">Your personalised AI nutrition plan</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
-
-    <!-- Achievements -->
-  <div class="sec-hdr" style="margin-top:24px"><h3>Achievements <span id="dailyAchievCount" style="font-size:13px;font-weight:600;color:var(--muted)"></span></h3></div>
-  <div id="dailyAchievGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:24px"></div>
 </section>
 
 <!-- =============================== GLOW UP HUB =============================== -->
@@ -4503,29 +4529,22 @@ html.cam-active .app { background:transparent !important; }
 </section>
 
 <!-- BOTTOM NAV -->
-<nav class="bottom bottom-v2">
+<nav class="bottom bottom-v2 bottom-v3">
   <button class="nav active" data-screen="home" onclick="openScreen('home')">
-    <svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9z"/></svg>
-    Home
+    <svg viewBox="0 0 24 24"><path d="M5 8h2.5L9 6h6l1.5 2H19a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.9"/></svg>
+    Scan
   </button>
   <button class="nav" data-screen="daily" onclick="openDailyHub()">
     <svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>
     Daily
   </button>
-  <div class="nav-scan-spacer" aria-hidden="true"></div>
-  <button class="nav" data-screen="history" onclick="openHistoryScreen()">
-    <svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
-    History
+  <button class="nav" data-screen="aiFeatures" onclick="openAiFeatures()">
+    <svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4v-4H5.5A1.5 1.5 0 0 1 4 14.5v-9z"/></svg>
+    AI Coach
   </button>
   <button class="nav" data-screen="profile" onclick="openScreen('profile')">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
     Profile
-  </button>
-  <button class="nav-scan-fab" data-screen="upload" onclick="startGenderScan()" aria-label="Scan">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 8h2.5L9 6h6l1.5 2H19a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
-      <circle cx="12" cy="13" r="3.6" fill="none" stroke="#fff" stroke-width="1.9"/>
-    </svg>
   </button>
 </nav>
 
@@ -5985,7 +6004,8 @@ function renderHomeStats(){
   setText("homeScans", String(scans));
   setText("homeBest", best != null ? String(best) : "—");
 
-  // ── umax-style last-scan card ──────────────────────────────────────────────
+  // ── Last-scan card: photo ring + Overall/Potential. Always visible; shows
+  // a --/-- placeholder until the first scan exists ──
   const card = document.getElementById("lastScanCard");
   const orbWrap = document.getElementById("orbWrap");
   if (orbWrap) orbWrap.style.display = "none";
@@ -6011,7 +6031,35 @@ function renderHomeStats(){
     const imgEl = document.getElementById("homeScanImg");
     if (imgEl) imgEl.removeAttribute("src");
   }
+  updateScanHomePhoto(lastEntry);
 }
+
+// Square photo + heading + button on the Scan tab. Shows the user's own last
+// scan photo once one exists; otherwise a gender-matched reference photo.
+function updateScanHomePhoto(lastEntry){
+  const img = el("scanHomeImg");
+  const title = el("scanHomeTitle");
+  const caption = el("scanHomeCaption");
+  const btnLabel = el("scanHomeBtnLabel");
+  if (!img) return;
+  const own = lastEntry && (lastEntry.thumb || document.getElementById("resultImg")?.src);
+  if (own && own.length > 10) {
+    img.src = own;
+    if (caption) caption.style.display = "none";
+    if (title) title.textContent = "Face scan";
+    if (btnLabel) btnLabel.textContent = "Scan My Face";
+  } else {
+    const g = (typeof currentGender === "function") ? currentGender() : "male";
+    img.src = g === "female" ? "assets/gender/female-ref.jpg" : "assets/gender/male-ref.jpg";
+    if (caption) caption.style.display = "";
+    if (title) title.textContent = "Face scan";
+    if (btnLabel) btnLabel.textContent = "Scan My Face";
+  }
+}
+window.scanHomePhotoTap = function(){
+  const lastEntry = (scanHistory && scanHistory.length) ? scanHistory[0] : null;
+  if (lastEntry) { openLatestScanFromHome(); } else { startGenderScan(); }
+};
 
 // Glow Up Plan — inline accordion (no modal/overlay)
 let _guPlanState = null;
@@ -7868,13 +7916,13 @@ function toggleProfileHistoryAll(){
 // keep the currently-highlighted tab — useful for screens like the premium
 // gate that can be reached from multiple parent tabs.
 const NAV_TAB_FOR_SCREEN = {
-  home: "home", profile: "profile", aiFeatures: "home",
-  upload: "upload", loading: "upload", result: "upload", report: "upload",
-  tool: "upload", compare: "upload",
-  daily: "daily", foodScan: "daily", water: "daily", routine: "daily",
-  exercises: "daily", exerciseDetail: "daily", meals: "daily",
-  history: "history",
-  glowupHub: "home",
+  home: "home", profile: "profile", aiFeatures: "aiFeatures",
+  upload: "home", loading: "home", result: "home", report: "home",
+  tool: "aiFeatures", compare: "aiFeatures",
+  daily: "daily", water: "daily", routine: "daily",
+  exercises: "daily", exerciseDetail: "daily", glowupHub: "daily",
+  foodScan: "aiFeatures", meals: "aiFeatures", foodHub: "aiFeatures",
+  history: "profile",
   // Legacy: `plan` is no longer exposed in the bottom nav but other code
   // paths may still call openScreen('plan'); keep it tab-less so the
   // navigation doesn't highlight anything when the orphan screen renders.
@@ -7902,13 +7950,13 @@ else document.addEventListener("DOMContentLoaded", wireNavTabPressFeedback);
 
 // Screen history stack for back navigation
 const _screenHistory = [];
-const _BACK_SCREENS = new Set(["tool","gate"]);
+const _BACK_SCREENS = new Set(["gate","foodHub"]);
 
 window.goBack = async function(){
   if (_screenHistory.length > 1) {
     _screenHistory.pop(); // remove current
     const prev = _screenHistory.pop(); // get previous (openScreen will re-push it)
-    const paid = ["aiFeatures","tool","compare","daily","glowupHub","foodScan","calories","water","routine","exercises","meals","report"].includes(prev);
+    const paid = ["aiFeatures","tool","compare","daily","glowupHub","foodScan","foodHub","calories","water","routine","exercises","meals","report"].includes(prev);
     if (paid) {
       const ok = await ensurePremiumForAction(() => openScreen(prev), "FaceMax AI Premium", "Choose a plan to continue.");
       if (!ok) return;
@@ -7920,7 +7968,7 @@ window.goBack = async function(){
 };
 
 let _aiFeaturesContext = false;
-const _AI_FEATURE_CHILD_SCREENS = new Set(["aiFeatures","tool","compare","foodScan","meals"]);
+const _AI_FEATURE_CHILD_SCREENS = new Set(["aiFeatures","tool","compare","foodScan","meals","foodHub"]);
 window.openAiFeatures = async function(_premiumChecked){
   if (!_premiumChecked) {
     const ok = await ensurePremiumForAction(
@@ -7945,6 +7993,18 @@ window.openAiFeatureFoodScanner = function(){
   _aiFeaturesContext = true;
   return openFoodScan();
 };
+window.openFoodHub = async function(_premiumChecked){
+  if (!_premiumChecked) {
+    const ok = await ensurePremiumForAction(
+      () => window.openFoodHub(true),
+      "FaceMax AI Premium",
+      "Choose a plan to continue."
+    );
+    if (!ok) return;
+  }
+  _aiFeaturesContext = true;
+  openScreen("foodHub");
+};
 window.openAiFeatureCompare = function(){
   _aiFeaturesContext = true;
   return window.openCompare();
@@ -7964,17 +8024,17 @@ window.openScreen = function(id){
     document.documentElement.classList.remove("fm-first-launch-lock");
   }
   if (id === "home" || id === "daily" || id === "profile" || id === "history" || id === "upload") _aiFeaturesContext = false;
-  const tabId = (_aiFeaturesContext && _AI_FEATURE_CHILD_SCREENS.has(id)) ? "home" : NAV_TAB_FOR_SCREEN[id];
+  const tabId = NAV_TAB_FOR_SCREEN[id];
   if (tabId) setActiveNavTab(tabId);
   window.scrollTo(0, 0);
   if (["result","report","loading"].includes(id)) {
     setTimeout(drawAllOverlays, 120);
     setTimeout(drawAllOverlays, 600);
   }
-  if (id === "home") { renderHomeHistory(); renderHomeStats(); renderGlowUpPlan(); refreshDailyTiles && refreshDailyTiles(); updateDailyCalWidget(); }
+  if (id === "home") { renderHomeHistory(); renderHomeStats(); updateDailyCalWidget(); }
   if (id === "profile") { renderProfileScreen(); }
   if (id === "notifications") { renderNotificationInbox(); fmInboxSyncDelivered(); }
-  if (id === "daily") { refreshDailyGreeting && refreshDailyGreeting(); refreshDailyTiles && refreshDailyTiles(); }
+  if (id === "daily") { refreshDailyGreeting && refreshDailyGreeting(); refreshDailyTiles && refreshDailyTiles(); renderGlowUpPlan(); updateDailyCalWidget(); }
   if (id === "calories") { updateDailyCalWidget(); renderCalScreenEntries && renderCalScreenEntries(); }
   if (id === "upload") {
     if (!selectedImageData) {
@@ -8850,7 +8910,7 @@ async function toggleDailyReminder(on){
     const perm = await window.facemax.notif.requestPermission();
     if (!perm || perm.display !== "granted") {
       const toggle = el("notifDailyToggle"); if (toggle) toggle.checked = false;
-      showToast("Enable notifications in iOS Settings → FaceMax AI: Glow Up Lab");
+      showToast("Enable notifications in iOS Settings → FaceMax");
       return;
     }
     prefs.dailyOn = true;
@@ -11396,7 +11456,7 @@ window.openReport = async function(silent, _premiumChecked, _retried){
 };
 
 function renderReport(report, source){
-  el("reportSource").textContent = "FaceMax AI: Glow Up Lab";
+  el("reportSource").textContent = "FaceMax";
   const sc = Math.max(1, Math.min(100, Number(report.overall_score || lastScanScore || 72)));
   // Sync the canonical score: AI tools, history, profile stats all key off lastScanScore.
   lastScanScore = sc;
@@ -17041,7 +17101,7 @@ window.shareResultCard = async function() {
         <!-- Branding footer -->
         <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:20px;">
           ${window._fmLogoImg ? `<img src="${window._fmLogoImg.src}" style="width:28px;height:28px;border-radius:7px;display:block;flex-shrink:0;" crossorigin="anonymous">` : `<div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#8B5CF6,#A78BFA);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='5'/><path d='M3 21c0-4.418 4.03-8 9-8s9 3.582 9 8'/></svg></div>`}
-          <span style="font-size:14px;font-weight:700;letter-spacing:.01em;color:#fff;">FaceMax AI: Glow Up Lab</span>
+          <span style="font-size:14px;font-weight:700;letter-spacing:.01em;color:#fff;">FaceMax</span>
         </div>
       </div>`;
 
@@ -17137,8 +17197,8 @@ window.shareResultCard = async function() {
         try {
           const { uri } = await Filesystem.writeFile({ path: "facemax-result.png", data: base64png, directory: "CACHE" });
           await SharePlugin.share({
-            title: "My FaceMax AI: Glow Up Lab result",
-            text: `I scored ${score}/100 on FaceMax AI: Glow Up Lab! \ud83d\udc9c`,
+            title: "My FaceMax result",
+            text: `I scored ${score}/100 on FaceMax! \ud83d\udc9c`,
             url: uri,
             dialogTitle: "Share your result",
           });
@@ -17159,7 +17219,7 @@ window.shareResultCard = async function() {
     const blob = new Blob([arr], { type: "image/png" });
     const file = new File([blob], "facemax-result.png", { type: "image/png" });
     if (!window._fmForceDownload && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ title: "My FaceMax AI: Glow Up Lab result", text: `I scored ${score}/100 on FaceMax AI: Glow Up Lab! \ud83d\udc9c`, files: [file] });
+      await navigator.share({ title: "My FaceMax result", text: `I scored ${score}/100 on FaceMax! \ud83d\udc9c`, files: [file] });
     } else {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);

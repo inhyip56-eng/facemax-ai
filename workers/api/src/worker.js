@@ -1593,6 +1593,7 @@ Rules:
 - key_points MUST contain EXACTLY 3 or 4 entries. Each entry MUST be in the format "Problem | Fix" (with the pipe character). The Problem references a specific metric or visible aspect; the Fix is a concrete, actionable instruction (e.g. an exercise, product, habit, or visit to a specialist). NO water, NO generic motivational language. Lookmaxxing-style brutal honesty.
 - Do NOT include any 7-day plan, daily schedule, or week-by-week breakdown. The user does not want one.
 - Do NOT include an archetype field — it is calculated server-side from the score.
+- The "haircut" field MUST name at least one SPECIFIC haircut style by its common name (e.g. "Textured Crop", "Taper Fade", "Curtain Bangs", "Undercut") that fits the supplied face shape/metrics, not just a vague direction like "keep it short".
 
 App context (input metrics):
 ${JSON.stringify(userContext)}
@@ -2032,6 +2033,7 @@ Rules:
 - key_points MUST contain EXACTLY 3 or 4 entries. Each entry MUST be in the format "Problem | Fix" (with the pipe character). Specific, honest and actionable. NO water, NO motivational fluff.
 - Do NOT include any 7-day plan, daily schedule, or week-by-week breakdown.
 - Do NOT include an archetype field — it is calculated server-side from the score.
+- The "haircut" field MUST name at least one SPECIFIC haircut style by its common name (e.g. "Textured Crop", "Taper Fade", "Curtain Bangs", "Undercut") that fits the supplied face shape/metrics, not just a vague direction like "keep it short".
 
 Scoring calibration (follow strictly):
 - Rate this face HONESTLY and OBJECTIVELY. Do not inflate or deflate — score exactly what you see.
@@ -2316,10 +2318,15 @@ async function simpleTool(request, env, type) {
   const metricLines = Object.entries(metrics).map(([key,value]) => `${key}: ${value}/100`).join("\n");
 
   const typeRules = {
-    "skin-plan": `Build a concrete skin-improvement plan. Prioritize the supplied skin and eye_area scores. The opening summary MUST explicitly cite the user's overall score and skin score, and cite eye-area only if it is supplied. Cover AM, PM, lifestyle and nutrition. Do not diagnose disease or prescribe medication.`,
-    "jawline-plan": `Build a concrete jawline-definition plan. The opening summary MUST explicitly cite the user's overall and jawline scores. Be honest that bone structure cannot be changed. Prioritize bloating, body composition, posture, grooming and safe muscle-tone work according to the supplied scores. Never recommend mewing or jaw trainers.`,
-    "haircut-guide": `Recommend a practical haircut and grooming direction. If a face-shape category is supplied, explicitly cite it in the opening summary and explain why the recommendations fit it. If face shape is unknown, do NOT guess a category. Ground recommendations in the supplied hair, jawline, cheekbones and harmony scores when present.`,
-    "dating-photo": `Build a practical profile-photo improvement plan. The opening summary MUST cite the user's actual photo_angle and/or symmetry score when supplied. Cover lighting, camera height, posture, expression, background and grooming. If face shape is unknown, do NOT guess one.`,
+    "skin-plan": `Build a concrete skin-improvement plan. Prioritize the supplied skin and eye_area scores. The opening summary MUST explicitly cite the user's overall score and skin score, and cite eye-area only if it is supplied. Cover AM, PM, lifestyle and nutrition. Do not diagnose disease or prescribe medication.
+Each step MUST name a specific ingredient, product type, or action with a concrete amount/frequency — e.g. "a salicylic acid (BHA) cleanser, 2x/day", "a niacinamide serum at night", "SPF 30+ mineral sunscreen every morning, reapplied at midday", "7-8 hours of sleep, consistent bedtime" — never a vague instruction like "use a good moisturizer" or "eat healthy" with no specifics.`,
+    "jawline-plan": `Build a concrete jawline-definition plan. The opening summary MUST explicitly cite the user's overall and jawline scores. Be honest that bone structure cannot be changed. Prioritize bloating, body composition, posture, grooming and safe muscle-tone work according to the supplied scores. Never recommend mewing or jaw trainers.
+Each step MUST name a specific, concrete action with detail — e.g. "reduce sodium below 2000mg/day to cut water retention", "chin tucks against a wall, 3 sets of 15, daily", "a low-carb dinner cutoff 3 hours before bed", "a fresh fade or defined beard line at the barber to visually sharpen the jaw" — never a vague instruction like "lose fat" or "improve posture" with no specifics.`,
+    "haircut-guide": `Recommend a practical haircut direction. If a face-shape category is supplied, explicitly cite it in the opening summary and explain why the recommendations fit it. If face shape is unknown, do NOT guess a category. Ground recommendations in the supplied hair, jawline, cheekbones and harmony scores when present.
+The opening summary (text) MUST name at least 1-2 SPECIFIC haircut styles by their common name (e.g. "Textured Crop", "Taper Fade with fringe", "Long Layers with curtain bangs", "Undercut with slicked back top", "Soft Shag") — never just a vague direction like "shorter sides" with no named style.
+At least the first 3 of the 6 steps MUST each open with a specific, named haircut/style recommendation (bold-style short name first), followed by why it suits the user's face shape/metrics and how to ask for it at the barber/stylist (e.g. length, parting, fringe type). The remaining steps can cover styling product, maintenance and grooming.`,
+    "dating-photo": `Build a practical profile-photo improvement plan. The opening summary MUST cite the user's actual photo_angle and/or symmetry score when supplied. Cover lighting, camera height, posture, expression, background and grooming. If face shape is unknown, do NOT guess one.
+Each step MUST give a concrete, specific instruction — e.g. "shoot facing a window with soft daylight, light source in front of you not behind", "hold/prop the camera at eye level or slightly above, never below", "a slight head turn (about 15-20 degrees) with chin down a touch to sharpen the jawline", "a plain uncluttered background (wall, nature) so the face stays the focal point" — never a vague instruction like "use good lighting" or "look confident" with no specifics.`,
   }[type];
 
   const prompt = `You are FaceMax AI, a ${meta.role}.

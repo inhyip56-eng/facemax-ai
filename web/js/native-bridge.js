@@ -1551,11 +1551,9 @@
   facemax.requestReview = async function () {
     if (!facemax.native) return;
     try {
-      const { RateApp } = await import(
-        "@capacitor-community/rate-app"
-      ).catch(() => ({}));
-      if (RateApp && typeof RateApp.requestReview === "function") {
-        await RateApp.requestReview();
+      const InAppReview = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.InAppReview;
+      if (InAppReview && typeof InAppReview.requestReview === "function") {
+        await InAppReview.requestReview();
       }
     } catch (e) { /* ignore */ }
   };
