@@ -82,7 +82,7 @@ html.fm-native h1,html.fm-native h2,html.fm-native .qp-title,html.fm-native .qa-
 body{display:flex;justify-content:center}
 button,input{font-family:inherit;color:inherit}
 .app{width:min(100%,460px);min-height:100svh;position:relative;padding:calc(env(safe-area-inset-top,0px) + 2px) 18px calc(104px + env(safe-area-inset-bottom,0px));background:radial-gradient(70% 36% at 50% -10%,rgba(167,139,250,.22),transparent 65%),radial-gradient(80% 30% at 50% -4%,rgba(232,121,249,.14),transparent 70%),radial-gradient(60% 28% at 50% 4%,rgba(240,161,200,.08),transparent 75%),var(--bg)}
-html.fm-native .app{padding-top:calc(env(safe-area-inset-top,0px) + 4px);padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+html.fm-native .app{padding-top:calc(env(safe-area-inset-top,0px) + 4px);padding-bottom:calc(108px + env(safe-area-inset-bottom,0px))}
 html.fm-native body{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 html.fm-native a[target="_blank"]{cursor:pointer}
 .screen{display:none}
@@ -761,7 +761,7 @@ button.hs:active{transform:scale(.96)}
  * to "jump" because `safe-area-inset-bottom` changes value during that
  * transition. Lock to a small static offset and let the parent body have
  * enough bottom padding so content isn't covered. */
-.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(calc(100vw - 16px),438px);background:#0d0d11;border:1px solid rgba(255,255,255,.08);border-radius:20px 20px 0 0;padding:4px 5px calc(4px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,1fr);gap:2px;z-index:50;box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 .5px rgba(255,255,255,.04);will-change:auto}
+.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(calc(100vw - 16px),438px);background:#0d0d11;border:1px solid rgba(255,255,255,.08);border-bottom:none;border-radius:20px 20px 0 0;padding:4px 5px calc(4px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,1fr);gap:2px;z-index:50;box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 .5px rgba(255,255,255,.04);will-change:auto}
 @supports (padding: env(safe-area-inset-bottom)){
   .bottom{bottom:0;padding-bottom:calc(6px + env(safe-area-inset-bottom))}
 }
@@ -4377,7 +4377,7 @@ html.cam-active .app { background:transparent !important; }
 <!-- =============================== CALORIES =============================== -->
 <section id="calories" class="screen design-calories-screen">
   <div class="screen-topbar">
-    <button type="button" class="stb-back" onclick="openScreen('home')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button type="button" class="stb-back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
     <span class="stb-title">Calories</span>
   </div>
@@ -5987,6 +5987,7 @@ function renderHistoryItem(entry, idx){
 }
 window.openHistoryScan = function(idx) {
   if (idx === null || idx === undefined) return;
+  _resultFromDaily = false;
   if (!scanHistory.length) { try { loadHistory(); } catch {} }
   _fetchTextReportToken++; // cancel any in-flight text-report fetch from a previous scan
   const entry = scanHistory[idx];
@@ -6007,6 +6008,7 @@ window.openLatestScanFromHome = function(){
   if (!scanHistory.length) { try { loadHistory(); } catch {} }
   if (!scanHistory.length) return;
   openHistoryScan(0);
+  _resultFromDaily = true;
 };
 function renderHomeHistory(){
   // Mirrors the defensive reload in renderHomeStats.
@@ -7980,7 +7982,7 @@ const NAV_TAB_FOR_SCREEN = {
   home: "home", profile: "profile", aiFeatures: "aiFeatures",
   upload: "home", loading: "home", result: "home", report: "home",
   tool: "aiFeatures", compare: "aiFeatures",
-  daily: "daily", water: "daily", routine: "daily",
+  daily: "daily", water: "daily", routine: "daily", calories: "daily",
   exercises: "daily", exerciseDetail: "daily", glowupHub: "daily",
   foodScan: "aiFeatures", meals: "aiFeatures", foodHub: "aiFeatures",
   history: "profile",
@@ -8029,6 +8031,10 @@ window.goBack = async function(){
 };
 
 let _aiFeaturesContext = false;
+// Tracks whether the currently-open "result" screen was reached from the
+// Daily hub's last-scan card, so the bottom nav can keep the Daily tab lit
+// instead of always jumping back to Scan.
+let _resultFromDaily = false;
 const _AI_FEATURE_CHILD_SCREENS = new Set(["aiFeatures","tool","compare","foodScan","meals","foodHub"]);
 window.openAiFeatures = async function(_premiumChecked){
   if (!_premiumChecked) {
@@ -8084,8 +8090,8 @@ window.openScreen = function(id){
   if (isQuizScreen || (typeof quizIsDone === "function" && quizIsDone())) {
     document.documentElement.classList.remove("fm-first-launch-lock");
   }
-  if (id === "home" || id === "daily" || id === "profile" || id === "history" || id === "upload") _aiFeaturesContext = false;
-  const tabId = NAV_TAB_FOR_SCREEN[id];
+  if (id === "home" || id === "daily" || id === "profile" || id === "history" || id === "upload") { _aiFeaturesContext = false; _resultFromDaily = false; }
+  const tabId = (id === "result" && _resultFromDaily) ? "daily" : NAV_TAB_FOR_SCREEN[id];
   if (tabId) setActiveNavTab(tabId);
   window.scrollTo(0, 0);
   if (["result","report","loading"].includes(id)) {
