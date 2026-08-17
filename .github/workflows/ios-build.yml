@@ -373,6 +373,7 @@ jobs:
           FACEMAX_MATCH_BOOTSTRAP: ${{ inputs.bootstrap_signing && '1' || '0' }}
           MATCH_GIT_URL: https://github.com/inhyip56-eng/facemax-ai-cert.git
           MATCH_GIT_BRANCH: main
-          APP_MARKETING_VERSION: "1.8"
+          APP_MARKETING_VERSION: "2.0"
         run: |
           bundle exec fastlane beta
+
