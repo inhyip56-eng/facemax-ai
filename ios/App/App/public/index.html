@@ -55,8 +55,6 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-f
 html,body{overscroll-behavior-y:none}
 html:not(.fm-native){overflow-y:auto}
 html:not(.fm-native) body{max-width:430px;margin:0 auto}html:not(.fm-native) .app{padding-top:2px!important;padding-bottom:92px!important}html:not(.fm-native) .bottom{padding-bottom:5px!important}
-html:not(.fm-native) .app{padding-top:61px;padding-bottom:calc(92px + 34px)}
-html:not(.fm-native) .bottom{padding-bottom:calc(5px + 34px)}
 .app,.screen,.qz-screen,main,section{overscroll-behavior-y:none}
 /* Hide scrollbars app-wide — keep scrolling, drop the visible side track. */
 html,body,*{scrollbar-width:none;-ms-overflow-style:none}
@@ -3085,13 +3083,6 @@ html.cam-active .app { background:transparent !important; }
 
   <div class="home-v2 scan-home">
 
-    <div class="home-inbox-row">
-      <button type="button" class="fm-notif-bell" onclick="openNotificationInbox()" aria-label="Notifications">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 0 0-5 5v2.7c0 2.65-.85 4.63-2.43 6.31A1.15 1.15 0 0 0 5.41 18h13.18a1.15 1.15 0 0 0 .84-1.99C17.85 14.33 17 12.35 17 9.7V7a5 5 0 0 0-5-5Zm-2.48 18a2.65 2.65 0 0 0 4.96 0H9.52Z"/></svg>
-        <span class="fm-notif-badge" id="homeNotifBadge">0</span>
-      </button>
-    </div>
-
     <div class="screen-topbar" style="margin-bottom:12px">
       <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
       <span class="stb-title" id="scanHomeTitle">Face scan</span>
@@ -3550,26 +3541,6 @@ html.cam-active .app { background:transparent !important; }
   </div>
 </div>
 
-<!-- ============================ NOTIFICATIONS ============================ -->
-<section id="notifications" class="screen notifications-screen">
-  <div class="screen-topbar">
-    <button type="button" class="stb-back" onclick="goBack()" aria-label="Back">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
-    <span class="stb-title">Notifications</span>
-  </div>
-
-  <div class="notif-inbox-head">
-    <div>
-      <h2>Updates</h2>
-      <p id="notificationInboxSub">Your FaceMax reminders and progress updates</p>
-    </div>
-    <button type="button" class="notif-mark-read" id="notificationMarkAll" onclick="fmInboxMarkAllRead()">Mark all read</button>
-  </div>
-  <div class="notif-inbox-list" id="notificationInboxList"></div>
-</section>
-
 <style id="facemax-apple-sync-styles">
 .apple-sync-button-v1{width:100%;height:48px;border:0;border-radius:12px;background:#fff;color:#000;font:700 15px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;margin:12px 14px;max-width:calc(100% - 28px);overflow:visible}
 .apple-sync-button-v1:disabled{opacity:.58;cursor:default}
@@ -3604,10 +3575,6 @@ html.cam-active .app { background:transparent !important; }
   <div class="screen-topbar">
     <div class="stb-logo"><img src="assets/logo.png" alt=""></div>
     <span class="stb-title">Profile</span>
-    <button type="button" class="fm-notif-bell compact" onclick="openNotificationInbox()" aria-label="Notifications">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 0 0-5 5v2.7c0 2.65-.85 4.63-2.43 6.31A1.15 1.15 0 0 0 5.41 18h13.18a1.15 1.15 0 0 0 .84-1.99C17.85 14.33 17 12.35 17 9.7V7a5 5 0 0 0-5-5Zm-2.48 18a2.65 2.65 0 0 0 4.96 0H9.52Z"/></svg>
-      <span class="fm-notif-badge" id="profileNotifBadge">0</span>
-    </button>
   </div>
 
   <div class="profile-hero-v4">
@@ -8100,7 +8067,6 @@ window.openScreen = function(id){
   }
   if (id === "home") { renderHomeHistory(); renderHomeStats(); updateDailyCalWidget(); }
   if (id === "profile") { renderProfileScreen(); }
-  if (id === "notifications") { renderNotificationInbox(); fmInboxSyncDelivered(); }
   if (id === "daily") { refreshDailyGreeting && refreshDailyGreeting(); refreshDailyTiles && refreshDailyTiles(); renderGlowUpPlan(); updateDailyCalWidget(); }
   if (id === "calories") { updateDailyCalWidget(); renderCalScreenEntries && renderCalScreenEntries(); }
   if (id === "upload") {
@@ -8268,11 +8234,12 @@ function latestAiScanContext(){
   const shape = AI_TOOL_SHAPES.has(shapeRaw) ? shapeRaw : null;
   const scanId = h && h.date ? String(h.date) : (report ? String(report._scan_id || "current") : null);
   const hasRealScan = !!(scanId && score != null && Object.keys(metrics).length >= 4);
-  return { history:h, report, metrics, score, shape, scanId, hasRealScan };
+  const thumb = (h && h.thumb) ? h.thumb : (selectedImageData || null);
+  return { history:h, report, metrics, score, shape, scanId, hasRealScan, thumb };
 }
 
 function aiToolLocalCacheKey(tool, scanId){
-  return "fm_ai_tool_v3_" + encodeURIComponent(currentUserId()) + "_" + tool + "_" + String(scanId || "none");
+  return "fm_ai_tool_v4_" + encodeURIComponent(currentUserId()) + "_" + tool + "_" + String(scanId || "none");
 }
 function readAiToolLocalCache(tool, scanId){
   try {
@@ -8383,7 +8350,8 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
         face_shape: ctx.shape,
         score: ctx.score,
         metrics: ctx.metrics,
-        gender: currentGender()
+        gender: currentGender(),
+        image: ctx.thumb || undefined
       })
     });
     if (res.status === 402) {
@@ -8897,7 +8865,10 @@ async function fmInboxSyncDelivered(){
 }
 window.fmInboxSyncDelivered = fmInboxSyncDelivered;
 function openNotificationInbox(){
-  openScreen("notifications");
+  // The in-app notification-center screen was removed; route any lingering
+  // callers (e.g. an old scheduled deep link) somewhere useful instead of a
+  // dead screen id. System push notifications are unaffected.
+  openScreen("daily");
 }
 window.openNotificationInbox = openNotificationInbox;
 window.addEventListener("facemax:local-notification", function(evt){
@@ -15883,7 +15854,6 @@ function quizRender(){
     body.innerHTML = `
       <div class="quiz-emoji">${signedIn ? "✓" : ""}</div>
       <div style="text-align:center">
-        <div class="quiz-eyebrow" style="align-self:auto;margin-left:auto;margin-right:auto;display:inline-block">${quizEsc(step.eyebrow || "Final step")}</div>
         <h1 class="quiz-title" style="text-align:center">${quizEsc(step.title)}</h1>
       </div>
       <div class="quiz-cta quiz-signin-cta">
