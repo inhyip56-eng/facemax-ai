@@ -80,6 +80,80 @@ function cleanUrl(raw) {
 
 function premiumKey(userId) { return "premium:" + String(userId); }
 function aiToolCacheKey(userId, type) { return "ai_tool_cache:" + String(userId) + ":" + String(type); }
+
+// Deterministic action bank per tool. Instead of hoping the LLM invents a
+// genuinely different set of recommendations every time (it tends to regress
+// to the same "safe" defaults even at high temperature), we pick the
+// concrete action set HERE, keyed off the actual scan metrics, and hand the
+// model a fixed list to explain/phrase — not to invent. Same metrics profile
+// -> same picks (correct, deterministic); different metrics -> different
+// picks, guaranteed.
+const TOOL_ACTION_BANK = {
+  "skin-plan": [
+    { metric:"skin", max:55, action:"a salicylic acid (BHA) cleanser, 2x/day, to clear congestion and even tone" },
+    { metric:"skin", max:70, action:"a niacinamide serum at night to refine texture and control oil" },
+    { metric:"skin", max:100, action:"a lightweight vitamin C serum each morning to brighten and protect against dullness" },
+    { metric:"eye_area", max:55, action:"a caffeine eye cream each morning to reduce puffiness and dark circles" },
+    { metric:"eye_area", max:75, action:"an extra 30-45 minutes of sleep nightly to reduce under-eye shadowing" },
+    { metric:"skin", max:100, action:"SPF 30+ mineral sunscreen every morning, reapplied at midday" },
+    { metric:"skin", max:100, action:"7-8 hours of consistent sleep on a fixed bedtime to let skin repair overnight" },
+    { metric:"skin", max:100, action:"2-3L of water daily and cutting sugary drinks to reduce inflammation" },
+    { metric:"skin", max:60, action:"a gentle exfoliating toner (2-3x/week) to speed up cell turnover" },
+    { metric:"eye_area", max:100, action:"reducing sodium intake in the evening to limit under-eye puffiness on waking" },
+  ],
+  "jawline-plan": [
+    { metric:"jawline", max:55, action:"chin tucks against a wall, 3 sets of 15, daily, to build neck/jaw muscle tone" },
+    { metric:"jawline", max:70, action:"reducing sodium below 2000mg/day to cut water retention that softens the jawline" },
+    { metric:"jawline", max:100, action:"a low-carb dinner cutoff 3 hours before bed to reduce next-morning facial puffiness" },
+    { metric:"jawline", max:60, action:"a fresh fade or defined beard line at the barber to visually sharpen the jaw edge" },
+    { metric:"harmony", max:70, action:"standing/sitting posture work (chin level, shoulders back) so the jawline isn't foreshortened" },
+    { metric:"jawline", max:100, action:"cardio 3-4x/week to reduce overall facial fat if body fat is elevated" },
+    { metric:"jawline", max:100, action:"cutting alcohol on weeknights, since it's a major driver of next-day facial bloat" },
+    { metric:"harmony", max:100, action:"grooming eyebrows and beard edges cleanly to create sharper visual jaw contrast" },
+  ],
+  "haircut-guide": [
+    { metric:"jawline", max:55, styleMale:"Textured Crop", styleFemale:"Long Layers with curtain bangs", why:"softens a less-defined jawline by drawing the eye upward" },
+    { metric:"jawline", max:100, styleMale:"Taper Fade with a slightly longer top", styleFemale:"Soft Shag", why:"complements a strong jawline without overpowering it" },
+    { metric:"cheekbones", max:55, styleMale:"Undercut with volume on top", styleFemale:"Curtain bangs with face-framing layers", why:"adds width up top to balance softer cheekbones" },
+    { metric:"harmony", max:70, styleMale:"Side part with medium length", styleFemale:"Middle part with long layers", why:"creates visual symmetry where harmony is currently lower" },
+    { metric:"hair", max:100, action:"a lightweight sea-salt texturizing spray for natural movement without weighing hair down" },
+    { metric:"hair", max:100, action:"a trim every 4-6 weeks to keep the shape sharp and prevent split ends" },
+  ],
+  "dating-photo": [
+    { metric:"photo_angle", max:60, action:"hold/prop the camera at eye level or slightly above, never below, to avoid an unflattering upward angle" },
+    { metric:"symmetry", max:70, action:"a slight head turn (about 15-20 degrees) with chin down a touch to minimize asymmetry and sharpen the jawline" },
+    { metric:"skin", max:100, action:"shoot facing a window with soft daylight, light source in front of you not behind" },
+    { metric:"harmony", max:100, action:"a plain uncluttered background (wall, nature) so the face stays the focal point" },
+    { metric:"symmetry", max:100, action:"a relaxed half-smile instead of a full grin — reads as more confident and photographs more naturally" },
+    { metric:"photo_angle", max:100, action:"take 10-15 shots and pick the one with the most natural expression, not the first attempt" },
+  ],
+};
+
+// Pick up to `count` concrete actions for this tool, prioritized by which
+// supplied metric is weakest (lowest score = highest priority). Falls back
+// to generic (metric-agnostic) entries once metric-specific ones run out.
+function pickToolActions(type, metrics, count) {
+  const bank = TOOL_ACTION_BANK[type] || [];
+  const scored = bank.map(entry => {
+    const m = metrics[entry.metric];
+    // Entries whose metric wasn't supplied still qualify, but rank last.
+    const score = Number.isFinite(m) ? m : 999;
+    const eligible = !Number.isFinite(m) || m <= entry.max;
+    return { entry, score, eligible };
+  }).filter(x => x.eligible);
+  scored.sort((a,b) => a.score - b.score);
+  const seen = new Set();
+  const picked = [];
+  for (const { entry } of scored) {
+    const key = entry.action || (entry.styleMale + entry.styleFemale);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    picked.push(entry);
+    if (picked.length >= count) break;
+  }
+  return picked;
+}
+
 // Cheap deterministic string hash (FNV-1a). Used so the AI-tool cache is keyed
 // off the ACTUAL scan values, not just the client-supplied scan_id — a stale or
 // duplicated scan_id must never cause a different scan's numbers to be served.
@@ -2311,13 +2385,26 @@ async function simpleTool(request, env, type) {
   if (scoreHint == null || Object.keys(metrics).length < 4) return json({ ok:false, error:"scan_data_required", reason:"A real Face Scan is required before this tool can generate advice." }, 422);
   const metricLines = Object.entries(metrics).map(([key,value]) => `${key}: ${value}/100`).join("\n");
 
+  // Optional face photo (thumbnail) — lets the model ground advice in what
+  // the user actually looks like, not just the numeric scores. Never
+  // required: tools still work numbers-only if no image is supplied.
+  function toolImgPart(dataUrl) {
+    let s = String(dataUrl || "");
+    if (s.length > 100 && !s.startsWith("data:") && /^[A-Za-z0-9+/]/.test(s)) {
+      s = "data:image/jpeg;base64," + s;
+    }
+    return /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/.test(s) ? s : null;
+  }
+  const toolImage = toolImgPart(body.image || body.thumb || body.photo);
+
   // Fingerprint of the actual scan data driving this request. Two requests
   // only get the same cached result if BOTH the scan_id AND the underlying
   // score/shape/metrics match — this is what stops the tool from ever
   // serving identical text for genuinely different scans.
   const dataFingerprint = fnv1aHash(
     gender + "|" + scoreHint + "|" + (faceShapeHint || "") + "|" +
-    Object.entries(metrics).sort((a,b) => a[0].localeCompare(b[0])).map(([k,v]) => k + ":" + v).join(",")
+    Object.entries(metrics).sort((a,b) => a[0].localeCompare(b[0])).map(([k,v]) => k + ":" + v).join(",") + "|" +
+    (toolImage ? "img:" + toolImage.length : "noimg")
   );
 
   if (!regenerate && env.PREMIUM_KV && scanId) {
@@ -2355,14 +2442,26 @@ At least the first 3 of the 6 steps MUST each open with a specific, named haircu
 Each step MUST give a concrete, specific instruction — e.g. "shoot facing a window with soft daylight, light source in front of you not behind", "hold/prop the camera at eye level or slightly above, never below", "a slight head turn (about 15-20 degrees) with chin down a touch to sharpen the jawline", "a plain uncluttered background (wall, nature) so the face stays the focal point" — never a vague instruction like "use good lighting" or "look confident" with no specifics.`,
   }[type];
 
+  const varietyToken = Math.random().toString(36).slice(2, 8);
+  const pickedActions = pickToolActions(type, metrics, 6);
+  const actionListForPrompt = pickedActions.map((entry, i) => {
+    if (entry.action) return `${i+1}. ${entry.action}`;
+    const styleName = gender === "female" ? entry.styleFemale : entry.styleMale;
+    return `${i+1}. Recommend "${styleName}" — ${entry.why}`;
+  }).join("\n");
   const prompt = `You are FaceMax AI, a ${meta.role}.
 Create ONE personalised plan from the user's LATEST SUCCESSFUL FACE SCAN.
 These numbers are authoritative measurements returned by that scan. Never invent, replace or contradict them.
+Request id: ${varietyToken} (internal only — ignore this value, it exists only to make you generate a fresh, independent answer instead of a memorized/cached-sounding one).
 Gender: ${gender}
 Overall score: ${scoreHint}/100
 Face shape category: ${faceShapeHint ?? "unknown"}
 Current scan metrics:
 ${metricLines}
+${toolImage ? "\nA current photo of the user's face is attached. Actually look at it — hair color/texture/length, skin tone/visible texture, facial structure, current grooming — and let those real visual details sharpen and personalize the advice below. The numeric scores above are still authoritative for severity; the photo is for concrete visual grounding (e.g. exact hair type, current style, skin tone) that the scores alone don't capture." : ""}
+
+REQUIRED ACTIONS — these were already selected by the scoring system as the highest-priority items for THIS user's exact metrics, ranked worst-metric-first. You MUST turn every one of these into one of the 6 steps, in your own natural phrasing (do not copy the wording verbatim, but keep the concrete specifics — product names, numbers, exercise counts, style names — intact):
+${actionListForPrompt}
 
 ${typeRules}
 
@@ -2370,10 +2469,11 @@ Return ONLY valid JSON, no markdown:
 {"title":"${meta.title}","text":"2-3 concise, specific sentences grounded in the exact supplied values","steps":["action 1","action 2","action 3","action 4","action 5","action 6"]}
 
 Rules:
-- The output must be specific to the supplied scan values, not a generic template.
+- The examples in parentheses above are ONLY to show the required LEVEL OF SPECIFICITY (concrete product/action + amount/frequency). Do NOT reuse their wording, ingredients, or numbers — invent your own concrete specifics that make sense for THIS user's exact scores.
+- The output must be specific to the supplied scan values, not a generic template. If the same tool were run for a different score profile, every sentence should read differently.
 - Mention numbers only if they were supplied above; never make up a missing score.
 - Never infer a categorical face shape when the category is unknown.
-- Return exactly 6 non-empty, prioritized actions.
+- Return exactly 6 non-empty, prioritized actions — one per REQUIRED ACTION above, same order, rephrased in your own natural voice.
 - Do not mention the model, API, prompt or technical details.
 - Do not invent medical diagnoses or promise structural bone changes.
 - Do not include placeholders.`;
@@ -2395,7 +2495,7 @@ Rules:
   };
 
   try {
-    const result = await callOpenRouter(env, prompt, [], { tries:2, temperature:0.35, responseFormat });
+    const result = await callOpenRouter(env, prompt, toolImage ? [toolImage] : [], { tries:2, temperature:0.85, responseFormat });
     if (!result.ok || !result.text) return json({ ok:false, error:"ai_unavailable", reason:result.reason || "OpenRouter error", status:result.status || 0 }, 503);
     const txt = extractFirstJsonObject(result.text) || String(result.text).trim();
     const parsed = JSON.parse(txt);
