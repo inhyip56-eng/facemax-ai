@@ -574,8 +574,8 @@ button.hs:active{transform:scale(.96)}
 .photo-frame{position:relative;border-radius:16px;overflow:hidden;background:#14091A;border:1px solid var(--line)}
 .photo-frame img{width:100%;max-height:480px;display:block;object-fit:contain;background:#14091A}
 .face-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
-.scan-grid{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(167,139,250,.10) 1px,transparent 1px),linear-gradient(rgba(167,139,250,.08) 1px,transparent 1px);background-size:28px 28px;opacity:.4;z-index:2;mix-blend-mode:screen}
-.scan-beam{position:absolute;left:0;right:0;top:-60px;height:60px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent,rgba(167,139,250,.65),rgba(196,181,253,.30),transparent);box-shadow:0 0 24px rgba(167,139,250,.55);animation:scanBeam 1.6s linear infinite;mix-blend-mode:screen}
+.scan-grid{display:none!important;position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(167,139,250,.10) 1px,transparent 1px),linear-gradient(rgba(167,139,250,.08) 1px,transparent 1px);background-size:28px 28px;opacity:.4;z-index:2;mix-blend-mode:screen}
+.scan-beam{display:none!important;position:absolute;left:0;right:0;top:-60px;height:60px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent,rgba(167,139,250,.65),rgba(196,181,253,.30),transparent);box-shadow:0 0 24px rgba(167,139,250,.55);animation:scanBeam 1.6s linear infinite;mix-blend-mode:screen}
 @keyframes scanBeam{to{transform:translateY(640px)}}
 .metric-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surface-2);border-radius:12px;border:1px solid var(--line);margin-bottom:8px}
 .metric-row:last-child{margin-bottom:0}
@@ -10321,7 +10321,7 @@ window.startScan = async function(_premiumChecked){
     } else {
       // Existing animation is preserved for every regular Face Scan.
       if (_lCanvas) _runFakeMeshAnim(_lCanvas, 3200);
-      if (_lImg) startFaceMeshAnim('loadingImg', 'loadingCanvas', 3200).catch(()=>{});
+      if (_lImg) { /* Face mesh animation disabled for stability */ }
     }
   } catch(e) {}
 
@@ -11180,7 +11180,9 @@ function drawOverlay(imgId, canvasId){
 }
 function drawAllOverlays(){
   drawOverlay("loadingImg","loadingCanvas");
-  drawOverlay("resultImg","resultCanvas");
+  // Apple stability fix: do not draw face mesh overlays on the final result image.
+  // It could race image loading and leave an empty/black avatar canvas.
+  const _ri=document.getElementById("resultImg"); if(_ri && _ri.complete && _ri.naturalWidth>0){ /* overlay disabled */ }
   drawOverlay("reportImg","reportCanvas");
   drawOverlay("toolImg","toolCanvas");
 }
@@ -16459,7 +16461,19 @@ async function quizContinueAfterVerifiedEntitlement(){
 window.quizContinueAfterVerifiedEntitlement = quizContinueAfterVerifiedEntitlement;
 
 async function prePayWeeklyAction(){
-  if (_quizCheckingOut || _purchaseInFlight) return;
+  // Apple review fix: never leave CTA silently dead because of a stale lock.
+  if (_quizCheckingOut || _purchaseInFlight) {
+    try {
+      const now = Date.now();
+      if (window._fmPurchaseLockAt && now - window._fmPurchaseLockAt > 15000) {
+        _quizCheckingOut = false;
+        _purchaseInFlight = false;
+      } else {
+        return;
+      }
+    } catch { return; }
+  }
+  window._fmPurchaseLockAt = Date.now();
   // Keep the tap path identical to the old working paywall: go straight into
   // the weekly checkout. No local/backend/CustomerInfo pre-check may satisfy
   // this CTA before the RevenueCat purchase method reaches StoreKit.
@@ -16575,6 +16589,7 @@ function quizBuyPlan(plan){
   if (_quizCheckingOut || _purchaseInFlight) return;
   quizSelectPlan("weekly");
   _quizCheckingOut = true;
+  window._fmPurchaseLockAt = Date.now();
   const plans = el("qpPlans");
   const syncStatus = el("qpSyncStatus");
   if (syncStatus) syncStatus.textContent = "Opening Apple checkout…";
@@ -17721,13 +17736,29 @@ function _runFakeMeshAnim(canvas, totalDur) {
 }
 
 async function startFaceMeshAnim(imgId, canvasId, totalDur) {
+  // Apple review stability fix: remove heavy face mesh animation.
+  // Camera capture and AI analysis continue without canvas rendering.
   stopMeshAnim();
   const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  _runFakeMeshAnim(canvas, totalDur || 3200);
+  if (canvas) {
+    const ctx = canvas.getContext && canvas.getContext("2d");
+    if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.display = "none";
+  }
+  return true;
 }
 
 window.startFaceMeshAnim = startFaceMeshAnim;
+
+// Prevent blank/black result avatar when image data fails.
+try {
+  const _resultImgGuard = document.getElementById("resultImg");
+  if (_resultImgGuard) {
+    _resultImgGuard.onerror = function(){
+      this.style.visibility = "hidden";
+    };
+  }
+} catch {}
 // ─────────────────────────────────────────────────────────────────────────────
 
 </script>
