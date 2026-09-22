@@ -127,6 +127,22 @@ const TOOL_ACTION_BANK = {
     { metric:"symmetry", max:100, action:"a relaxed half-smile instead of a full grin — reads as more confident and photographs more naturally" },
     { metric:"photo_angle", max:100, action:"take 10-15 shots and pick the one with the most natural expression, not the first attempt" },
   ],
+  "makeup-guide": [
+    { metric:"skin", max:60, action:"color-correct redness and dark circles with a green or peach corrector before applying a dewy, skin-like radiant base" },
+    { metric:"cheekbones", max:70, action:"cream blush and subtle contour applied high on the cheekbones, blended upward toward temples for a lifted effect" },
+    { metric:"eye_area", max:75, action:"soft brown tightline along upper lashes and a gentle outer-corner wing to visually lengthen and open the eye shape" },
+    { metric:"lips", max:70, action:"define the Cupid's bow and contour the lower lip line with a neutral lip liner, topped with a hydrating tinted balm" },
+    { metric:"symmetry", max:75, action:"brush brows upward with a clear gel and subtly fill sparse areas to balance brow arch height and framing" },
+    { metric:"skin", max:100, action:"hydrate thoroughly with hyaluronic acid and seal with a lightweight setting mist for an all-day natural glow" },
+  ],
+  "symmetry-plan": [
+    { metric:"symmetry", max:65, action:"position lighting directly in front at eye level to eliminate asymmetric side shadows that exaggerate minor facial imbalance" },
+    { metric:"photo_angle", max:70, action:"tilt and turn head slightly (15-20 degrees) toward your stronger side to photograph with maximum natural balance" },
+    { metric:"harmony", max:70, action:"part hair slightly off-center or use soft face-framing layers to visually balance facial thirds and proportions" },
+    { metric:"jawline", max:70, action:"consciously chew food equally on both sides and avoid resting your chin on one hand to prevent one-sided jaw tension" },
+    { metric:"eye_area", max:75, action:"align eyebrow arches with subtle brow pencil strokes to create visual symmetry across the eye line" },
+    { metric:"harmony", max:100, action:"practice daily neck and posture stretches (chin tucks and shoulder retractions) to release platysma and neck muscular imbalances" },
+  ],
 };
 
 // Pick up to `count` concrete actions for this tool, prioritized by which
@@ -188,6 +204,8 @@ const DAILY_DATING_PHOTO_LIMIT = 20;
 const DAILY_HAIRCUT_GUIDE_LIMIT = 20;
 const DAILY_SKIN_PLAN_LIMIT = 20;
 const DAILY_JAWLINE_PLAN_LIMIT = 20;
+const DAILY_SYMMETRY_PLAN_LIMIT = 20;
+const DAILY_MAKEUP_GUIDE_LIMIT = 20;
 
 function dailyUsageKey(userId, localDate, bucket) {
   // Use client-supplied local date (YYYY-MM-DD) when available so the day
@@ -2083,8 +2101,8 @@ async function callGemini(env, body) {
     // calibration so scores are honest, deterministic and self-explained.
     const _scanGender = String(body.gender || "").toLowerCase().startsWith("f") ? "female" : "male";
     const _genderNote = _scanGender === "female"
-      ? "The subject is a woman. Evaluate her facial features using standards appropriate for women."
-      : "The subject is a man. Evaluate his facial features using standards appropriate for men.";
+      ? "The subject is a woman. Evaluate her facial features using standards appropriate for women: prioritize facial harmony, feminine jawline taper, cheekbone definition, expressive eye area, and skin clarity. A clearly attractive woman with harmonious facial features belongs in the 82-92 (Stacy / Goddess) tier."
+      : "The subject is a man. Evaluate his facial features using standards appropriate for men: prioritize bone structure, dimorphism, angularity, and compact eye area. Strong jawline definition (clean gonial angle, sharp mandibular border, forward chin projection), prominent cheekbones/zygomatic arches, and compact eye area with neutral/positive canthal tilt are the primary determinants of male attractiveness. An attractive man exhibiting these masculine structural traits belongs in the 82-92 (Chad / Gigachad) tier.";
 
     const prompt = images.length > 0 ? `
 You are FaceMax AI, a facial analysis assistant for a beauty and wellness app.
@@ -2124,12 +2142,28 @@ Rules:
 Scoring calibration (follow strictly):
 - Rate this face HONESTLY and OBJECTIVELY. Do not inflate or deflate — score exactly what you see.
 - Score only the attached current photo. Do not use account history, prior results, or earlier metrics. The same photo scanned repeatedly must receive the same score.
-- Use the full 0-100 range. A truly average adult face with no notable strengths or weaknesses = 50-55. Slightly above average = 56-65. Good-looking with clear strengths = 66-75. Genuinely attractive, well-proportioned = 76-85. Exceptional, model-tier = 86-95. Below 50 for visible aesthetic problems; below 35 for severe ones.
-- overall_score must be consistent with the sub-scores: a weighted average of what you actually rated, not pushed higher or lower artificially.
+- Archetype & tier calibration bands:
+  * 45-54: LTN (Low Tier Normie / Average) — typical everyday face, noticeable aesthetic flaws or weak definition.
+  * 55-63: MTN (Mid Tier Normie) — average to pleasant baseline, decent balance, standard everyday features.
+  * 64-72: HTN (High Tier Normie) — solid above-average face, good baseline, clear appeal.
+  * 73-81: Chadlite / Stacylite — clearly good-looking, strong baseline, distinct aesthetic strengths.
+  * 82-89: Chad / Stacy (Top tier) — genuinely handsome / beautiful, striking bone structure, sharp jawline, high cheekbones, or compact eye area. If someone is an attractive person with strong facial features, score them in the 82-89 range. High scores are normal for attractive people, DO NOT be conservative or hold back out of caution.
+  * 90-96: Gigachad / Goddess (Elite tier) — exceptional, highly magnetic, model-grade facial harmony and bone structure.
+  * 97-100: God tier — exceptionally rare, flawless proportions.
+- How overall_score is determined:
+  * overall_score represents the person's FACIAL ATTRACTIVENESS. It is determined primarily (75-80% weight) by core structural features and facial harmony: jawline, cheekbones, eye area, midface harmony, and face shape.
+  * Secondary facial features (nose, lips, skin, hair) provide fine-tuning (20-25% weight).
+  * CRITICAL: 'photo_angle' (camera framing/light) and 'improvement_potential' (future glow-up headroom) are diagnostic/meta fields only. They describe the selfie quality and upside — they MUST NEVER be averaged into overall_score or used to drag down the face score!
+  * Do NOT let transient selfie factors (smartphone wide-angle lens distortion, minor lighting glare, light beard stubble, normal skin pores, or slight natural facial asymmetry) drag an attractive face below 80. ${_scanGender === "female" ? "If an attractive woman's structural features (facial harmony, cheekbones, eye area, feminine taper) score in the 80s, her overall_score MUST be in the 80s (82-89+ Stacy tier). Never use hyper-masculine terms like 'chad', 'hunter eyes', 'masculine jaw'." : "If an attractive man's structural features (jawline, cheekbones, eyes, harmony) score in the 80s, his overall_score MUST be in the 80s (82-89+ Chad tier)."}
 
 Per-feature scoring rubric (apply these definitions when you set the sub-scores):
-- jawline: grade the visible definition of the lower face. Look at how clearly the mandible line runs from ear to chin, the gonial (jaw) angle, chin projection, and how much soft submental / under-chin fat ("double chin") blurs the line. A crisp, well-separated jaw with a clean neck-to-jaw transition and little under-chin fat scores high (80+). A soft, rounded or fat-obscured jaw scores in the 50s-60s. Account for the camera angle: a downward tilt or a smile can flatten a good jaw, so do not over-penalize a clearly decent jaw shot from a bad angle.
-- skin: grade clarity and condition of the skin. Look at tone evenness, active blemishes / acne and acne scarring, visible pore size and surface texture, oiliness or shine, redness or irritation, and under-eye dark circles or puffiness. Clear, even, smooth skin with small pores scores high (80+); active breakouts, rough texture, strong redness or heavy dark circles score in the 50s-60s. Do not confuse lighting glare or compression artifacts with real skin problems.
+- jawline: grade visible definition of the lower face (mandible line, gonial angle, chin projection, neck separation). A crisp, well-separated jaw with clean neck transition scores high (80-94). A soft or fat-obscured jaw scores in the 50s-60s. Account for camera angle: a downward tilt or smile can soften a good jaw, do not over-penalize a decent jaw shot from a bad angle.
+- cheekbones: grade zygomatic prominence and midface bone support. Prominent, high cheekbones with visible angularity score high (80-94). Flat or recessed cheekbones score in the 50s-60s.
+- eye_area: grade compactness, canthal tilt, and brow ridge. Compact/almond eye area with strong brow support scores high (80-94); heavy eyelid exposure, puffy bags, or drooping downward tilt score lower.
+- harmony: balance of facial thirds (forehead, midface, lower face) and overall proportion. Balanced proportions score 80-94.
+- skin: grade clarity and condition of the skin. Clear, smooth skin scores high (80+); active breakouts or rough texture score in the 50s-60s. Do not confuse normal camera sensor noise, stubble, or lighting glare with skin problems.
+- photo_angle: grade the quality of the selfie itself (framing, distance, lighting). Does NOT affect overall_score.
+- improvement_potential: estimated headroom score if the user optimizes grooming, skincare, debloat, and styling. Should be at least overall_score + 5 to 12. Does NOT penalize overall_score.
 
 Explain the score: the "jawline" and "skin" output fields MUST EACH begin with ONE short, specific sentence that names what in THIS photo drove that sub-score (which of the rubric factors above you actually saw - e.g. jaw sharpness vs. under-chin softness, or clear tone vs. visible breakouts / dark circles), and only AFTER that sentence give the concrete improvement advice. Never give generic advice that ignores what the photo shows.
 
@@ -2356,10 +2390,12 @@ async function simpleTool(request, env, type) {
   if (!p.active) return json({ ok: false, error: "premium_required", premium: false }, 402);
 
   const meta = {
-    "dating-photo": { title: "Profile photo", role: "portrait and dating-profile photo coach" },
-    "haircut-guide": { title: "Haircut", role: "face-shape-aware haircut and grooming coach" },
-    "skin-plan": { title: "Skin", role: "looksmaxxing skin coach" },
-    "jawline-plan": { title: "Jawline", role: "looksmaxxing jawline coach" },
+    "dating-photo": { title: "Profile photo", role: gender === "female" ? "feminine aesthetic portrait and photography coach" : "portrait and dating-profile photo coach" },
+    "haircut-guide": { title: "Haircut", role: gender === "female" ? "expert feminine hairstyling and face-shape coach" : "face-shape-aware haircut and grooming coach" },
+    "skin-plan": { title: "Skin", role: gender === "female" ? "expert skincare and radiant glow coach" : "looksmaxxing skin coach" },
+    "jawline-plan": { title: "Jawline", role: gender === "female" ? "facial contouring, cheekbone definition and lymphatic lifting coach" : "looksmaxxing jawline coach" },
+    "symmetry-plan": { title: "Face symmetry", role: "facial symmetry and balance analysis coach" },
+    "makeup-guide": { title: "Makeup & Color Season", role: "expert aesthetic makeup, facial contouring and color season stylist" },
   }[type];
   if (!meta) return json({ ok: false, error: "unsupported_tool" }, 400);
 
@@ -2422,6 +2458,8 @@ async function simpleTool(request, env, type) {
     "haircut-guide": { bucket: "ai_haircut_guide", feature: "haircut_guide", label: "Haircut Guides", limit: DAILY_HAIRCUT_GUIDE_LIMIT },
     "skin-plan": { bucket: "ai_skin_plan", feature: "skin_plan", label: "Skin Plans", limit: DAILY_SKIN_PLAN_LIMIT },
     "jawline-plan": { bucket: "ai_jawline_plan", feature: "jawline_plan", label: "Jawline Plans", limit: DAILY_JAWLINE_PLAN_LIMIT },
+    "symmetry-plan": { bucket: "ai_symmetry_plan", feature: "symmetry_plan", label: "Symmetry Plans", limit: DAILY_SYMMETRY_PLAN_LIMIT },
+    "makeup-guide": { bucket: "ai_makeup_guide", feature: "makeup_guide", label: "Makeup & Color Season Guides", limit: DAILY_MAKEUP_GUIDE_LIMIT },
   }[type];
   const toolDaily = await checkDailyLimitOnly(env, userId, body.local_date, dailyConfig.bucket, dailyConfig.limit);
   if (!toolDaily.allowed) {
@@ -2431,15 +2469,25 @@ async function simpleTool(request, env, type) {
   if (!String(env.OPENROUTER_API_KEY || "").trim()) return json({ ok:false, error:"ai_unavailable", reason:"OPENROUTER_API_KEY missing" }, 503);
 
   const typeRules = {
-    "skin-plan": `Build a concrete skin-improvement plan. Prioritize the supplied skin and eye_area scores. The opening summary MUST explicitly cite the user's overall score and skin score, and cite eye-area only if it is supplied. Cover AM, PM, lifestyle and nutrition. Do not diagnose disease or prescribe medication.
+    "makeup-guide": `Analyze the photo, skin undertone, eye shape/color, lip shape, eyebrow geometry, face shape, and contrast level. Create a personalised, high-aesthetic makeup guide specifically tailored for THIS woman in English. Recommend:
+1) Her personal color season & contrast level (e.g. Soft Summer, Cool Summer, Warm Autumn, Bright Spring; cool vs warm undertone, contrast level).
+2) Face contouring & blush placement (sculpting diagram, highlighter and blush placement for lifting effect and harmonizing her face shape).
+3) Eye makeup & eyeliner technique (eyeliner, eyeshadow shades, mascara technique tailored to her specific eye shape: hooded, almond, deep-set, round).
+4) Lip makeup & color palette (shades of lipstick and lip gloss: dusty rose, peachy nude, berry; lip liner technique for sensual volume).
+5) Brow styling (ideal shape, arch, width and styling technique).
+6) Everyday radiant "clean girl" / glow skin routine (lightweight base, dewy finish without heavy cakey texture, setting technique).
+Give practical, step-by-step advice without salon jargon. Write in English.`,
+    "skin-plan": `Build a concrete skin-improvement plan. Prioritize the supplied skin and eye_area scores. ${gender === "female" ? "For women, cover thorough double-cleansing (especially for sunscreen/makeup removal), skin barrier restoration, morning depuffing, glow active ingredients (vitamin C, niacinamide, hyaluronic acid, gentle acids, SPF), and lip barrier hydration." : "Cover AM, PM, lifestyle and nutrition."} The opening summary MUST explicitly cite the user's overall score and skin score, and cite eye-area only if it is supplied. Do not diagnose disease or prescribe medication.
 Each step MUST name a specific ingredient, product type, or action with a concrete amount/frequency — e.g. "a salicylic acid (BHA) cleanser, 2x/day", "a niacinamide serum at night", "SPF 30+ mineral sunscreen every morning, reapplied at midday", "7-8 hours of sleep, consistent bedtime" — never a vague instruction like "use a good moisturizer" or "eat healthy" with no specifics.`,
-    "jawline-plan": `Build a concrete jawline-definition plan. The opening summary MUST explicitly cite the user's overall and jawline scores. Be honest that bone structure cannot be changed. Prioritize bloating, body composition, posture, grooming and safe muscle-tone work according to the supplied scores. Never recommend mewing or jaw trainers.
+    "jawline-plan": `${gender === "female" ? "Build a concrete feminine facial contour, cheekbone definition and lifting plan from the attached photo and scores. Focus on a delicate, lifted, sculpted jawline, reducing water retention/puffiness, Gua Sha / lymphatic drainage techniques, neck posture (platysma), and chewing habits. Avoid bulky masseter muscle hypertrophy." : "Build a concrete jawline-definition plan. The opening summary MUST explicitly cite the user's overall and jawline scores. Be honest that bone structure cannot be changed. Prioritize bloating, body composition, posture, grooming and safe muscle-tone work according to the supplied scores. Never recommend mewing or jaw trainers."}
 Each step MUST name a specific, concrete action with detail — e.g. "reduce sodium below 2000mg/day to cut water retention", "chin tucks against a wall, 3 sets of 15, daily", "a low-carb dinner cutoff 3 hours before bed", "a fresh fade or defined beard line at the barber to visually sharpen the jaw" — never a vague instruction like "lose fat" or "improve posture" with no specifics.`,
-    "haircut-guide": `Recommend a practical haircut direction. If a face-shape category is supplied, explicitly cite it in the opening summary and explain why the recommendations fit it. If face shape is unknown, do NOT guess a category. Ground recommendations in the supplied hair, jawline, cheekbones and harmony scores when present.
+    "haircut-guide": `Recommend a practical haircut direction. If a face-shape category is supplied, explicitly cite it in the opening summary and explain why the recommendations fit it. If face shape is unknown, do NOT guess a category. Ground recommendations in the supplied hair, jawline, cheekbones and harmony scores when present. ${gender === "female" ? "For women, recommend 2-3 modern, flattering feminine haircuts, layers, face-framing strands, bangs (curtain bangs, wispy bangs, side-swept) and styling choices (long layers, textured bob, butterfly cut, soft shag) that genuinely elevate HER face shape and facial features." : ""}
 The opening summary (text) MUST name at least 1-2 SPECIFIC haircut styles by their common name (e.g. "Textured Crop", "Taper Fade with fringe", "Long Layers with curtain bangs", "Undercut with slicked back top", "Soft Shag") — never just a vague direction like "shorter sides" with no named style.
 At least the first 3 of the 6 steps MUST each open with a specific, named haircut/style recommendation (bold-style short name first), followed by why it suits the user's face shape/metrics and how to ask for it at the barber/stylist (e.g. length, parting, fringe type). The remaining steps can cover styling product, maintenance and grooming.`,
-    "dating-photo": `Build a practical profile-photo improvement plan. The opening summary MUST cite the user's actual photo_angle and/or symmetry score when supplied. Cover lighting, camera height, posture, expression, background and grooming. If face shape is unknown, do NOT guess one.
+    "dating-photo": `Build a practical profile-photo improvement plan. The opening summary MUST cite the user's actual photo_angle and/or symmetry score when supplied. ${gender === "female" ? "For women, recommend flattering camera angles (45 degrees, slight high angle), golden hour soft lighting, natural poses, relaxed smile or subtle smize, aesthetic backgrounds, and feminine styling." : "Cover lighting, camera height, posture, expression, background and grooming."} If face shape is unknown, do NOT guess one.
 Each step MUST give a concrete, specific instruction — e.g. "shoot facing a window with soft daylight, light source in front of you not behind", "hold/prop the camera at eye level or slightly above, never below", "a slight head turn (about 15-20 degrees) with chin down a touch to sharpen the jawline", "a plain uncluttered background (wall, nature) so the face stays the focal point" — never a vague instruction like "use good lighting" or "look confident" with no specifics.`,
+    "symmetry-plan": `Analyze facial symmetry and balance from the photo and scores. Some natural asymmetry is normal for every face and is not a flaw — say this explicitly in the summary. Compare visible eye height and size, eyebrow height, nose alignment, mouth corners and jaw balance only where assessable. Give practical, non-medical ways to visually balance the face: camera angle and head tilt for photos, lighting placement, haircut/parting and eyebrow grooming choices, posture. Never suggest the asymmetry is a health problem, never suggest surgery, fillers, Botox or any medical/cosmetic procedure, and never use alarming language. Write in English.
+Each step MUST give a concrete, specific action or styling technique.`,
   }[type];
 
   const varietyToken = Math.random().toString(36).slice(2, 8);
@@ -4085,6 +4133,8 @@ export default {
           "/api/haircut-guide",
           "/api/skin-plan",
           "/api/jawline-plan",
+          "/api/symmetry-plan",
+          "/api/makeup-guide",
           "/api/apple-receipt-verify",
           "/api/apple-server-notification",
           "/api/referral/code?user_id=",
@@ -4162,6 +4212,8 @@ export default {
       if (path === "/api/haircut-guide" && request.method === "POST") return await simpleTool(request, env, "haircut-guide");
       if (path === "/api/skin-plan" && request.method === "POST") return await simpleTool(request, env, "skin-plan");
       if (path === "/api/jawline-plan" && request.method === "POST") return await simpleTool(request, env, "jawline-plan");
+      if (path === "/api/symmetry-plan" && request.method === "POST") return await simpleTool(request, env, "symmetry-plan");
+      if (path === "/api/makeup-guide" && request.method === "POST") return await simpleTool(request, env, "makeup-guide");
 
       if (path === "/api/apple-receipt-verify" && request.method === "POST") return await verifyAppleReceipt(request, env);
       if (path === "/api/apple-server-notification" && request.method === "POST") return await appleServerNotification(request, env);

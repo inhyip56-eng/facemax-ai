@@ -574,8 +574,8 @@ button.hs:active{transform:scale(.96)}
 .photo-frame{position:relative;border-radius:16px;overflow:hidden;background:#14091A;border:1px solid var(--line)}
 .photo-frame img{width:100%;max-height:480px;display:block;object-fit:contain;background:#14091A}
 .face-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
-.scan-grid{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(167,139,250,.10) 1px,transparent 1px),linear-gradient(rgba(167,139,250,.08) 1px,transparent 1px);background-size:28px 28px;opacity:.4;z-index:2;mix-blend-mode:screen}
-.scan-beam{position:absolute;left:0;right:0;top:-60px;height:60px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent,rgba(167,139,250,.65),rgba(196,181,253,.30),transparent);box-shadow:0 0 24px rgba(167,139,250,.55);animation:scanBeam 1.6s linear infinite;mix-blend-mode:screen}
+.scan-grid{display:none!important;position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(167,139,250,.10) 1px,transparent 1px),linear-gradient(rgba(167,139,250,.08) 1px,transparent 1px);background-size:28px 28px;opacity:.4;z-index:2;mix-blend-mode:screen}
+.scan-beam{display:none!important;position:absolute;left:0;right:0;top:-60px;height:60px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent,rgba(167,139,250,.65),rgba(196,181,253,.30),transparent);box-shadow:0 0 24px rgba(167,139,250,.55);animation:scanBeam 1.6s linear infinite;mix-blend-mode:screen}
 @keyframes scanBeam{to{transform:translateY(640px)}}
 .metric-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surface-2);border-radius:12px;border:1px solid var(--line);margin-bottom:8px}
 .metric-row:last-child{margin-bottom:0}
@@ -797,8 +797,8 @@ html.fm-native .bottom{bottom:0;padding-bottom:calc(6px + env(safe-area-inset-bo
 /* Dark rounded card behind everything from the avatar photo down through
    the Save/Share buttons — matches the reference design. */
 .fm-result-v2 .result-card-bg{
-  background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(232,121,249,.08));
-  border:1px solid rgba(167,139,250,.28);
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
   border-radius:24px;
   padding:24px 16px 16px;
   margin-bottom:14px;
@@ -806,11 +806,11 @@ html.fm-native .bottom{bottom:0;padding-bottom:calc(6px + env(safe-area-inset-bo
 .fm-result-v2 .result-card-bg .result-avatar{margin-bottom:20px}
 .fm-result-v2 .result-avatar{display:flex;justify-content:center;margin-bottom:24px}
 .fm-result-v2 .result-avatar-ring{position:relative;width:52%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;
-  background:#1A1320;border:4px solid rgba(196,181,253,.95);
-  box-shadow:0 16px 42px rgba(167,139,250,.6),0 0 28px rgba(196,181,253,.6),0 0 0 1px rgba(255,255,255,.2)}
+  background:#140F18;border:3px solid rgba(255,255,255,.2);
+  box-shadow:0 8px 28px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.1)}
 /* Big centered score number */
 .fm-result-v2 .result-score-big{display:flex;align-items:baseline;justify-content:center;gap:2px;margin:0 0 3px}
-.fm-result-v2 .result-score-num{font-size:30px;font-weight:800;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums;line-height:1;text-shadow:0 2px 16px rgba(167,139,250,.4)}
+.fm-result-v2 .result-score-num{font-size:30px;font-weight:800;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.5)}
 .fm-result-v2 .result-score-of{font-size:15px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:-.01em}
 .fm-result-v2 .result-avatar-ring img{width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block}
 .fm-result-v2 .result-avatar-ring canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
@@ -851,7 +851,7 @@ html.fm-native .bottom{bottom:0;padding-bottom:calc(6px + env(safe-area-inset-bo
 /* --- metric progress bars (premium style) --- */
 .fm-result-v2 .metric-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
 .fm-result-v2 .metric-row{display:block;align-items:initial;gap:0;margin-bottom:0;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px 10px;position:relative;overflow:hidden}
-.fm-result-v2 .metric-row::before{content:"";position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(167,139,250,.04),transparent 60%);pointer-events:none}
+.fm-result-v2 .metric-row::before{content:"";position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,.025),transparent 60%);pointer-events:none}
 .fm-result-v2 .metric-row-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px}
 .fm-result-v2 .metric-row-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;display:block}
 .fm-result-v2 .metric-row-val{font-size:40px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.04em;line-height:1;text-align:left;flex-shrink:0}
@@ -2381,6 +2381,35 @@ html.cam-active .app { background:transparent !important; }
 /* Bigger quiz typography to feel "крупно" */
 #quiz .quiz-title { font-size:31px; }
 #quiz .quiz-sub { font-size:15.5px; }
+
+/* ===== VISUAL TOOL STEPS & COLOR SEASON CARD ===== */
+.color-season-card{margin:12px 0 16px;padding:15px 15px 14px;background:linear-gradient(145deg,rgba(236,72,153,.12),rgba(168,85,247,.08),rgba(255,255,255,.03));border:1.5px solid rgba(244,114,182,.35);border-radius:20px;display:flex;flex-direction:column;gap:10px}
+.color-season-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.color-season-title-wrap{display:flex;flex-direction:column;gap:2px}
+.color-season-eyebrow{font-size:10px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#f472b6}
+.color-season-name{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.color-season-undertone-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:rgba(244,114,182,.18);border:1px solid rgba(244,114,182,.38);color:#fbcfe8;font-size:11.5px;font-weight:750}
+.color-season-sub{font-size:12px;color:rgba(255,255,255,.72);line-height:1.4}
+.color-swatches-grid{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 6px;scrollbar-width:none;-ms-overflow-style:none}
+.color-swatches-grid::-webkit-scrollbar{display:none}
+.color-swatch-item{flex:1 0 68px;min-width:68px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:9px 5px 7px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s ease,background .15s ease}
+.color-swatch-item:active{transform:scale(.93);background:rgba(255,255,255,.09)}
+.color-swatch-circle{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.35);position:relative;transition:border-color .2s ease,transform .2s ease}
+.color-swatch-item:hover .color-swatch-circle{border-color:#fff;transform:scale(1.05)}
+.color-swatch-label{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.94);text-align:center;line-height:1.24;white-space:normal;word-break:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:26px;max-width:100%}
+.color-swatch-hex{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.50);letter-spacing:.02em;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+
+/* Tool step cards */
+.tool-step-card{background:linear-gradient(155deg,rgba(255,255,255,.07),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:14px 15px;display:flex;flex-direction:column;gap:8px;margin-bottom:10px;transition:border-color .2s ease,background .2s ease}
+.tool-step-card:hover{border-color:rgba(255,255,255,.20)}
+.tool-step-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tool-step-tag-wrap{display:flex;align-items:center;gap:8px}
+.tool-step-icon{width:28px;height:28px;flex:0 0 28px;border-radius:9px;display:grid;place-items:center;font-size:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.tool-step-tag{font-size:11px;font-weight:850;letter-spacing:.07em;text-transform:uppercase;color:#c4b5fd;background:rgba(167,139,250,.14);padding:3px 8px;border-radius:7px;border:1px solid rgba(167,139,250,.24)}
+.tool-step-tag.makeup{color:#f472b6;background:rgba(244,114,182,.14);border-color:rgba(244,114,182,.28)}
+.tool-step-num{font-size:11px;font-weight:800;color:rgba(255,255,255,.4)}
+.tool-step-title{font-size:14.5px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.35}
+.tool-step-desc{font-size:13px;font-weight:550;line-height:1.52;color:rgba(255,255,255,.84)}
 </style>
 <style>
 /* ── No-glow override ───────────────────────────────────────────────
@@ -3771,7 +3800,7 @@ html.cam-active .app { background:transparent !important; }
     <span>Personal tools built around your latest Face Scan.</span>
   </div>
 
-  <div class="ai-feature-list">
+  <div class="ai-feature-list" id="aiFeatureList">
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
       <span class="ai-feature-icon ai-feature-emoji">😎</span>
       <span class="ai-feature-copy"><span class="ai-feature-line">Skin</span></span><span class="ai-feature-arrow">›</span>
@@ -8002,7 +8031,193 @@ let _aiFeaturesContext = false;
 // Daily hub's last-scan card, so the bottom nav can keep the Daily tab lit
 // instead of always jumping back to Scan.
 let _resultFromDaily = false;
-const _AI_FEATURE_CHILD_SCREENS = new Set(["aiFeatures","tool","compare","foodScan","meals","foodHub"]);
+function renderAiFeaturesList(){
+  const list = el("aiFeatureList");
+  if (!list) return;
+  const isFemale = (typeof currentGender === "function" ? currentGender() : "male") === "female";
+
+  if (isFemale) {
+    list.innerHTML = `
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('makeup')" style="border:1.5px solid rgba(244,114,182,0.35);background:linear-gradient(135deg,rgba(236,72,153,0.10),rgba(255,255,255,0.03))">
+      <span class="ai-feature-icon ai-feature-emoji">💄</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="display:flex;align-items:center;gap:6px;font-weight:700">
+          Makeup & Color Season
+          <span style="background:linear-gradient(135deg,#FB7185,#F43F5E);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:0.5px">NEW</span>
+        </span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Contouring, color palette, liner & lips</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
+      <span class="ai-feature-icon ai-feature-emoji">✨</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Glow Skincare Plan</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Clean girl glow, barrier & hydration</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('haircut')">
+      <span class="ai-feature-icon ai-feature-emoji">💇‍♀️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Hair Styling & Cut</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Face shape, framing layers & volume</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('jawline')">
+      <span class="ai-feature-icon ai-feature-emoji">🌸</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Cheekbones & Oval</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Facial contour, depuffing & cheekbones</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('photo')">
+      <span class="ai-feature-icon ai-feature-emoji">📸</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Portrait & Aesthetics</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Best angles, lighting & aesthetic</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('symmetry')">
+      <span class="ai-feature-icon ai-feature-emoji">⚖️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Face Symmetry</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Landmark balance & harmony</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openExercises()">
+      <span class="ai-feature-icon ai-feature-emoji">🧘‍♀️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Facial Exercises & Yoga</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Face yoga, posture & lymph drainage</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureFoodScanner()">
+      <span class="ai-feature-icon ai-feature-emoji">🥗</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Food Scanner</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Nutrient balance for skin glow</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureNutrition()">
+      <span class="ai-feature-icon ai-feature-emoji">🥑</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Meal Plan</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Clear skin, energy & light digestion</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureCompare()">
+      <span class="ai-feature-icon ai-feature-emoji">🔄</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Compare Scans</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Track before & after transformation</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+    `;
+  } else {
+    list.innerHTML = `
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
+      <span class="ai-feature-icon ai-feature-emoji">😎</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Skin</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Personalised skincare routine</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('haircut')">
+      <span class="ai-feature-icon ai-feature-emoji">✂️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Haircut</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Best haircut for your face shape</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('symmetry')">
+      <span class="ai-feature-icon ai-feature-emoji">⚖️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Face Symmetry</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Analyze landmark asymmetry & balance</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('jawline')">
+      <span class="ai-feature-icon ai-feature-emoji">🦴</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Jawline</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Jawline definition & posture</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('photo')">
+      <span class="ai-feature-icon ai-feature-emoji">📸</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Profile Photo</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Photo quality, lighting and angle audit</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openExercises()">
+      <span class="ai-feature-icon ai-feature-emoji">💪</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Exercises</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Mewing, neck posture and facial workouts</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureFoodScanner()">
+      <span class="ai-feature-icon ai-feature-emoji">🍎</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Food Scanner</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Instant calories & macros by photo</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureNutrition()">
+      <span class="ai-feature-icon ai-feature-emoji">🥗</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Meal Plan</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Diet plan for fat loss & water cut</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureCompare()">
+      <span class="ai-feature-icon ai-feature-emoji">🔄</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="font-weight:700">Compare Scans</span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Track before & after transformation</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+    `;
+  }
+}
+window.renderAiFeaturesList = renderAiFeaturesList;
+
 window.openAiFeatures = async function(_premiumChecked){
   if (!_premiumChecked) {
     const ok = await ensurePremiumForAction(
@@ -8013,6 +8228,7 @@ window.openAiFeatures = async function(_premiumChecked){
     if (!ok) return;
   }
   _aiFeaturesContext = true;
+  try { renderAiFeaturesList(); } catch {}
   openScreen("aiFeatures");
 };
 window.openAiFeatureTool = function(tool){
@@ -8067,6 +8283,7 @@ window.openScreen = function(id){
   }
   if (id === "home") { renderHomeHistory(); renderHomeStats(); updateDailyCalWidget(); }
   if (id === "profile") { renderProfileScreen(); }
+  if (id === "aiFeatures") { renderAiFeaturesList(); }
   if (id === "daily") { refreshDailyGreeting && refreshDailyGreeting(); refreshDailyTiles && refreshDailyTiles(); renderGlowUpPlan(); updateDailyCalWidget(); }
   if (id === "calories") { updateDailyCalWidget(); renderCalScreenEntries && renderCalScreenEntries(); }
   if (id === "upload") {
@@ -8256,15 +8473,288 @@ function toolMetric(metrics, key){
   const v = metrics && Number(metrics[key]);
   return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : null;
 }
+function _fmDetectColorSeason(text, steps) {
+  const combined = (String(text || "") + " " + (Array.isArray(steps) ? steps.join(" ") : "")).toLowerCase();
+  
+  const hasSummer = combined.includes("summer");
+  const hasSpring = combined.includes("spring");
+  const hasAutumn = combined.includes("autumn") || combined.includes("fall");
+  const hasWinter = combined.includes("winter");
+
+  const hasWarm = combined.includes("warm") || combined.includes("peach") || combined.includes("gold") || combined.includes("beige");
+  const hasCool = combined.includes("cool") || combined.includes("pink") || combined.includes("porcelain");
+  const hasSoft = combined.includes("soft") || combined.includes("muted") || combined.includes("neutral");
+
+  // 1. Explicit AI diagnosis for Summer
+  if (hasSummer && !hasSpring && !hasAutumn && !hasWinter) {
+    if (hasWarm || hasSoft) {
+      return {
+        season: "Soft Summer",
+        undertone: "Neutral-warm undertone · Soft muted contrast",
+        badge: "🌸 Soft Summer",
+        swatches: [
+          { name: "Dusty Rose", hex: "#C67B88" },
+          { name: "Warm Peach", hex: "#E89B88" },
+          { name: "Soft Nude", hex: "#C89582" },
+          { name: "Berry Mousse", hex: "#9E5B6D" },
+          { name: "Pearl Rose", hex: "#E8D8DC" }
+        ]
+      };
+    }
+    return {
+      season: "Cool Summer",
+      undertone: "Cool pink undertone · Soft muted contrast",
+      badge: "🌸 Cool Summer",
+      swatches: [
+        { name: "Dusty Rose", hex: "#C77585" },
+        { name: "Cool Nude", hex: "#B88595" },
+        { name: "Soft Berry", hex: "#9B6275" },
+        { name: "Wine Accent", hex: "#6E3B50" },
+        { name: "Pearl Highlight", hex: "#EADEE2" }
+      ]
+    };
+  }
+
+  // 2. Explicit AI diagnosis for Spring
+  if (hasSpring) {
+    return {
+      season: "Bright Spring",
+      undertone: "Warm peach undertone · Luminous radiant palette",
+      badge: "🌷 Bright Spring",
+      swatches: [
+        { name: "Coral", hex: "#F07067" },
+        { name: "Fresh Peach", hex: "#F59E7E" },
+        { name: "Honey Nude", hex: "#D48C68" },
+        { name: "Vivid Poppy", hex: "#C93B4E" },
+        { name: "Champagne Glow", hex: "#F7D29E" }
+      ]
+    };
+  }
+
+  // 3. Explicit AI diagnosis for Autumn
+  if (hasAutumn) {
+    return {
+      season: "Warm Autumn",
+      undertone: "Warm golden undertone · Soft velvet contrast",
+      badge: "🍂 Warm Autumn",
+      swatches: [
+        { name: "Terracotta", hex: "#C86446" },
+        { name: "Warm Peach", hex: "#E8927C" },
+        { name: "Caramel Nude", hex: "#B87850" },
+        { name: "Spiced Plum", hex: "#7E283C" },
+        { name: "Golden Shimmer", hex: "#D4AF37" }
+      ]
+    };
+  }
+
+  // 4. Explicit AI diagnosis for Winter
+  if (hasWinter) {
+    return {
+      season: "Deep Winter",
+      undertone: "Cool porcelain undertone · High visual contrast",
+      badge: "❄️ Deep Winter",
+      swatches: [
+        { name: "Ripe Cherry", hex: "#8F142D" },
+        { name: "Cool Rose", hex: "#B82544" },
+        { name: "Blackberry", hex: "#5C152B" },
+        { name: "Ruby Accent", hex: "#A31E44" },
+        { name: "Icy Highlight", hex: "#F3EBF0" }
+      ]
+    };
+  }
+
+  // 5. Fallback heuristics when season name isn't explicit
+  if (combined.includes("terracotta") || (hasWarm && (combined.includes("gold") || combined.includes("bronze")))) {
+    return {
+      season: "Warm Autumn",
+      undertone: "Warm golden undertone · Soft velvet contrast",
+      badge: "🍂 Warm Autumn",
+      swatches: [
+        { name: "Terracotta", hex: "#C86446" },
+        { name: "Warm Peach", hex: "#E8927C" },
+        { name: "Caramel Nude", hex: "#B87850" },
+        { name: "Spiced Plum", hex: "#7E283C" },
+        { name: "Golden Shimmer", hex: "#D4AF37" }
+      ]
+    };
+  }
+  if (hasCool && (combined.includes("contrast") || combined.includes("brunette") || combined.includes("black") || combined.includes("cherry"))) {
+    return {
+      season: "Deep Winter",
+      undertone: "Cool porcelain undertone · High visual contrast",
+      badge: "❄️ Deep Winter",
+      swatches: [
+        { name: "Ripe Cherry", hex: "#8F142D" },
+        { name: "Cool Rose", hex: "#B82544" },
+        { name: "Blackberry", hex: "#5C152B" },
+        { name: "Ruby Accent", hex: "#A31E44" },
+        { name: "Icy Highlight", hex: "#F3EBF0" }
+      ]
+    };
+  }
+  if (hasWarm) {
+    return {
+      season: "Bright Spring",
+      undertone: "Warm peach undertone · Luminous radiant palette",
+      badge: "🌷 Bright Spring",
+      swatches: [
+        { name: "Coral", hex: "#F07067" },
+        { name: "Fresh Peach", hex: "#F59E7E" },
+        { name: "Honey Nude", hex: "#D48C68" },
+        { name: "Vivid Poppy", hex: "#C93B4E" },
+        { name: "Champagne Glow", hex: "#F7D29E" }
+      ]
+    };
+  }
+
+  // Default fallback: Cool Summer
+  return {
+    season: "Cool Summer",
+    undertone: "Cool pink undertone · Soft muted contrast",
+    badge: "🌸 Cool Summer",
+    swatches: [
+      { name: "Dusty Rose", hex: "#C77585" },
+      { name: "Cool Nude", hex: "#B88595" },
+      { name: "Soft Berry", hex: "#9B6275" },
+      { name: "Wine Accent", hex: "#6E3B50" },
+      { name: "Pearl Highlight", hex: "#EADEE2" }
+    ]
+  };
+}
+
+function _fmRenderColorSeasonCard(seasonInfo) {
+  const swatchesHtml = seasonInfo.swatches.map(sw => `
+    <div class="color-swatch-item" onclick="fmCopyHex('${sw.hex}', '${sw.name}')" title="Click to copy HEX">
+      <div class="color-swatch-circle" style="background:${sw.hex}"></div>
+      <span class="color-swatch-label">${sw.name}</span>
+      <span class="color-swatch-hex">${sw.hex}</span>
+    </div>
+  `).join("");
+
+  const parts = seasonInfo.undertone.split(" · ");
+  const undertoneBadgeText = parts[0];
+  const undertoneDescText = parts[1] || seasonInfo.undertone;
+
+  return `
+    <div class="color-season-card">
+      <div class="color-season-header">
+        <div class="color-season-title-wrap">
+          <span class="color-season-eyebrow">COLOR SEASON &amp; PALETTE</span>
+          <span class="color-season-name">${seasonInfo.badge}</span>
+        </div>
+        <span class="color-season-undertone-badge">${undertoneBadgeText}</span>
+      </div>
+      <div class="color-season-sub">${undertoneDescText}</div>
+      <div class="color-swatches-grid">
+        ${swatchesHtml}
+      </div>
+    </div>
+  `;
+}
+
+window.fmCopyHex = function(hex, name){
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(hex);
+    }
+  } catch (_) {}
+  showToast("Color copied: " + name + " (" + hex + ")");
+};
+
+function _fmGetStepCategory(tool, index, title, body) {
+  const TOOL_CATEGORIES = {
+    makeup: [
+      { icon: "🎨", tag: "Color Palette" },
+      { icon: "🖌️", tag: "Contour & Blush" },
+      { icon: "👁️", tag: "Eye Makeup" },
+      { icon: "💄", tag: "Lip Shade" },
+      { icon: "✨", tag: "Brow Styling" },
+      { icon: "🌟", tag: "Glow & Base" },
+    ],
+    skin: [
+      { icon: "🌅", tag: "Morning Care" },
+      { icon: "💧", tag: "Active Serums" },
+      { icon: "🛡️", tag: "SPF & Barrier" },
+      { icon: "🧊", tag: "Depuff & Drainage" },
+      { icon: "🌙", tag: "Evening Repair" },
+      { icon: "🥗", tag: "Nutrition & Glow" },
+    ],
+    jawline: [
+      { icon: "📐", tag: "Jawline Definition" },
+      { icon: "💆", tag: "Drainage Massage" },
+      { icon: "🧘", tag: "Posture & Neck" },
+      { icon: "💧", tag: "Debloat Control" },
+      { icon: "⚡", tag: "Chewing Habits" },
+      { icon: "🎯", tag: "Daily Focus" },
+    ],
+    haircut: [
+      { icon: "✂️", tag: "Haircut Shape" },
+      { icon: "💇", tag: "Layers & Volume" },
+      { icon: "🌪️", tag: "Styling Guide" },
+      { icon: "🧴", tag: "Hair Quality" },
+      { icon: "💈", tag: "Face Proportions" },
+      { icon: "💡", tag: "Daily Finish" },
+    ],
+    photo: [
+      { icon: "📸", tag: "Camera Angle" },
+      { icon: "💡", tag: "Lighting" },
+      { icon: "🕶️", tag: "Expression & Pose" },
+      { icon: "📱", tag: "Lens & Framing" },
+      { icon: "👔", tag: "Aesthetic & Background" },
+      { icon: "🎯", tag: "Master Shot" },
+    ],
+    symmetry: [
+      { icon: "⚖️", tag: "Facial Balance" },
+      { icon: "👁️", tag: "Eyes & Brows" },
+      { icon: "📐", tag: "Jaw Symmetry" },
+      { icon: "📸", tag: "Flattering Angle" },
+      { icon: "💇", tag: "Hair Parting" },
+      { icon: "🧘", tag: "Posture Habits" },
+    ]
+  };
+
+  const list = TOOL_CATEGORIES[tool] || TOOL_CATEGORIES.skin;
+  const item = list[index % list.length];
+  return {
+    icon: item.icon,
+    tag: item.tag
+  };
+}
+
 function renderAiToolResult(data){
   const d = data || {};
   el("toolSummary").textContent = String(d.text || "").trim();
-  const steps = Array.isArray(d.steps) ? d.steps.filter(Boolean).slice(0,6) : [];
+  
+  if (_activeAiTool === "makeup") {
+    const season = _fmDetectColorSeason(d.text, d.steps);
+    el("toolDetails").innerHTML = _fmRenderColorSeasonCard(season);
+  } else {
+    el("toolDetails").innerHTML = "";
+  }
+
+  const steps = Array.isArray(d.steps) ? d.steps.filter(Boolean).slice(0, 6) : [];
   if (steps.length) {
     el("toolStepsHdr").style.display = "";
-    el("toolSteps").innerHTML = steps.map((s,i) =>
-      `<div class="plan-row"><div class="plan-num">${i+1}</div><div class="plan-body"><span>${escapeHtml(String(s))}</span></div></div>`
-    ).join("");
+    const _escHtml = (t) => String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    el("toolSteps").innerHTML = steps.map((s, i) => {
+      const raw = String(s || "");
+      const m = raw.match(/^(.{2,40}?)\s*[:|\u2014-]\s+(.+)$/s);
+      const title = m ? _escHtml(m[1]) : "";
+      const body = _escHtml(m ? m[2] : raw);
+      const cat = _fmGetStepCategory(_activeAiTool, i, title, body);
+      const isMakeup = _activeAiTool === "makeup";
+      return `<div class="tool-step-card">
+        <div class="tool-step-top">
+          <div class="tool-step-tag-wrap">
+            <span class="tool-step-icon">${cat.icon}</span>
+            <span class="tool-step-tag${isMakeup ? " makeup" : ""}">${cat.tag}</span>
+          </div>
+          <span class="tool-step-num">#${i+1}</span>
+        </div>
+        ${title ? `<div class="tool-step-title">${title}</div>` : ""}
+        <div class="tool-step-desc">${body}</div>
+      </div>`;
+    }).join("");
   } else {
     el("toolStepsHdr").style.display = "none";
     el("toolSteps").innerHTML = "";
@@ -8277,7 +8767,14 @@ window.regenerateCurrentAiTool = function(){
 };
 
 window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenerate){
-  const names = { skin:"Skin", haircut:"Haircut", jawline:"Jawline", photo:"Profile Photo" };
+  const names = {
+    skin: "Skin",
+    haircut: "Haircut",
+    jawline: "Jawline",
+    photo: "Profile Photo",
+    symmetry: "Face Symmetry",
+    makeup: "Makeup & Color Season"
+  };
   if (!_premiumChecked) {
     const ok = await ensurePremiumForAction(
       () => window.openTool(tool, true, false, false),
@@ -8288,8 +8785,23 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
   }
   _activeAiTool = tool;
   openScreen("tool");
-  const TITLES = {skin:"Skin", haircut:"Haircut", jawline:"Jawline", photo:"Profile Photo"};
-  const EYEBROWS = {skin:"SKIN ANALYSIS", haircut:"HAIRCUT GUIDE", jawline:"JAWLINE ANALYSIS", photo:"PROFILE PHOTO"};
+  const isFem = (typeof currentGender === "function" && currentGender() === "female");
+  const TITLES = {
+    skin: isFem ? "Skin Glow Plan" : "Skin Analysis",
+    haircut: isFem ? "Hair Styling Guide" : "Haircut Guide",
+    jawline: isFem ? "Cheekbones & Jaw" : "Jawline Analysis",
+    photo: "Profile Photo",
+    symmetry: "Face Symmetry",
+    makeup: "Makeup & Color Season"
+  };
+  const EYEBROWS = {
+    skin: "SKIN ANALYSIS",
+    haircut: isFem ? "HAIR & STYLING GUIDE" : "HAIRCUT GUIDE",
+    jawline: isFem ? "CHEEKBONES & CONTOUR" : "JAWLINE ANALYSIS",
+    photo: "PROFILE PHOTO",
+    symmetry: "FACIAL SYMMETRY",
+    makeup: "COLOR & MAKEUP"
+  };
   el("toolTitle").textContent = TITLES[tool] || "Tool";
   el("toolEyebrow").textContent = EYEBROWS[tool] || "AI ANALYSIS";
   const tbTitle = el("toolTopbarTitle"); if (tbTitle) tbTitle.textContent = TITLES[tool] || "AI Tool";
@@ -8311,7 +8823,7 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
 
   const m = ctx.metrics;
   const chips = [];
-  if ((tool === "haircut" || tool === "jawline") && ctx.shape) {
+  if ((tool === "haircut" || tool === "jawline" || tool === "makeup") && ctx.shape) {
     chips.push(`<span class="chip"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="6" ry="9"/></svg>Face shape: ${ctx.shape}</span>`);
   }
   if (tool === "skin") {
@@ -8329,6 +8841,14 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
     const angle = toolMetric(m,"photo_angle"), symmetry = toolMetric(m,"symmetry");
     if (angle != null) chips.push(`<span class="chip">Photo angle ${angle}/100</span>`);
     if (symmetry != null) chips.push(`<span class="chip">Symmetry ${symmetry}/100</span>`);
+  } else if (tool === "symmetry") {
+    const symmetry = toolMetric(m,"symmetry"), harmony = toolMetric(m,"harmony");
+    if (symmetry != null) chips.push(`<span class="chip">Symmetry ${symmetry}/100</span>`);
+    if (harmony != null) chips.push(`<span class="chip">Harmony ${harmony}/100</span>`);
+  } else if (tool === "makeup") {
+    const skin = toolMetric(m,"skin");
+    if (skin != null) chips.push(`<span class="chip">Skin tone ${skin}/100</span>`);
+    chips.push(`<span class="chip">Palette &amp; Contour</span>`);
   }
   if (ctx.score != null) chips.push(`<span class="chip">Overall ${ctx.score}/100</span>`);
   el("toolChips").innerHTML = chips.join("");
@@ -8339,7 +8859,14 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
   }
 
   try {
-    const map = { photo:"dating-photo", haircut:"haircut-guide", skin:"skin-plan", jawline:"jawline-plan" };
+    const map = {
+      photo: "dating-photo",
+      haircut: "haircut-guide",
+      skin: "skin-plan",
+      jawline: "jawline-plan",
+      symmetry: "symmetry-plan",
+      makeup: "makeup-guide"
+    };
     const res = await fetch(API_BASE + "/api/" + map[tool], {
       method:"POST", headers:{"content-type":"application/json"},
       body: JSON.stringify({
@@ -10321,7 +10848,7 @@ window.startScan = async function(_premiumChecked){
     } else {
       // Existing animation is preserved for every regular Face Scan.
       if (_lCanvas) _runFakeMeshAnim(_lCanvas, 3200);
-      if (_lImg) startFaceMeshAnim('loadingImg', 'loadingCanvas', 3200).catch(()=>{});
+      if (_lImg) { /* Face mesh animation disabled for stability */ }
     }
   } catch(e) {}
 
@@ -11180,7 +11707,9 @@ function drawOverlay(imgId, canvasId){
 }
 function drawAllOverlays(){
   drawOverlay("loadingImg","loadingCanvas");
-  drawOverlay("resultImg","resultCanvas");
+  // Apple stability fix: do not draw face mesh overlays on the final result image.
+  // It could race image loading and leave an empty/black avatar canvas.
+  const _ri=document.getElementById("resultImg"); if(_ri && _ri.complete && _ri.naturalWidth>0){ /* overlay disabled */ }
   drawOverlay("reportImg","reportCanvas");
   drawOverlay("toolImg","toolCanvas");
 }
@@ -13654,7 +14183,7 @@ function renderFoodScanResult(r){
   // helpers
   function levelToScore(lvl){ return lvl==="low"?20:lvl==="medium"?55:lvl==="high"?85:50; }
   function pillClass(pill){ const p=String(pill||"").toLowerCase(); return p==="good"||p==="low"?"good":p==="moderate"||p==="medium"?"moderate":"bad"; }
-  function fsBарColor(sc){
+  function fsBarColor(sc){
     if(sc>=75) return 'linear-gradient(90deg,#4ADE80,#22C55E)';
     if(sc>=60) return 'linear-gradient(90deg,#A3E635,#4ADE80)';
     if(sc>=45) return 'linear-gradient(90deg,#FBBF24,#A3E635)';
@@ -13674,7 +14203,7 @@ function renderFoodScanResult(r){
       const fillEl=el(fillId);
       const pct=Math.max(0,Math.min(100,Number(sc)||0));
       fillEl.style.width=pct+"%";
-      fillEl.style.background=fsBарColor(pct);
+      fillEl.style.background=fsBarColor(pct);
     },100);
   }
   function qualityPenalty(lvl, low, med, high){
@@ -14074,7 +14603,17 @@ window.toggleRoutineStep = function(stepId){
 // ---------- Face exercises ----------
 // Gentle facial massage sequence: prepare the collarbone and neck area, then move from the centre of the face outward and finish down the neck
 const FACE_EXERCISES = [
-  { id:"collarbone", area:"NECK",     step:1, name:"Collarbone prep",         seconds:30, summary:"Gently prepares the collarbone and neck area.", image:{ male:"assets/exercises/male-collarbone.png", female:"assets/exercises/female-collarbone.png" },
+  { id:"thumbpulling", area:"MAXILLA",  step:1, name:"Thumbpulling",            seconds:30, summary:"Palate expansion using thumb pressure.", image:{ male:"assets/exercises/male-thumbpulling.png", female:"assets/exercises/female-thumbpulling.png" },
+    desc:"A classic looksmaxing technique designed to stimulate the palatal suture and encourage forward maxilla support. Thumbs apply firm, controlled upward and outward pressure against the hard palate. Never press directly against teeth.",
+    steps:[
+      "Wash and sanitize your hands thoroughly before starting.",
+      "Place thumb pads against the hard palate just behind the front upper teeth, without touching teeth.",
+      "Apply steady, symmetrical pressure upward and slightly outward against the palate for 20–30 seconds.",
+      "Breathe through your nose, keep your facial muscles relaxed, and avoid sharp pain.",
+      "Gently release pressure and reset your tongue into proper mewing posture against the roof of the mouth."
+    ]
+  },
+  { id:"collarbone",   area:"NECK",     step:2, name:"Collarbone prep",         seconds:30, summary:"Gently prepares the collarbone and neck area.", image:{ male:"assets/exercises/male-collarbone.png", female:"assets/exercises/female-collarbone.png" },
     desc:"Very light presses above the collarbones can prepare the neck and chest area before facial massage. This should feel soft and comfortable, never deep or painful.",
     steps:[
       "Rest your fingertips in the soft hollows just above the collarbones, on both sides of the neck.",
@@ -14083,7 +14622,7 @@ const FACE_EXERCISES = [
       "Repeat 5–10 times without pressing into the throat or muscles."
     ]
   },
-  { id:"neckdrain",  area:"NECK",     step:2, name:"Gentle neck glide",       seconds:40, summary:"A light downward glide toward the collarbones.", image:{ male:"assets/exercises/male-neckdrain.png", female:"assets/exercises/female-neckdrain.png" },
+  { id:"neckdrain",    area:"NECK",     step:3, name:"Gentle neck glide",       seconds:40, summary:"A light downward glide toward the collarbones.", image:{ male:"assets/exercises/male-neckdrain.png", female:"assets/exercises/female-neckdrain.png" },
     desc:"A very light downward glide from below the ears toward the collarbones may help move superficial fluid and relax the neck. The pressure should only move the skin, not reach the muscles.",
     steps:[
       "Place the pads of your fingers just below each ear.",
@@ -14092,7 +14631,7 @@ const FACE_EXERCISES = [
       "Do 5–10 slow glides per side."
     ]
   },
-  { id:"jawup",      area:"JAWLINE",  step:3, name:"Jawline outward glide",  seconds:40, summary:"Glides from the chin toward the ears without pulling.", image:{ male:"assets/exercises/male-jawup.png", female:"assets/exercises/female-jawup.png" },
+  { id:"jawup",        area:"JAWLINE",  step:4, name:"Jawline outward glide",   seconds:40, summary:"Glides from the chin toward the ears without pulling.", image:{ male:"assets/exercises/male-jawup.png", female:"assets/exercises/female-jawup.png" },
     desc:"A gentle glide from the centre of the chin along the jaw toward the ears may temporarily reduce the look of puffiness and feel relaxing. It does not permanently change the shape of the jaw.",
     steps:[
       "Apply a little serum or oil so your fingers or tool can glide without tugging.",
@@ -14101,7 +14640,7 @@ const FACE_EXERCISES = [
       "Do 5–10 slow glides on each side."
     ]
   },
-  { id:"jawknuckle", area:"JAWLINE",  step:4, name:"Jawline second pass",    seconds:40, summary:"An optional light second pass — never deep pressure.", image:{ male:"assets/exercises/male-jawknuckle.png", female:"assets/exercises/female-jawknuckle.png" },
+  { id:"jawknuckle",   area:"JAWLINE",  step:5, name:"Jawline second pass",     seconds:40, summary:"An optional light second pass — never deep pressure.", image:{ male:"assets/exercises/male-jawknuckle.png", female:"assets/exercises/female-jawknuckle.png" },
     desc:"Use the flat side of relaxed, bent fingers only as a broad surface. This is a light skin glide, not deep-tissue massage, and it should never hurt or leave bruising.",
     steps:[
       "Loosely bend your fingers and place the flat side of the middle knuckles at the centre of the chin.",
@@ -14110,7 +14649,7 @@ const FACE_EXERCISES = [
       "Do 5–10 slow glides on each side."
     ]
   },
-  { id:"eyeout",     area:"EYES",     step:5, name:"Under-eye outward sweep", seconds:30, summary:"Moves from near the nose outward toward the temples.", image:{ male:"assets/exercises/male-eyeout.png", female:"assets/exercises/female-eyeout.png" },
+  { id:"eyeout",       area:"EYES",     step:6, name:"Under-eye outward sweep",  seconds:30, summary:"Moves from near the nose outward toward the temples.", image:{ male:"assets/exercises/male-eyeout.png", female:"assets/exercises/female-eyeout.png" },
     desc:"A feather-light outward sweep along the bone below the eye may temporarily reduce the look of puffiness. Avoid the eyelid and never press on the eyeball.",
     steps:[
       "Place a fingertip near the side of the nose, on the orbital bone below each eye.",
@@ -14119,7 +14658,7 @@ const FACE_EXERCISES = [
       "Do 5–10 slow sweeps."
     ]
   },
-  { id:"forehead2",  area:"FOREHEAD", step:6, name:"Forehead outward glide", seconds:35, summary:"Glides from the centre of the forehead toward the temples.", image:{ male:"assets/exercises/male-forehead2.png", female:"assets/exercises/female-forehead2.png" },
+  { id:"forehead2",    area:"FOREHEAD", step:7, name:"Forehead outward glide",  seconds:35, summary:"Glides from the centre of the forehead toward the temples.", image:{ male:"assets/exercises/male-forehead2.png", female:"assets/exercises/female-forehead2.png" },
     desc:"Gentle outward glides from the centre of the forehead toward the temples can feel relaxing. Finish with light downward glides from below the ears along the neck to the collarbones.",
     steps:[
       "Apply enough serum or oil to avoid friction.",
@@ -16459,7 +16998,19 @@ async function quizContinueAfterVerifiedEntitlement(){
 window.quizContinueAfterVerifiedEntitlement = quizContinueAfterVerifiedEntitlement;
 
 async function prePayWeeklyAction(){
-  if (_quizCheckingOut || _purchaseInFlight) return;
+  // Apple review fix: never leave CTA silently dead because of a stale lock.
+  if (_quizCheckingOut || _purchaseInFlight) {
+    try {
+      const now = Date.now();
+      if (window._fmPurchaseLockAt && now - window._fmPurchaseLockAt > 15000) {
+        _quizCheckingOut = false;
+        _purchaseInFlight = false;
+      } else {
+        return;
+      }
+    } catch { return; }
+  }
+  window._fmPurchaseLockAt = Date.now();
   // Keep the tap path identical to the old working paywall: go straight into
   // the weekly checkout. No local/backend/CustomerInfo pre-check may satisfy
   // this CTA before the RevenueCat purchase method reaches StoreKit.
@@ -16575,6 +17126,7 @@ function quizBuyPlan(plan){
   if (_quizCheckingOut || _purchaseInFlight) return;
   quizSelectPlan("weekly");
   _quizCheckingOut = true;
+  window._fmPurchaseLockAt = Date.now();
   const plans = el("qpPlans");
   const syncStatus = el("qpSyncStatus");
   if (syncStatus) syncStatus.textContent = "Opening Apple checkout…";
@@ -17721,13 +18273,29 @@ function _runFakeMeshAnim(canvas, totalDur) {
 }
 
 async function startFaceMeshAnim(imgId, canvasId, totalDur) {
+  // Apple review stability fix: remove heavy face mesh animation.
+  // Camera capture and AI analysis continue without canvas rendering.
   stopMeshAnim();
   const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  _runFakeMeshAnim(canvas, totalDur || 3200);
+  if (canvas) {
+    const ctx = canvas.getContext && canvas.getContext("2d");
+    if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.display = "none";
+  }
+  return true;
 }
 
 window.startFaceMeshAnim = startFaceMeshAnim;
+
+// Prevent blank/black result avatar when image data fails.
+try {
+  const _resultImgGuard = document.getElementById("resultImg");
+  if (_resultImgGuard) {
+    _resultImgGuard.onerror = function(){
+      this.style.visibility = "hidden";
+    };
+  }
+} catch {}
 // ─────────────────────────────────────────────────────────────────────────────
 
 </script>
