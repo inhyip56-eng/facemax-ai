@@ -2402,14 +2402,13 @@ html.cam-active .app { background:transparent !important; }
 .color-season-name{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.02em}
 .color-season-undertone-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:rgba(244,114,182,.18);border:1px solid rgba(244,114,182,.38);color:#fbcfe8;font-size:11.5px;font-weight:750}
 .color-season-sub{font-size:12px;color:rgba(255,255,255,.72);line-height:1.4}
-.color-swatches-grid{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 6px;scrollbar-width:none;-ms-overflow-style:none}
-.color-swatches-grid::-webkit-scrollbar{display:none}
-.color-swatch-item{flex:1 0 68px;min-width:68px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:9px 5px 7px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s ease,background .15s ease}
+.color-swatches-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:4px 0 6px}
+.color-swatch-item{width:100%;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px 6px;border-radius:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s ease,background .15s ease;box-sizing:border-box}
 .color-swatch-item:active{transform:scale(.93);background:rgba(255,255,255,.09)}
-.color-swatch-circle{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.35);position:relative;transition:border-color .2s ease,transform .2s ease}
+.color-swatch-circle{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);position:relative;transition:border-color .2s ease,transform .2s ease}
 .color-swatch-item:hover .color-swatch-circle{border-color:#fff;transform:scale(1.05)}
-.color-swatch-label{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.94);text-align:center;line-height:1.24;white-space:normal;word-break:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:26px;max-width:100%}
-.color-swatch-hex{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.50);letter-spacing:.02em;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+.color-swatch-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.94);text-align:center;line-height:1.2;white-space:normal;word-break:break-word;overflow:hidden;height:24px;max-width:100%}
+.color-swatch-hex{font-size:9px;font-weight:600;color:rgba(255,255,255,.50);letter-spacing:.01em;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
 
 /* Tool step cards */
 .tool-step-card{background:linear-gradient(155deg,rgba(255,255,255,.07),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:14px 15px;display:flex;flex-direction:column;gap:8px;margin-bottom:10px;transition:border-color .2s ease,background .2s ease}
@@ -2578,7 +2577,7 @@ html.cam-active .app { background:transparent !important; }
 
 /* Profile */
 .profile-hero-v4{display:flex;align-items:center;gap:16px;padding:18px;background:linear-gradient(145deg,rgba(139,92,246,.17),rgba(255,255,255,.035) 58%);border:1px solid rgba(196,181,253,.18);border-radius:26px;margin:8px 0 12px;box-shadow:0 18px 38px rgba(0,0,0,.16)}
-.profile-hero-v4 .profile-avatar{width:64px;height:64px;margin:0;flex:0 0 64px}.profile-hero-copy{min-width:0;flex:1}.profile-hero-copy .profile-name{font-size:22px}.profile-hero-copy .status-badge{margin-top:8px;padding:6px 11px;font-size:12.5px}.profile-hero-copy .premium-until{margin-top:6px;font-size:13px}
+.profile-hero-v4 .profile-avatar{width:64px;height:64px;margin:0;flex:0 0 64px}.profile-hero-copy{min-width:0;flex:1}.profile-hero-copy .profile-name{font-size:22px}.profile-hero-copy .status-badge{margin-top:8px;padding:6px 11px;font-size:12.5px;width:fit-content;align-self:flex-start}.profile-hero-copy .premium-until{margin-top:6px;font-size:13px}
 .profile-stats-v4{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.profile-stat-v4{padding:13px 10px;border-radius:17px;background:var(--v4-card);border:1px solid var(--v4-border);display:flex;flex-direction:column;gap:4px}.profile-stat-v4 span{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:750}.profile-stat-v4 b{font-size:22px;letter-spacing:-.03em}.profile-chart-v4{border-radius:22px!important;margin-bottom:18px!important}
 .settings-section-v4{margin-top:18px}.settings-title-v4{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.55);margin:0 5px 9px}.settings-card-v4{overflow:hidden;background:var(--v4-card);border:1px solid var(--v4-border);border-radius:22px}.settings-row-v4{display:flex;align-items:center;gap:12px;padding:14px 14px;min-height:68px}.settings-button-v4{width:100%;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.settings-divider-v4{height:1px;background:rgba(255,255,255,.07);margin-left:60px}.settings-icon-v4{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:0 0 34px}.settings-icon-v4 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.settings-icon-v4.purple{background:rgba(167,139,250,.15);color:#c4b5fd}.settings-icon-v4.blue{background:rgba(96,165,250,.14);color:#93c5fd}.settings-icon-v4.green{background:rgba(74,222,128,.12);color:#86efac}.settings-icon-v4.gray{background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)}.settings-icon-v4.red{background:rgba(248,113,113,.12);color:#fca5a5}.settings-copy-v4{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.settings-copy-v4 b{font-size:16px;font-weight:700;letter-spacing:-.01em}.settings-copy-v4 span{font-size:13px;color:var(--muted);line-height:1.35}.settings-chevron-v4{width:18px;height:18px;stroke:rgba(255,255,255,.28);fill:none;stroke-width:2;flex:0 0 18px}.settings-footnote-v4{font-size:12.5px;color:rgba(255,255,255,.42);margin:8px 8px 0;line-height:1.45}.gender-row-v4{flex-wrap:wrap}.gender-row-v4 .settings-copy-v4{min-width:155px}.gender-pills-v4{display:flex;gap:5px;margin-left:46px;width:calc(100% - 46px)}.gender-pill-v4{flex:1;border:1px solid var(--v4-border);background:rgba(255,255,255,.045);color:var(--muted);border-radius:11px;padding:9px;font-size:13px;font-weight:750}.gender-pill-v4.active,.gender-pill-v4[aria-pressed="true"]{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.38);color:#ddd6fe}.danger-section-v4{padding-bottom:16px}.danger-row-v4 .settings-copy-v4 b{color:#fca5a5}
 
@@ -2616,9 +2615,15 @@ html.cam-active .app { background:transparent !important; }
 #profile .profile-hero-copy {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 3px;
   flex: 1;
   min-width: 0;
+}
+#profile .status-badge {
+  width: fit-content !important;
+  align-self: flex-start !important;
+  max-width: 100% !important;
 }
 #profile .profile-name {
   font-size: 20px;
@@ -3115,6 +3120,7 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
 
 #compare .compare-scan-grid>*{border-radius:19px!important;background:linear-gradient(155deg,rgba(255,255,255,.06),rgba(255,255,255,.025))!important;border-color:rgba(255,255,255,.08)!important}
 #compare .cmp-col,#compare .cmp-delta,#compare .cmp-note{border-radius:22px!important}
+#tool { padding-bottom: calc(115px + env(safe-area-inset-bottom, 0px)) !important; }
 #tool .tool-hero{border-radius:25px;padding:16px;background:linear-gradient(155deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border-color:rgba(255,255,255,.09);box-shadow:0 14px 30px rgba(0,0,0,.18)}
 #tool .list>*{border-radius:18px!important}
 .ai-tool-loading-box{display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 10px 10px;width:100%;box-sizing:border-box}
@@ -9188,6 +9194,9 @@ window.openScreen = function(id){
   const tabId = (id === "result" && _resultFromDaily) ? "daily" : NAV_TAB_FOR_SCREEN[id];
   if (tabId) setActiveNavTab(tabId);
   window.scrollTo(0, 0);
+  try { if (document.body) document.body.scrollTop = 0; } catch {}
+  try { if (document.documentElement) document.documentElement.scrollTop = 0; } catch {}
+  try { const scEl = el(id); if (scEl) scEl.scrollTop = 0; } catch {}
   if (["result","report","loading"].includes(id)) {
     setTimeout(drawAllOverlays, 120);
     setTimeout(drawAllOverlays, 600);
@@ -9324,11 +9333,11 @@ window.resumePendingPremiumAction = async function(){
 
 function setToolHeroPhoto(){
   const img = el("toolImg"); const photoWrap = el("toolPhoto");
-  if (selectedImageData) {
-    img.src = selectedImageData;
-    photoWrap.classList.remove("empty");
-  } else if (scanHistory.length && scanHistory[0].thumb) {
-    img.src = scanHistory[0].thumb;
+  const photoSrc = _avatarCropUrl || selectedImageData || (scanHistory.length && scanHistory[0].thumb) || "";
+  if (photoSrc) {
+    img.src = photoSrc;
+    img.style.objectFit = "cover";
+    img.style.objectPosition = "center center";
     photoWrap.classList.remove("empty");
   } else {
     img.src = "";
@@ -9400,30 +9409,30 @@ function _fmDetectColorSeason(text, steps) {
 
   // 1. Explicit AI diagnosis for Summer
   if (hasSummer && !hasSpring && !hasAutumn && !hasWinter) {
-    if (hasWarm || hasSoft) {
+    if (combined.includes("cool summer") || (hasCool && !combined.includes("soft summer"))) {
       return {
-        season: "Soft Summer",
-        undertone: "Neutral-warm undertone · Soft muted contrast",
-        badge: "🌸 Soft Summer",
+        season: "Cool Summer",
+        undertone: "Cool pink undertone · Soft muted contrast",
+        badge: "🌸 Cool Summer",
         swatches: [
-          { name: "Dusty Rose", hex: "#C67B88" },
-          { name: "Warm Peach", hex: "#E89B88" },
-          { name: "Soft Nude", hex: "#C89582" },
-          { name: "Berry Mousse", hex: "#9E5B6D" },
-          { name: "Pearl Rose", hex: "#E8D8DC" }
+          { name: "Dusty Rose", hex: "#C77585" },
+          { name: "Cool Nude", hex: "#B88595" },
+          { name: "Soft Berry", hex: "#9B6275" },
+          { name: "Wine Accent", hex: "#6E3B50" },
+          { name: "Pearl Highlight", hex: "#EADEE2" }
         ]
       };
     }
     return {
-      season: "Cool Summer",
-      undertone: "Cool pink undertone · Soft muted contrast",
-      badge: "🌸 Cool Summer",
+      season: "Soft Summer",
+      undertone: "Neutral-warm undertone · Soft muted contrast",
+      badge: "🌸 Soft Summer",
       swatches: [
-        { name: "Dusty Rose", hex: "#C77585" },
-        { name: "Cool Nude", hex: "#B88595" },
-        { name: "Soft Berry", hex: "#9B6275" },
-        { name: "Wine Accent", hex: "#6E3B50" },
-        { name: "Pearl Highlight", hex: "#EADEE2" }
+        { name: "Dusty Rose", hex: "#C67B88" },
+        { name: "Warm Peach", hex: "#E89B88" },
+        { name: "Soft Nude", hex: "#C89582" },
+        { name: "Berry Mousse", hex: "#9E5B6D" },
+        { name: "Pearl Rose", hex: "#E8D8DC" }
       ]
     };
   }
@@ -9870,6 +9879,7 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
   };
   _activeAiTool = tool;
   openScreen("tool");
+  try { window.scrollTo(0, 0); if (document.body) document.body.scrollTop = 0; if (document.documentElement) document.documentElement.scrollTop = 0; } catch {}
   const isFem = (typeof currentGender === "function" && currentGender() === "female");
   const TITLES = {
     skin: isFem ? "Skin Glow Plan" : "Skin Analysis",
@@ -9946,7 +9956,7 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
       <div class="ai-tool-scan-radar">
         <div class="ai-tool-scan-dots"><span></span><span></span><span></span></div>
       </div>
-      <div class="ai-tool-loading-text">AI Coach analyzing your features…</div>
+      <div class="ai-tool-loading-text" id="aiToolLoadingLabel">Scanning facial landmarks…</div>
       <div class="ai-skeleton-card"></div>
       <div class="ai-skeleton-card"></div>
       <div class="ai-skeleton-card"></div>
@@ -9956,6 +9966,21 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
   const myTool = tool;
   setTimeout(() => {
     if (_activeAiTool !== myTool) return;
+    const lbl = el("aiToolLoadingLabel");
+    if (lbl) lbl.textContent = "Analyzing facial proportions & symmetry…";
+    el("toolSummary").textContent = "Analyzing facial proportions & symmetry…";
+  }, 850);
+
+  setTimeout(() => {
+    if (_activeAiTool !== myTool) return;
+    const lbl = el("aiToolLoadingLabel");
+    if (lbl) lbl.textContent = "Finalizing personalized recommendations…";
+    el("toolSummary").textContent = "Finalizing personalized recommendations…";
+  }, 1700);
+
+  setTimeout(() => {
+    if (_activeAiTool !== myTool) return;
+    try { if (window.facemax && window.facemax.haptic) window.facemax.haptic("light"); } catch {}
     renderAiToolResult(targetAdvice);
 
     if (!ctx.hasRealScan) {
@@ -9972,7 +9997,7 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
         el("toolSteps").appendChild(banner);
       }
     }
-  }, 650);
+  }, 2450);
 
   // Background fetch to enrich from server without ever wiping rendered steps
   try {
@@ -17382,15 +17407,14 @@ async function onbProceedToScan(){
     }
   }).catch(() => {});
 
-  if (typeof quizIsDone === "function" && quizIsDone() && onbState) {
-    onbState.flow = "scan";
-  }
-
   // After the SECOND photo in onboarding always show the one-product weekly
   // paywall. Existing Premium users still see the screen, but tapping it just
   // continues and never buys the same subscription twice.
-  if (onbState && onbState.flow === "onboarding" && typeof quizIsDone === "function" && !quizIsDone()) {
-    onbState.pendingScan = true;
+  if ((onbState && onbState.flow === "onboarding") || document.documentElement.classList.contains("fm-quiz-active")) {
+    if (onbState) {
+      onbState.flow = "onboarding";
+      onbState.pendingScan = true;
+    }
     _quizStaticPhotoScanOnce = true;
     document.documentElement.classList.add("fm-quiz-active");
     showPrePay();
@@ -20081,6 +20105,7 @@ async function mbStartBattle() {
   if (!_mbPhotos[0] || !_mbPhotos[1] || _mbAnalyzing) return;
   _mbAnalyzing = true;
   mbUpdateArenaUI();
+  try { if (window.facemax && window.facemax.haptic) window.facemax.haptic("light"); } catch {}
 
   const beam1 = el("mbScanBeam1");
   const beam2 = el("mbScanBeam2");
@@ -20097,47 +20122,54 @@ async function mbStartBattle() {
   if (statusText) statusText.textContent = "Detecting facial landmarks...";
   if (statusSub) statusSub.textContent = isFemale ? "Measuring orbital harmony & facial symmetry" : "Measuring jawline angles & facial symmetry";
 
-  const step1Timer = setTimeout(() => {
-    if (statusText) statusText.textContent = "Calculating aesthetic proportions...";
-    if (statusSub) statusSub.textContent = isFemale ? "Analyzing cheekbone height & eye radiance" : "Analyzing canthal tilt & midface compactness";
-  }, 900);
-
-  const step2Timer = setTimeout(() => {
-    if (statusText) statusText.textContent = "Generating AI face-off verdict...";
-    if (statusSub) statusSub.textContent = "Comparing aesthetic dominance scores";
-  }, 1800);
-
-  let battleResult = null;
-
-  try {
-    const apiBase = (typeof API_BASE_URL === "string" ? API_BASE_URL : "").replace(/\/+$/, "");
-    const res = await fetch(apiBase + "/api/mog-battle", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        photo1: _mbPhotos[0],
-        photo2: _mbPhotos[1],
-        gender: isFemale ? "female" : "male"
-      })
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data && data.ok && (data.winner === 1 || data.winner === 2)) {
-        battleResult = data;
+  // Compute or fetch result in background while animation plays
+  const computePromise = (async () => {
+    let result = null;
+    try {
+      const apiBase = (typeof API_BASE_URL === "string" ? API_BASE_URL : "").replace(/\/+$/, "");
+      if (apiBase) {
+        const res = await fetch(apiBase + "/api/mog-battle", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            photo1: _mbPhotos[0],
+            photo2: _mbPhotos[1],
+            gender: isFemale ? "female" : "male"
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.ok && (data.winner === 1 || data.winner === 2)) {
+            result = data;
+          }
+        }
       }
+    } catch (err) {
+      console.warn("Mog Battle network request skipped or failed, using local offline biometrics:", err);
     }
-  } catch (err) {
-    console.warn("Mog Battle network request skipped or failed, using local offline biometrics:", err);
-  }
+    if (!result) {
+      result = mbGenerateLocalBattleResult(_mbPhotos[0], _mbPhotos[1], isFemale);
+    }
+    return result;
+  })();
 
-  if (!battleResult) {
-    battleResult = mbGenerateLocalBattleResult(_mbPhotos[0], _mbPhotos[1], isFemale);
-  }
+  // Stage 1: 1100ms
+  await new Promise(r => setTimeout(r, 1100));
+  try { if (window.facemax && window.facemax.haptic) window.facemax.haptic("light"); } catch {}
+  if (statusText) statusText.textContent = "Calculating aesthetic proportions...";
+  if (statusSub) statusSub.textContent = isFemale ? "Analyzing cheekbone height & eye radiance" : "Analyzing canthal tilt & midface compactness";
 
-  clearTimeout(step1Timer);
-  clearTimeout(step2Timer);
+  // Stage 2: 1100ms
+  await new Promise(r => setTimeout(r, 1100));
+  try { if (window.facemax && window.facemax.haptic) window.facemax.haptic("light"); } catch {}
+  if (statusText) statusText.textContent = "Generating AI face-off verdict...";
+  if (statusSub) statusSub.textContent = isFemale ? "Finalizing orbital & cheek harmony clash" : "Comparing aesthetic dominance scores";
 
-  await new Promise(r => setTimeout(r, 600));
+  // Stage 3: 1000ms
+  await new Promise(r => setTimeout(r, 1000));
+  try { if (window.facemax && window.facemax.haptic) window.facemax.haptic("medium"); } catch {}
+
+  const battleResult = await computePromise;
 
   if (beam1) beam1.classList.add("hidden");
   if (beam2) beam2.classList.add("hidden");
