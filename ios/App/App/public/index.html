@@ -2578,7 +2578,7 @@ html.cam-active .app { background:transparent !important; }
 
 /* Profile */
 .profile-hero-v4{display:flex;align-items:center;gap:16px;padding:18px;background:linear-gradient(145deg,rgba(139,92,246,.17),rgba(255,255,255,.035) 58%);border:1px solid rgba(196,181,253,.18);border-radius:26px;margin:8px 0 12px;box-shadow:0 18px 38px rgba(0,0,0,.16)}
-.profile-hero-v4 .profile-avatar{width:74px;height:74px;margin:0;flex:0 0 74px}.profile-hero-copy{min-width:0;flex:1}.profile-hero-copy .profile-name{font-size:22px}.profile-hero-copy .status-badge{margin-top:8px;padding:6px 11px;font-size:12.5px}.profile-hero-copy .premium-until{margin-top:6px;font-size:13px}
+.profile-hero-v4 .profile-avatar{width:64px;height:64px;margin:0;flex:0 0 64px}.profile-hero-copy{min-width:0;flex:1}.profile-hero-copy .profile-name{font-size:22px}.profile-hero-copy .status-badge{margin-top:8px;padding:6px 11px;font-size:12.5px}.profile-hero-copy .premium-until{margin-top:6px;font-size:13px}
 .profile-stats-v4{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.profile-stat-v4{padding:13px 10px;border-radius:17px;background:var(--v4-card);border:1px solid var(--v4-border);display:flex;flex-direction:column;gap:4px}.profile-stat-v4 span{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:750}.profile-stat-v4 b{font-size:22px;letter-spacing:-.03em}.profile-chart-v4{border-radius:22px!important;margin-bottom:18px!important}
 .settings-section-v4{margin-top:18px}.settings-title-v4{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.55);margin:0 5px 9px}.settings-card-v4{overflow:hidden;background:var(--v4-card);border:1px solid var(--v4-border);border-radius:22px}.settings-row-v4{display:flex;align-items:center;gap:12px;padding:14px 14px;min-height:68px}.settings-button-v4{width:100%;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.settings-divider-v4{height:1px;background:rgba(255,255,255,.07);margin-left:60px}.settings-icon-v4{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:0 0 34px}.settings-icon-v4 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.settings-icon-v4.purple{background:rgba(167,139,250,.15);color:#c4b5fd}.settings-icon-v4.blue{background:rgba(96,165,250,.14);color:#93c5fd}.settings-icon-v4.green{background:rgba(74,222,128,.12);color:#86efac}.settings-icon-v4.gray{background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)}.settings-icon-v4.red{background:rgba(248,113,113,.12);color:#fca5a5}.settings-copy-v4{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.settings-copy-v4 b{font-size:16px;font-weight:700;letter-spacing:-.01em}.settings-copy-v4 span{font-size:13px;color:var(--muted);line-height:1.35}.settings-chevron-v4{width:18px;height:18px;stroke:rgba(255,255,255,.28);fill:none;stroke-width:2;flex:0 0 18px}.settings-footnote-v4{font-size:12.5px;color:rgba(255,255,255,.42);margin:8px 8px 0;line-height:1.45}.gender-row-v4{flex-wrap:wrap}.gender-row-v4 .settings-copy-v4{min-width:155px}.gender-pills-v4{display:flex;gap:5px;margin-left:46px;width:calc(100% - 46px)}.gender-pill-v4{flex:1;border:1px solid var(--v4-border);background:rgba(255,255,255,.045);color:var(--muted);border-radius:11px;padding:9px;font-size:13px;font-weight:750}.gender-pill-v4.active,.gender-pill-v4[aria-pressed="true"]{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.38);color:#ddd6fe}.danger-section-v4{padding-bottom:16px}.danger-row-v4 .settings-copy-v4 b{color:#fca5a5}
 
@@ -2596,9 +2596,15 @@ html.cam-active .app { background:transparent !important; }
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 #profile .profile-avatar {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
+  width: 64px !important;
+  height: 64px !important;
+  min-width: 64px !important;
+  max-width: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+  flex: 0 0 64px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
   background: linear-gradient(135deg, rgba(168,85,247,0.3), rgba(236,72,153,0.2));
   border: 2px solid rgba(167,139,250,0.5);
   display: grid;
@@ -3111,6 +3117,18 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
 #compare .cmp-col,#compare .cmp-delta,#compare .cmp-note{border-radius:22px!important}
 #tool .tool-hero{border-radius:25px;padding:16px;background:linear-gradient(155deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border-color:rgba(255,255,255,.09);box-shadow:0 14px 30px rgba(0,0,0,.18)}
 #tool .list>*{border-radius:18px!important}
+.ai-tool-loading-box{display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 10px 10px;width:100%;box-sizing:border-box}
+.ai-tool-scan-radar{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.22) 0%,rgba(124,58,237,.06) 70%,transparent 100%);border:1.5px solid rgba(167,139,250,.45);position:relative;display:grid;place-items:center;box-shadow:0 0 22px rgba(139,92,246,.32);overflow:hidden}
+.ai-tool-scan-radar::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,rgba(192,132,252,.45) 300deg,#c084fc 360deg);animation:aiRadarSpin 1.3s linear infinite}
+@keyframes aiRadarSpin{to{transform:rotate(360deg)}}
+.ai-tool-scan-dots{position:relative;z-index:2;display:flex;gap:5px}
+.ai-tool-scan-dots span{width:6px;height:6px;border-radius:50%;background:#c084fc;animation:aiDotPulse 1.2s ease-in-out infinite}
+.ai-tool-scan-dots span:nth-child(2){animation-delay:.2s}
+.ai-tool-scan-dots span:nth-child(3){animation-delay:.4s}
+@keyframes aiDotPulse{0%,100%{opacity:.3;transform:scale(.75)}50%{opacity:1;transform:scale(1.2)}}
+.ai-tool-loading-text{font-size:13.5px;font-weight:650;color:rgba(255,255,255,.82);letter-spacing:-.01em;text-align:center}
+.ai-skeleton-card{width:100%;height:68px;border-radius:18px;background:linear-gradient(90deg,rgba(255,255,255,.035) 25%,rgba(255,255,255,.085) 50%,rgba(255,255,255,.035) 75%);background-size:200% 100%;animation:aiSkeletonShimmer 1.5s infinite;border:1px solid rgba(255,255,255,.06);box-sizing:border-box}
+@keyframes aiSkeletonShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 #history .history-item{border-radius:19px;padding:13px 14px;background:linear-gradient(155deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border-color:rgba(255,255,255,.08)}
 #upload .upload{border-radius:28px;min-height:230px;background:radial-gradient(80% 90% at 50% 0%,rgba(139,92,246,.13),transparent 70%),rgba(255,255,255,.025);border-color:rgba(196,181,253,.26)}
 
@@ -6967,8 +6985,7 @@ function updateScanHomePhoto(lastEntry){
   if (btnLabel) btnLabel.textContent = "Scan My Face";
 }
 window.scanHomePhotoTap = function(){
-  const lastEntry = (scanHistory && scanHistory.length) ? scanHistory[0] : null;
-  if (lastEntry) { openLatestScanFromHome(); } else { startGenderScan(); }
+  startGenderScan();
 };
 
 // Glow Up Plan — inline accordion (no modal/overlay)
@@ -9917,29 +9934,45 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
 
   const scanKey = ctx.hasRealScan ? ctx.scanId : "baseline";
   let cached = !_forceRegenerate ? readAiToolLocalCache(tool, scanKey) : null;
-  if (cached) {
-    renderAiToolResult(cached);
-  } else {
-    const localAdvice = generateLocalAiToolResult(tool, ctx);
-    writeAiToolLocalCache(tool, scanKey, localAdvice);
-    renderAiToolResult(localAdvice);
-  }
+  const targetAdvice = cached || generateLocalAiToolResult(tool, ctx);
+  if (!cached) writeAiToolLocalCache(tool, scanKey, targetAdvice);
 
-  if (!ctx.hasRealScan) {
-    const existingBanner = document.getElementById("toolScanBanner");
-    if (!existingBanner) {
-      const banner = document.createElement("div");
-      banner.id = "toolScanBanner";
-      banner.style.cssText = "margin-top:16px;padding:16px;background:linear-gradient(135deg,rgba(124,58,237,0.18),rgba(236,72,153,0.12));border:1px solid rgba(167,139,250,0.3);border-radius:20px;text-align:center;";
-      banner.innerHTML = `
-        <b style="display:block;font-size:15px;color:#fff;margin-bottom:4px;">Personalize with Face Scan</b>
-        <span style="display:block;font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:12px;line-height:1.4;">Run a quick scan to calibrate these steps to your exact facial metrics and face shape.</span>
-        <button class="btn" type="button" onclick="startGenderScan()" style="height:44px;font-size:14.5px;"><span>Run Face Scan</span></button>
-      `;
-      el("toolSteps").appendChild(banner);
+  // Show high-tech loading state first
+  el("toolStepsHdr").style.display = "none";
+  el("toolDetails").innerHTML = "";
+  el("toolSummary").textContent = "Calibrating biometrics & facial landmarks…";
+  el("toolSteps").innerHTML = `
+    <div class="ai-tool-loading-box">
+      <div class="ai-tool-scan-radar">
+        <div class="ai-tool-scan-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="ai-tool-loading-text">AI Coach analyzing your features…</div>
+      <div class="ai-skeleton-card"></div>
+      <div class="ai-skeleton-card"></div>
+      <div class="ai-skeleton-card"></div>
+    </div>
+  `;
+
+  const myTool = tool;
+  setTimeout(() => {
+    if (_activeAiTool !== myTool) return;
+    renderAiToolResult(targetAdvice);
+
+    if (!ctx.hasRealScan) {
+      const existingBanner = document.getElementById("toolScanBanner");
+      if (!existingBanner) {
+        const banner = document.createElement("div");
+        banner.id = "toolScanBanner";
+        banner.style.cssText = "margin-top:16px;padding:16px;background:linear-gradient(135deg,rgba(124,58,237,0.18),rgba(236,72,153,0.12));border:1px solid rgba(167,139,250,0.3);border-radius:20px;text-align:center;";
+        banner.innerHTML = `
+          <b style="display:block;font-size:15px;color:#fff;margin-bottom:4px;">Personalize with Face Scan</b>
+          <span style="display:block;font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:12px;line-height:1.4;">Run a quick scan to calibrate these steps to your exact facial metrics and face shape.</span>
+          <button class="btn" type="button" onclick="startGenderScan()" style="height:44px;font-size:14.5px;"><span>Run Face Scan</span></button>
+        `;
+        el("toolSteps").appendChild(banner);
+      }
     }
-    return;
-  }
+  }, 650);
 
   // Background fetch to enrich from server without ever wiping rendered steps
   try {
@@ -11423,114 +11456,45 @@ function _makePrePayCrop(dataUrl){
 function _makeInstantCrop(dataUrl) {
   return new Promise((resolve) => {
     try {
+      if (!dataUrl) return resolve(null);
       const img = new Image();
       img.onload = () => {
-        const w = img.naturalWidth, h = img.naturalHeight;
+        const w = img.naturalWidth || img.width;
+        const h = img.naturalHeight || img.height;
+        if (!w || !h) return resolve(dataUrl);
         const size = Math.min(w, h);
-        const sx = (w - size) / 2;
-        // Bias slightly upward (toward the top of frame) so a head-and-
-        // shoulders portrait centers closer to the face than the torso.
-        const sy = Math.max(0, (h - size) / 2 - size * 0.08);
+        const sx = Math.max(0, Math.round((w - size) / 2));
+        // Bias slightly upward (toward top of frame) so portrait centers on face
+        const sy = Math.max(0, Math.min(h - size, Math.round((h - size) / 2 - size * 0.08)));
         const c = document.createElement('canvas');
         c.width = c.height = 400;
-        c.getContext('2d').drawImage(img, sx, sy, size, size, 0, 0, 400, 400);
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, sx, sy, size, size, 0, 0, 400, 400);
         resolve(c.toDataURL('image/jpeg', 0.92));
       };
-      img.onerror = () => resolve(null);
+      img.onerror = () => resolve(dataUrl);
       img.src = dataUrl;
     } catch (e) {
-      resolve(null);
+      resolve(dataUrl);
     }
   });
 }
 
 async function _makeFaceCrop(dataUrl) {
-  try {
-    if (!window.tf || !window.blazeface) {
-      // lazy-load blazeface
-      if (!_blazefaceModel && !_blazefaceLoading) {
-        _blazefaceLoading = true;
-        await new Promise((res, rej) => {
-          const s = document.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js';
-          s.onload = res; s.onerror = rej;
-          document.head.appendChild(s);
-        }).catch(() => {});
-        await new Promise((res, rej) => {
-          const s = document.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface@0.0.7/dist/blazeface.min.js';
-          s.onload = res; s.onerror = rej;
-          document.head.appendChild(s);
-        }).catch(() => {});
-        if (window.blazeface) {
-          _blazefaceModel = await window.blazeface.load().catch(() => null);
-        }
-        _blazefaceLoading = false;
-      } else if (_blazefaceLoading) {
-        // Another call is already loading the model (e.g. two crops
-        // requested in quick succession). Without this wait, this call
-        // used to see _blazefaceLoading===true, skip straight to the
-        // "if (!_blazefaceModel) return null" check below while the model
-        // was still mid-load, and silently bail — leaving whatever avatar
-        // <img> was blank/uncropped stuck that way. Poll briefly instead.
-        for (let i = 0; i < 100 && _blazefaceLoading; i++) {
-          await new Promise(r => setTimeout(r, 50));
-        }
-      }
-    }
-    if (!_blazefaceModel) return null;
-
-    const img = new Image();
-    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = dataUrl; });
-
-    const predictions = await _blazefaceModel.estimateFaces(img, false);
-    if (!predictions || !predictions.length) return null;
-
-    const face = predictions[0];
-    const [x1, y1] = face.topLeft;
-    const [x2, y2] = face.bottomRight;
-    const fw = x2 - x1;
-    const fh = y2 - y1;
-
-    // Square crop: expand bbox by 60% so head + a bit of neck fits nicely
-    const pad = Math.max(fw, fh) * 0.6;
-    const cx = (x1 + x2) / 2;
-    const cy = (y1 + y2) / 2 - fh * 0.05; // slight upward bias for forehead
-    const half = (Math.max(fw, fh) + pad) / 2;
-
-    const sx = Math.max(0, Math.round(cx - half));
-    const sy = Math.max(0, Math.round(cy - half));
-    const size = Math.min(
-      Math.round(half * 2),
-      img.naturalWidth  - sx,
-      img.naturalHeight - sy
-    );
-
-    const c = document.createElement('canvas');
-    c.width = c.height = 400;
-    c.getContext('2d').drawImage(img, sx, sy, size, size, 0, 0, 400, 400);
-    return c.toDataURL('image/jpeg', 0.92);
-  } catch (e) {
-    return null;
-  }
+  return _makeInstantCrop(dataUrl);
 }
-
-
 
 function _applyAvatarCrop(cropUrl) {
   const url = cropUrl || selectedImageData;
+  if (!url) return;
   _avatarCropUrl = url;
-  ['resultImg', 'reportImg', 'prePayImg'].forEach(id => {
+  ['resultImg', 'reportImg', 'prePayImg', 'loadingImg'].forEach(id => {
     const img = el(id);
     if (!img) return;
-    // Once the quiz paywall is visible its portrait is immutable. Several
-    // asynchronous crop jobs finishing at different times used to keep swapping
-    // this image and could make WKWebView look like a strobe.
-    if (id === 'prePayImg') {
-      const pp = el('prePay');
-      if (pp && pp.classList.contains('active')) return;
-    }
     img.src = url;
+    img.style.visibility = 'visible';
+    img.style.display = 'block';
+    img.style.objectFit = 'cover';
     img.style.objectPosition = 'center center';
   });
 }
@@ -11541,11 +11505,20 @@ function applySelectedPhoto(dataUrl, stayOnCurrentScreen, preservePrePayCrop){
   _preparedScanImage = null;
   _preparedScanImageSource = null;
   _preparedScanImagePromise = null;
+  lastScanMetrics = null;
+  lastScanScore = null;
+  lastReport = null;
   selectedImageData = dataUrl;
-  el("previewImg").src = selectedImageData;
-  el("loadingImg").src = selectedImageData;
-  el("resultImg").src = selectedImageData;
-  el("reportImg").src = selectedImageData;
+  ['previewImg', 'loadingImg', 'resultImg', 'reportImg', 'prePayImg'].forEach(id => {
+    const im = el(id);
+    if (im) {
+      im.src = selectedImageData;
+      im.style.visibility = 'visible';
+      im.style.display = 'block';
+      im.style.objectFit = 'cover';
+      im.style.objectPosition = 'center center';
+    }
+  });
   el("previewBlock").classList.remove("hidden");
   el("dropzone").classList.add("hidden");
   const camBtn = el("uploadCameraBtn"); if (camBtn) camBtn.classList.add("hidden");
@@ -11554,14 +11527,11 @@ function applySelectedPhoto(dataUrl, stayOnCurrentScreen, preservePrePayCrop){
   if (!stayOnCurrentScreen && !document.getElementById("upload").classList.contains("active")) {
     try { openScreen("upload"); } catch {}
   }
-  // Match the old stable flow: one immediate square crop, then one optional
-  // face-centred refinement. No separate prePay crop is allowed to swap the
-  // visible paywall portrait later.
   _makeInstantCrop(dataUrl).then(instant => {
-    if (instant && !_avatarCropUrl) _applyAvatarCrop(instant);
-  }).catch(() => {});
-  _makeFaceCrop(dataUrl).then(crop => {
-    if (crop) _applyAvatarCrop(crop);
+    if (instant) {
+      _applyAvatarCrop(instant);
+      if (!preservePrePayCrop) _prePayCropUrl = instant;
+    }
   }).catch(() => {});
 }
 
@@ -11874,6 +11844,11 @@ window.startScan = async function(_premiumChecked){
     return;
   }
 
+  // Reset previous scan metrics so fresh photo analysis never inherits old scores
+  lastScanMetrics = null;
+  lastScanScore = null;
+  lastReport = null;
+
   // Open the scan screen FIRST. The 1080px payload is normally already
   // prepared in the background while the user is on capture/paywall.
   let _fmScanPayloadImage = selectedImageData;
@@ -12010,6 +11985,16 @@ window.startScan = async function(_premiumChecked){
     stopMeshAnim();
     openScreen("result");
     applyPremiumToResult();
+    if (onbState) onbState.flow = "scan";
+    const resImg = el("resultImg");
+    if (resImg) {
+      const photoSrc = _avatarCropUrl || selectedImageData || "";
+      if (photoSrc) resImg.src = photoSrc;
+      resImg.style.visibility = "visible";
+      resImg.style.display = "block";
+      resImg.style.objectFit = "cover";
+      resImg.style.objectPosition = "center center";
+    }
 
     // Paint the result first. The user should never wait on persistence.
     requestAnimationFrame(() => {
@@ -12300,6 +12285,15 @@ async function fetchGeminiScan(imageDataUrl, _mpScore, _mpMetrics, _alreadyPrepa
  */
 function paintResultV2(score, computedMetrics, aiReport){
   const m = computedMetrics || {};
+  const resImg = el("resultImg");
+  if (resImg) {
+    const photoSrc = _avatarCropUrl || selectedImageData || (scanHistory && scanHistory[0] && scanHistory[0].thumb) || "";
+    if (photoSrc) resImg.src = photoSrc;
+    resImg.style.visibility = "visible";
+    resImg.style.display = "block";
+    resImg.style.objectFit = "cover";
+    resImg.style.objectPosition = "center center";
+  }
   let s = Math.max(0, Math.min(100, Math.round(Number(score) || 0)));
   if (!s) {
     /* Headline must never read 0/100. If the per-photo score is missing
@@ -17378,18 +17372,24 @@ async function onbProceedToScan(){
       }
     }
   } catch {}
-  try { if (typeof applySelectedPhoto === "function" && selectedImageData) applySelectedPhoto(selectedImageData, true, true); } catch {}
+  try { if (typeof applySelectedPhoto === "function" && selectedImageData) applySelectedPhoto(selectedImageData, true, false); } catch {}
   const li = el("loadingImg"); if (li && selectedImageData) li.src = selectedImageData;
-  // Do not block this transition on image decoding/canvas work. The front-photo
-  // crop was prepared while the user was taking the second photo; if it is not
-  // ready yet, the raw photo is shown with object-fit:cover and stays stable.
-  if (_prePayCropUrl) {
-    try { _avatarCropUrl = _prePayCropUrl; } catch {}
+  _makeInstantCrop(selectedImageData).then(crop => {
+    if (crop) {
+      _avatarCropUrl = crop;
+      _prePayCropUrl = crop;
+      _applyAvatarCrop(crop);
+    }
+  }).catch(() => {});
+
+  if (typeof quizIsDone === "function" && quizIsDone() && onbState) {
+    onbState.flow = "scan";
   }
+
   // After the SECOND photo in onboarding always show the one-product weekly
   // paywall. Existing Premium users still see the screen, but tapping it just
   // continues and never buys the same subscription twice.
-  if (onbState && onbState.flow === "onboarding") {
+  if (onbState && onbState.flow === "onboarding" && typeof quizIsDone === "function" && !quizIsDone()) {
     onbState.pendingScan = true;
     _quizStaticPhotoScanOnce = true;
     document.documentElement.classList.add("fm-quiz-active");
@@ -18107,14 +18107,31 @@ function showPrePay(){
   if (!quizRequireAppleSignIn()) return;
   _quizStaticPhotoScanOnce = true;
   var img = el('prePayImg');
+  const stable = _prePayCropUrl || _avatarCropUrl || selectedImageData || "";
   if (img) {
-    const stable = _prePayCropUrl || _avatarCropUrl || selectedImageData || "";
-    img.src = stable;
+    if (stable) img.src = stable;
+    img.style.visibility = "visible";
+    img.style.display = "block";
     img.style.objectFit = "cover";
     img.style.objectPosition = "center center";
   }
   document.documentElement.classList.add("fm-quiz-active");
   openScreen('prePay');
+
+  if (!_prePayCropUrl && selectedImageData) {
+    _makeInstantCrop(selectedImageData).then(crop => {
+      if (crop) {
+        _prePayCropUrl = crop;
+        _avatarCropUrl = crop;
+        const pImg = el('prePayImg');
+        if (pImg) {
+          pImg.src = crop;
+          pImg.style.visibility = "visible";
+          pImg.style.display = "block";
+        }
+      }
+    }).catch(() => {});
+  }
 
   // Keep the exact old paywall UI, but still refresh the real StoreKit price.
   try { if (typeof window.renderStoreKitPrices === "function") window.renderStoreKitPrices(false); } catch {}
@@ -18369,45 +18386,9 @@ function _applyFacePosition(cx, cy) {
   });
 }
 
-let _blazefaceModel = null;
-let _blazefaceLoading = false;
 async function _centerFaceByDetection() {
   if (!selectedImageData) return;
-  try {
-    // Load blazeface lazily — it's tiny (~900 KB) and already has tfjs loaded
-    if (!_blazefaceModel && !_blazefaceLoading) {
-      _blazefaceLoading = true;
-      const bf = await import("https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface@0.0.7/dist/blazeface.min.js").catch(() => null);
-      if (bf) {
-        _blazefaceModel = await bf.load().catch(() => null);
-      }
-      _blazefaceLoading = false;
-    } else if (_blazefaceLoading) {
-      for (let i = 0; i < 100 && _blazefaceLoading; i++) {
-        await new Promise(r => setTimeout(r, 50));
-      }
-    }
-    if (!_blazefaceModel) return;
-
-    // Run detection on an offscreen image
-    const img = new Image();
-    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = selectedImageData; });
-    const predictions = await _blazefaceModel.estimateFaces(img, false);
-    if (!predictions || !predictions.length) return;
-
-    const face = predictions[0];
-    // topLeft/bottomRight are [x, y] arrays
-    const [x1, y1] = face.topLeft;
-    const [x2, y2] = face.bottomRight;
-    const cx = ((x1 + x2) / 2) / img.naturalWidth;
-    // Slight upward bias to include forehead
-    const faceH = (y2 - y1) / img.naturalHeight;
-    const cy = ((y1 + y2) / 2) / img.naturalHeight - faceH * 0.08;
-
-    _applyFacePosition(cx, cy);
-  } catch (e) {
-    // Silently fail — CSS fallback (center 18%) remains
-  }
+  _applyFacePosition(0.5, 0.42);
 }
 
 window.centerFaceInAvatar = centerFaceInAvatar;
@@ -19371,7 +19352,13 @@ try {
   const _resultImgGuard = document.getElementById("resultImg");
   if (_resultImgGuard) {
     _resultImgGuard.onerror = function(){
-      this.style.visibility = "hidden";
+      if (typeof _avatarCropUrl === "string" && _avatarCropUrl && this.src !== _avatarCropUrl) {
+        this.src = _avatarCropUrl;
+      } else if (typeof selectedImageData === "string" && selectedImageData && this.src !== selectedImageData) {
+        this.src = selectedImageData;
+      }
+      this.style.visibility = "visible";
+      this.style.display = "block";
     };
   }
 } catch {}
