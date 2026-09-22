@@ -339,6 +339,18 @@ button.hs:active{transform:scale(.96)}
 .ai-feature-line{font-size:19px;font-weight:750;letter-spacing:-.01em;line-height:1.3;color:#fff}
 .ai-feature-arrow{font-size:30px;line-height:1;color:rgba(255,255,255,.72);font-weight:400;margin-left:2px}
 @media(max-height:720px){.ai-feature-list{gap:11px}.ai-feature-card{min-height:86px;padding:14px 15px;border-radius:24px}.ai-feature-icon{width:56px;height:56px;flex-basis:56px;border-radius:18px}.ai-feature-icon.ai-feature-emoji{font-size:29px}.ai-feature-line{font-size:17px}}
+.ai-feature-badge-arena{background:linear-gradient(135deg,#7C3AED,#EC4899);color:#fff;font-size:10px;font-weight:850;letter-spacing:.08em;padding:2.5px 7px;border-radius:6px;line-height:1}
+.ai-feature-badge-new{background:linear-gradient(135deg,#FB7185,#F43F5E);color:#fff;font-size:10px;font-weight:850;letter-spacing:.08em;padding:2.5px 7px;border-radius:6px;line-height:1}
+.ai-feature-sub{font-size:13px!important;color:rgba(255,255,255,.72)!important;display:block;margin-top:2px;line-height:1.35;font-weight:500}
+.mb-feature-banner{background:linear-gradient(135deg,rgba(124,58,237,.28) 0%,rgba(236,72,153,.18) 100%),#151122!important;border:1.5px solid rgba(167,139,250,.5)!important;border-radius:26px!important;padding:16px 16px!important;box-shadow:0 10px 28px rgba(124,58,237,.3),inset 0 1px 0 rgba(255,255,255,.2)!important;margin-bottom:6px!important;display:block!important;width:100%!important;text-align:left!important;min-height:105px!important}
+.mb-feature-banner:active{transform:scale(.98)!important}
+.mb-feature-banner-inner{display:flex;flex-direction:column;gap:5px}
+.mb-feature-badge-row{display:flex;align-items:center;gap:8px}
+.mb-feature-pill{font-size:11px;font-weight:850;letter-spacing:.08em;padding:3px 8px;border-radius:6px;background:linear-gradient(135deg,#7C3AED,#A855F7);color:#fff;box-shadow:0 2px 8px rgba(124,58,237,.4)}
+.mb-feature-mode-tag{font-size:11.5px;font-weight:700;color:#C4B5FD;letter-spacing:.05em;text-transform:uppercase}
+.mb-feature-title-row{display:flex;align-items:center;justify-content:space-between}
+.mb-feature-title{font-size:19px;font-weight:850;color:#fff;letter-spacing:-.01em}
+.mb-feature-arrow{font-size:26px;color:rgba(255,255,255,.6);line-height:1}
 /* ---------- Glow Up Plan (home) ---------- */
 .glowup{width:100%;display:flex;flex-direction:column;gap:0;margin-top:0}
 /* STATE A: empty CTA button */
@@ -2032,8 +2044,8 @@ html.fm-native .qr-ring-num{font-feature-settings:'ss01','tnum','cv11';letter-sp
 #tool .tool-summary-card::after{content:"";position:absolute;inset:-45% -20% auto 45%;height:110px;background:radial-gradient(circle,rgba(167,139,250,.14),transparent 66%);pointer-events:none}
 #tool .tool-summary-star{position:relative;z-index:1;width:31px;height:31px;flex:0 0 31px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.07);color:#fff}
 #tool .tool-summary-star svg{width:16px;height:16px;display:block;fill:#fff}
-#tool #toolSummary{position:relative;z-index:1;margin:0!important;color:#fff!important;font-size:14.5px!important;line-height:1.55!important;font-weight:750!important;letter-spacing:-.012em}
-#tool .tool-sec-hdr{font-size:11px;font-weight:850;letter-spacing:.105em;color:rgba(255,255,255,.52);margin:18px 4px 10px}
+#tool #toolSummary{position:relative;z-index:1;margin:0!important;color:#fff!important;font-size:15px!important;line-height:1.55!important;font-weight:700!important;letter-spacing:-.01em}
+#tool .tool-sec-hdr{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);margin:18px 4px 10px}
 #tool #toolSteps{display:flex;flex-direction:column;gap:9px}
 #tool #toolSteps .plan-row{background:linear-gradient(155deg,rgba(255,255,255,.065),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.10);border-radius:17px;padding:14px;gap:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
 #tool #toolSteps .plan-num{width:31px;height:31px;flex:0 0 31px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(145deg,#a855f7,#d86df4);color:#fff;font-size:13px;font-weight:900;box-shadow:0 5px 14px rgba(168,85,247,.24)}
@@ -2405,11 +2417,11 @@ html.cam-active .app { background:transparent !important; }
 .tool-step-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .tool-step-tag-wrap{display:flex;align-items:center;gap:8px}
 .tool-step-icon{width:28px;height:28px;flex:0 0 28px;border-radius:9px;display:grid;place-items:center;font-size:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
-.tool-step-tag{font-size:11px;font-weight:850;letter-spacing:.07em;text-transform:uppercase;color:#c4b5fd;background:rgba(167,139,250,.14);padding:3px 8px;border-radius:7px;border:1px solid rgba(167,139,250,.24)}
+.tool-step-tag{font-size:12px;font-weight:850;letter-spacing:.07em;text-transform:uppercase;color:#c4b5fd;background:rgba(167,139,250,.14);padding:4px 9px;border-radius:8px;border:1px solid rgba(167,139,250,.24)}
 .tool-step-tag.makeup{color:#f472b6;background:rgba(244,114,182,.14);border-color:rgba(244,114,182,.28)}
-.tool-step-num{font-size:11px;font-weight:800;color:rgba(255,255,255,.4)}
-.tool-step-title{font-size:14.5px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.35}
-.tool-step-desc{font-size:13px;font-weight:550;line-height:1.52;color:rgba(255,255,255,.84)}
+.tool-step-num{font-size:12.5px;font-weight:800;color:rgba(255,255,255,.5)}
+.tool-step-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.35}
+.tool-step-desc{font-size:14.5px;font-weight:550;line-height:1.55;color:rgba(255,255,255,.88)}
 </style>
 <style>
 /* ── No-glow override ───────────────────────────────────────────────
@@ -2570,45 +2582,241 @@ html.cam-active .app { background:transparent !important; }
 .profile-stats-v4{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.profile-stat-v4{padding:13px 10px;border-radius:17px;background:var(--v4-card);border:1px solid var(--v4-border);display:flex;flex-direction:column;gap:4px}.profile-stat-v4 span{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:750}.profile-stat-v4 b{font-size:22px;letter-spacing:-.03em}.profile-chart-v4{border-radius:22px!important;margin-bottom:18px!important}
 .settings-section-v4{margin-top:18px}.settings-title-v4{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.55);margin:0 5px 9px}.settings-card-v4{overflow:hidden;background:var(--v4-card);border:1px solid var(--v4-border);border-radius:22px}.settings-row-v4{display:flex;align-items:center;gap:12px;padding:14px 14px;min-height:68px}.settings-button-v4{width:100%;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.settings-divider-v4{height:1px;background:rgba(255,255,255,.07);margin-left:60px}.settings-icon-v4{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:0 0 34px}.settings-icon-v4 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.settings-icon-v4.purple{background:rgba(167,139,250,.15);color:#c4b5fd}.settings-icon-v4.blue{background:rgba(96,165,250,.14);color:#93c5fd}.settings-icon-v4.green{background:rgba(74,222,128,.12);color:#86efac}.settings-icon-v4.gray{background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)}.settings-icon-v4.red{background:rgba(248,113,113,.12);color:#fca5a5}.settings-copy-v4{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.settings-copy-v4 b{font-size:16px;font-weight:700;letter-spacing:-.01em}.settings-copy-v4 span{font-size:13px;color:var(--muted);line-height:1.35}.settings-chevron-v4{width:18px;height:18px;stroke:rgba(255,255,255,.28);fill:none;stroke-width:2;flex:0 0 18px}.settings-footnote-v4{font-size:12.5px;color:rgba(255,255,255,.42);margin:8px 8px 0;line-height:1.45}.gender-row-v4{flex-wrap:wrap}.gender-row-v4 .settings-copy-v4{min-width:155px}.gender-pills-v4{display:flex;gap:5px;margin-left:46px;width:calc(100% - 46px)}.gender-pill-v4{flex:1;border:1px solid var(--v4-border);background:rgba(255,255,255,.045);color:var(--muted);border-radius:11px;padding:9px;font-size:13px;font-weight:750}.gender-pill-v4.active,.gender-pill-v4[aria-pressed="true"]{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.38);color:#ddd6fe}.danger-section-v4{padding-bottom:16px}.danger-row-v4 .settings-copy-v4 b{color:#fca5a5}
 
-/* ===== Profile screen — minimal flat list variant (design-profile-screen) =====
-   Scoped to #profile only. Same markup/classes as the v4 settings list, but
-   flattens the "dashboard" look: no icon chips, no card container/shadows,
-   no uppercase section labels — just a single continuous list of rows. */
-#profile .profile-hero-v4{padding:14px 4px;background:none;border:0;box-shadow:none;border-radius:0;gap:14px}
-#profile .profile-stats-v4{gap:0;border-radius:20px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
-#profile .profile-stat-v4{background:transparent;border:0;border-radius:0;align-items:center;text-align:center;padding:16px 8px}
-#profile .profile-stat-v4:not(:last-child){border-right:1px solid var(--line)}
-#profile .settings-section-v4{margin-top:26px}
-#profile .settings-title-v4{font-size:12px;font-weight:650;text-transform:none;letter-spacing:0;color:var(--dim);margin:0 2px 8px}
-#profile .settings-card-v4{background:none;border:0;border-radius:0}
-#profile .settings-row-v4{padding:13px 2px;min-height:0;gap:12px}
-#profile .settings-icon-v4{display:none}
-#profile .settings-copy-v4 b{font-size:15.5px;font-weight:600}
-#profile .settings-copy-v4 span{font-size:12.5px}
-#profile .settings-divider-v4{margin-left:0;background:var(--line)}
-#profile .settings-chevron-v4{stroke:rgba(255,255,255,.20);width:15px;height:15px}
-#profile .danger-row-v4 .settings-copy-v4 b{color:rgba(248,113,113,.82);font-weight:600}
-#profile .gender-pills-v4{margin-left:0;width:100%}
-#profile .gender-pill-v4{border-radius:10px;font-weight:600}
-#profile .apple-account-row-v1{padding-bottom:0}
-#profile .apple-sync-button-v1{height:44px;border-radius:12px;margin:10px 2px;max-width:calc(100% - 4px);background:rgba(255,255,255,.92)}
-#profile .apple-account-actions-v1{padding:0 2px 10px}
-#profile .apple-sync-status-v1{padding:0 2px 8px}
-#profile .settings-footnote-v4{margin:8px 2px 0}
-#profile .profile-chart-v4{border-radius:20px!important}
+/* ===== Profile Screen — Native iOS Grouped Inset Cards ===== */
+#profile { padding-bottom: 90px; }
+#profile .profile-hero-v4 {
+  padding: 16px 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%) #14111d;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+#profile .profile-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(168,85,247,0.3), rgba(236,72,153,0.2));
+  border: 2px solid rgba(167,139,250,0.5);
+  display: grid;
+  place-items: center;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+#profile .profile-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+#profile .profile-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+#profile .profile-status-pill {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #C4B5FD;
+  background: rgba(167,139,250,0.15);
+  border: 1px solid rgba(167,139,250,0.3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-block;
+  width: fit-content;
+  line-height: 1.2;
+}
 
-/* ===== Profile Gender Switcher Card ===== */
-.profile-gender-switcher-card{margin:10px 0 14px;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.profile-gender-switcher-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
-.profile-gender-title-wrap{display:flex;flex-direction:column;gap:2px}
-.profile-gender-kicker{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,rgba(255,255,255,.55))}
-.profile-gender-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em}
-.profile-gender-hint{font-size:12px;color:#c4b5fd;font-weight:550}
-.profile-gender-segmented{display:flex;gap:8px;background:rgba(0,0,0,.28);padding:4px;border-radius:14px;border:1px solid rgba(255,255,255,.06)}
-.profile-gender-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:42px;border:1px solid transparent;border-radius:11px;background:transparent;color:rgba(255,255,255,.65);font-size:14.5px;font-weight:650;cursor:pointer;transition:all .2s cubic-bezier(.2,.8,.2,1);-webkit-tap-highlight-color:transparent}
-.profile-gender-btn .pg-icon{font-size:16px;line-height:1}
-.profile-gender-btn#profileGenderMaleBtn.active{background:linear-gradient(135deg,rgba(99,102,241,.32),rgba(139,92,246,.25));border-color:rgba(167,139,250,.45);color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.22)}
-.profile-gender-btn#profileGenderFemaleBtn.active{background:linear-gradient(135deg,rgba(244,63,94,.32),rgba(236,72,153,.25));border-color:rgba(244,114,182,.45);color:#fff;box-shadow:0 4px 14px rgba(244,63,94,.22)}
+#profile .profile-stats-v4 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+#profile .profile-stat-v4 {
+  padding: 14px 10px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%) #14111d;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+#profile .profile-stat-v4 span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.55);
+  font-weight: 750;
+}
+#profile .profile-stat-v4 b {
+  font-size: 24px;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Single Unified Gender Switcher Card in Profile */
+.profile-gender-switcher-card {
+  margin: 0 0 16px;
+  padding: 16px 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(139,92,246,0.03) 100%) #14111d;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 22px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.profile-gender-switcher-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+.profile-gender-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.profile-gender-kicker {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #A78BFA;
+}
+.profile-gender-title {
+  font-size: 16.5px;
+  font-weight: 750;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.profile-gender-hint {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+}
+.profile-gender-segmented {
+  display: flex;
+  gap: 8px;
+  background: rgba(0,0,0,0.35);
+  padding: 4px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.profile-gender-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 15.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.profile-gender-btn .pg-icon { font-size: 18px; line-height: 1; }
+.profile-gender-btn#profileGenderMaleBtn.active {
+  background: linear-gradient(135deg, rgba(99,102,241,0.36), rgba(139,92,246,0.28));
+  border-color: rgba(167,139,250,0.55);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.25);
+}
+.profile-gender-btn#profileGenderFemaleBtn.active {
+  background: linear-gradient(135deg, rgba(244,63,94,0.36), rgba(236,72,153,0.28));
+  border-color: rgba(244,114,182,0.55);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(244,63,94,0.25);
+}
+
+/* Settings Grouped Inset Cards */
+#profile .settings-section-v4 {
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+#profile .settings-title-v4 {
+  font-size: 12.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.48);
+  margin: 0 10px 8px;
+}
+#profile .settings-card-v4 {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%) #14111d;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+#profile .settings-row-v4 {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  min-height: 56px;
+}
+#profile .settings-icon-v4 {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex: 0 0 36px;
+}
+#profile .settings-icon-v4 svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#profile .settings-copy-v4 b {
+  font-size: 16px;
+  font-weight: 650;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+#profile .settings-copy-v4 span {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+#profile .settings-divider-v4 {
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+  margin-left: 66px;
+}
+#profile .settings-chevron-v4 {
+  stroke: rgba(255,255,255,0.35);
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+}
+#profile .apple-sync-button-v1 {
+  height: 46px;
+  border-radius: 14px;
+  margin: 12px 16px;
+  font-size: 15.5px;
+  font-weight: 700;
+  max-width: calc(100% - 32px);
+}
 
 /* ==================== MOG BATTLE (LooksMax AI Aesthetics) ==================== */
 .mb-container { padding: 12px 14px 100px; max-width: 480px; margin: 0 auto; position: relative; }
@@ -2775,9 +2983,9 @@ html.cam-active .app { background:transparent !important; }
 #profile .sp-card-icon-v1{width:38px;height:38px;flex:0 0 38px;border-radius:13px;display:grid;place-items:center;background:rgba(167,139,250,.14);color:#c4b5fd}
 #profile .sp-card-icon-v1 svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #profile .sp-card-copy-v1{display:flex;flex-direction:column;gap:3px;min-width:0}
-#profile .sp-card-copy-v1 b{font-size:14.5px;font-weight:800;letter-spacing:-.01em;color:#fff}
-#profile .sp-card-copy-v1 span{font-size:11.5px;color:var(--muted);line-height:1.35}
-#profile .sp-card-cta-v1{appearance:none;-webkit-appearance:none;width:100%;height:46px;border:0!important;border-radius:14px;background:rgba(255,255,255,.06)!important;color:#fff!important;font-size:13px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:none!important;cursor:pointer}
+#profile .sp-card-copy-v1 b{font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:#fff}
+#profile .sp-card-copy-v1 span{font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.4}
+#profile .sp-card-cta-v1{appearance:none;-webkit-appearance:none;width:100%;height:46px;border:0!important;border-radius:14px;background:rgba(255,255,255,.08)!important;color:#fff!important;font-size:15px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:none!important;cursor:pointer}
 #profile .sp-card-cta-v1:active{transform:scale(.99)}
 #profile .sp-card-cta-v1 svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2}
 
@@ -3870,8 +4078,8 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
     </div>
     <input type="file" id="profileAvatarInput" accept="image/*" style="display:none" onchange="handleProfileAvatarPick(this.files && this.files[0])">
     <div class="profile-hero-copy">
-      <div class="profile-name" id="profileName">You</div>
-      <div class="profile-uid" id="profileUid">Apple Account required</div>
+      <div class="profile-name" id="profileName">My Profile</div>
+      <div class="profile-status-pill" id="profileUid">FaceMax Member</div>
       <div class="status-badge free hidden" id="statusBadge"></div>
       <div id="premiumUntilBlock" class="premium-until hidden">Active until <b id="premiumUntilDate">--</b></div>
     </div>
@@ -3961,15 +4169,6 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
         <div class="settings-copy-v4"><b>Goals &amp; preferences</b><span id="goalPrefsSummary">Personalize your daily plan</span></div>
         <svg class="settings-chevron-v4" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
       </button>
-      <div class="settings-divider-v4"></div>
-      <div class="settings-row-v4 gender-row-v4" id="genderSettingCard">
-        <div class="settings-icon-v4 blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/></svg></div>
-        <div class="settings-copy-v4"><b>Scan calibration</b><span>Choose the profile used by AI</span></div>
-        <div class="gender-pills-v4" id="genderSettingBtns">
-          <button type="button" id="genderBtnMale" class="gender-pill-v4" onclick="changeGender('male')">Male</button>
-          <button type="button" id="genderBtnFemale" class="gender-pill-v4" onclick="changeGender('female')">Female</button>
-        </div>
-      </div>
     </div>
     <p id="notifDailyHint" class="settings-footnote-v4">Manage reminders in iOS Settings at any time.</p>
   </div>
@@ -4425,39 +4624,90 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
   </div>
 
   <div class="ai-feature-list" id="aiFeatureList">
+    <button class="mb-feature-banner" type="button" onclick="openMogBattle()">
+      <div class="mb-feature-banner-inner">
+        <div class="mb-feature-badge-row">
+          <span class="mb-feature-pill">ARENA</span>
+          <span class="mb-feature-mode-tag">Head-to-Head Clash</span>
+        </div>
+        <div class="mb-feature-title-row">
+          <span class="mb-feature-title">⚔️ Mog Battle</span>
+          <span class="mb-feature-arrow">›</span>
+        </div>
+        <span class="ai-feature-sub">Who mogs who? 2-photo clash, biometrics radar &amp; delta PSL verdict</span>
+      </div>
+    </button>
+
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
       <span class="ai-feature-icon ai-feature-emoji">😎</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Skin</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Skin</span>
+        <span class="ai-feature-sub">Personalised skincare routine</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('haircut')">
       <span class="ai-feature-icon ai-feature-emoji">✂️</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Haircut</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Haircut</span>
+        <span class="ai-feature-sub">Best haircut for your face shape</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
+    <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('symmetry')">
+      <span class="ai-feature-icon ai-feature-emoji">⚖️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Face Symmetry</span>
+        <span class="ai-feature-sub">Analyze landmark asymmetry &amp; balance</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('jawline')">
       <span class="ai-feature-icon ai-feature-emoji">🦴</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Jawline</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Jawline</span>
+        <span class="ai-feature-sub">Jawline definition &amp; posture</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('photo')">
       <span class="ai-feature-icon ai-feature-emoji">📸</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Profile Photo</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Profile Photo</span>
+        <span class="ai-feature-sub">Photo quality, lighting &amp; angle audit</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureFoodScanner()">
       <span class="ai-feature-icon ai-feature-emoji">🍎</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Food Scanner</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Food Scanner</span>
+        <span class="ai-feature-sub">Instant calories &amp; macros by photo</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureNutrition()">
       <span class="ai-feature-icon ai-feature-emoji">🥗</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Meal Plan</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Meal Plan</span>
+        <span class="ai-feature-sub">Diet plan for fat loss &amp; water cut</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureCompare()">
       <span class="ai-feature-icon ai-feature-emoji">🔄</span>
-      <span class="ai-feature-copy"><span class="ai-feature-line">Compare Scans</span></span><span class="ai-feature-arrow">›</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line">Compare Scans</span>
+        <span class="ai-feature-sub">Track before &amp; after transformation</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
     </button>
   </div>
 </section>
@@ -6416,7 +6666,7 @@ function updateSignInUI() {
   if (signedInBlock) signedInBlock.style.display = signedIn ? "" : "none";
   if (nameEl) nameEl.textContent = "Apple Account";
   const profileUid = document.getElementById("profileUid");
-  if (profileUid) profileUid.textContent = signedIn ? "Apple Account linked" : "Apple Account required";
+  if (profileUid) profileUid.textContent = signedIn ? "Apple Account linked" : (typeof isPremium === "function" && isPremium() ? "FaceMax Pro" : "FaceMax Member");
   if (signedIn) fmHideMandatoryAppleGate();
   if (signedIn && !hasSession) _fmSetAppleSyncStatus("Sign in with Apple again to resume cloud sync", "warn");
 }
@@ -8639,7 +8889,7 @@ window.goBack = async function(){
   if (_screenHistory.length > 1) {
     _screenHistory.pop(); // remove current
     const prev = _screenHistory.pop(); // get previous (openScreen will re-push it)
-    const paid = ["aiFeatures","tool","compare","daily","glowupHub","foodScan","foodHub","calories","water","routine","exercises","meals","report"].includes(prev);
+    const paid = ["tool","compare","daily","glowupHub","foodScan","foodHub","calories","water","routine","exercises","meals","report"].includes(prev);
     if (paid) {
       const ok = await ensurePremiumForAction(() => openScreen(prev), "FaceMax AI Premium", "Choose a plan to continue.");
       if (!ok) return;
@@ -8662,26 +8912,28 @@ function renderAiFeaturesList(){
 
   if (isFemale) {
     list.innerHTML = `
-    <button class="ai-feature-card" type="button" onclick="openMogBattle()" style="border:1.5px solid rgba(244,114,182,0.38);background:linear-gradient(135deg,rgba(236,72,153,0.14),rgba(139,92,246,0.06))">
-      <span class="ai-feature-icon ai-feature-emoji">✨</span>
-      <span class="ai-feature-copy">
-        <span class="ai-feature-line" style="display:flex;align-items:center;gap:6px;font-weight:700">
-          Beauty Battle
-          <span style="background:linear-gradient(135deg,#EC4899,#8B5CF6);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:0.5px">ARENA</span>
-        </span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Compare 2 portraits · Harmony & aesthetic clash</span>
-      </span>
-      <span class="ai-feature-arrow">›</span>
+    <button class="mb-feature-banner" type="button" onclick="openMogBattle()" style="border-color:rgba(244,114,182,0.5)!important;background:linear-gradient(135deg,rgba(236,72,153,0.22) 0%,rgba(168,85,247,0.18) 100%),#151122!important">
+      <div class="mb-feature-banner-inner">
+        <div class="mb-feature-badge-row">
+          <span class="mb-feature-pill" style="background:linear-gradient(135deg,#EC4899,#8B5CF6)">ARENA</span>
+          <span class="mb-feature-mode-tag" style="color:#F472B6">Head-to-Head Clash</span>
+        </div>
+        <div class="mb-feature-title-row">
+          <span class="mb-feature-title">✨ Beauty Battle</span>
+          <span class="mb-feature-arrow">›</span>
+        </div>
+        <span class="ai-feature-sub">Compare 2 portraits · Harmony &amp; aesthetic clash</span>
+      </div>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('makeup')" style="border:1.5px solid rgba(244,114,182,0.35);background:linear-gradient(135deg,rgba(236,72,153,0.10),rgba(255,255,255,0.03))">
       <span class="ai-feature-icon ai-feature-emoji">💄</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="display:flex;align-items:center;gap:6px;font-weight:700">
-          Makeup & Color Season
-          <span style="background:linear-gradient(135deg,#FB7185,#F43F5E);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:0.5px">NEW</span>
+          Makeup &amp; Color Season
+          <span class="ai-feature-badge-new">NEW</span>
         </span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Contouring, color palette, liner & lips</span>
+        <span class="ai-feature-sub">Contouring, color palette, liner &amp; lips</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8690,7 +8942,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">✨</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Glow Skincare Plan</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Clean girl glow, barrier & hydration</span>
+        <span class="ai-feature-sub">Clean girl glow, barrier &amp; hydration</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8698,8 +8950,8 @@ function renderAiFeaturesList(){
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('haircut')">
       <span class="ai-feature-icon ai-feature-emoji">💇‍♀️</span>
       <span class="ai-feature-copy">
-        <span class="ai-feature-line" style="font-weight:700">Hair Styling & Cut</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Face shape, framing layers & volume</span>
+        <span class="ai-feature-line" style="font-weight:700">Hair Styling &amp; Cut</span>
+        <span class="ai-feature-sub">Face shape, framing layers &amp; volume</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8707,8 +8959,8 @@ function renderAiFeaturesList(){
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('jawline')">
       <span class="ai-feature-icon ai-feature-emoji">🌸</span>
       <span class="ai-feature-copy">
-        <span class="ai-feature-line" style="font-weight:700">Cheekbones & Oval</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Facial contour, depuffing & cheekbones</span>
+        <span class="ai-feature-line" style="font-weight:700">Cheekbones &amp; Oval</span>
+        <span class="ai-feature-sub">Facial contour, depuffing &amp; cheekbones</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8716,8 +8968,8 @@ function renderAiFeaturesList(){
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('photo')">
       <span class="ai-feature-icon ai-feature-emoji">📸</span>
       <span class="ai-feature-copy">
-        <span class="ai-feature-line" style="font-weight:700">Portrait & Aesthetics</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Best angles, lighting & aesthetic</span>
+        <span class="ai-feature-line" style="font-weight:700">Portrait &amp; Aesthetics</span>
+        <span class="ai-feature-sub">Best angles, lighting &amp; aesthetic</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8726,7 +8978,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">⚖️</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Face Symmetry</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Landmark balance & harmony</span>
+        <span class="ai-feature-sub">Landmark balance &amp; harmony</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8734,8 +8986,8 @@ function renderAiFeaturesList(){
     <button class="ai-feature-card" type="button" onclick="openExercises()">
       <span class="ai-feature-icon ai-feature-emoji">🧘‍♀️</span>
       <span class="ai-feature-copy">
-        <span class="ai-feature-line" style="font-weight:700">Facial Exercises & Yoga</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Face yoga, posture & lymph drainage</span>
+        <span class="ai-feature-line" style="font-weight:700">Facial Exercises &amp; Yoga</span>
+        <span class="ai-feature-sub">Face yoga, posture &amp; lymph drainage</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8744,7 +8996,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🥗</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Food Scanner</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Nutrient balance for skin glow</span>
+        <span class="ai-feature-sub">Nutrient balance for skin glow</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8753,7 +9005,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🥑</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Meal Plan</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Clear skin, energy & light digestion</span>
+        <span class="ai-feature-sub">Clear skin, energy &amp; light digestion</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8762,30 +9014,32 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🔄</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Compare Scans</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Track before & after transformation</span>
+        <span class="ai-feature-sub">Track before &amp; after transformation</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
     `;
   } else {
     list.innerHTML = `
-    <button class="ai-feature-card" type="button" onclick="openMogBattle()" style="border:1.5px solid rgba(168,85,247,0.38);background:linear-gradient(135deg,rgba(168,85,247,0.14),rgba(59,130,246,0.06))">
-      <span class="ai-feature-icon ai-feature-emoji">⚔️</span>
-      <span class="ai-feature-copy">
-        <span class="ai-feature-line" style="display:flex;align-items:center;gap:6px;font-weight:700">
-          Mog Battle
-          <span style="background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:0.5px">ARENA</span>
-        </span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Who mogs who? 2-photo clash & score delta</span>
-      </span>
-      <span class="ai-feature-arrow">›</span>
+    <button class="mb-feature-banner" type="button" onclick="openMogBattle()">
+      <div class="mb-feature-banner-inner">
+        <div class="mb-feature-badge-row">
+          <span class="mb-feature-pill">ARENA</span>
+          <span class="mb-feature-mode-tag">Head-to-Head Clash</span>
+        </div>
+        <div class="mb-feature-title-row">
+          <span class="mb-feature-title">⚔️ Mog Battle</span>
+          <span class="mb-feature-arrow">›</span>
+        </div>
+        <span class="ai-feature-sub">Who mogs who? 2-photo clash &amp; score delta</span>
+      </div>
     </button>
 
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
       <span class="ai-feature-icon ai-feature-emoji">😎</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Skin</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Personalised skincare routine</span>
+        <span class="ai-feature-sub">Personalised skincare routine</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8794,7 +9048,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">✂️</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Haircut</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Best haircut for your face shape</span>
+        <span class="ai-feature-sub">Best haircut for your face shape</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8803,7 +9057,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">⚖️</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Face Symmetry</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Analyze landmark asymmetry & balance</span>
+        <span class="ai-feature-sub">Analyze landmark asymmetry &amp; balance</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8812,7 +9066,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🦴</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Jawline</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Jawline definition & posture</span>
+        <span class="ai-feature-sub">Jawline definition &amp; posture</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8821,7 +9075,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">📸</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Profile Photo</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Photo quality, lighting and angle audit</span>
+        <span class="ai-feature-sub">Photo quality, lighting and angle audit</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8830,7 +9084,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">💪</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Exercises</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Mewing, neck posture and facial workouts</span>
+        <span class="ai-feature-sub">Mewing, neck posture and facial workouts</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8839,7 +9093,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🍎</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Food Scanner</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Instant calories & macros by photo</span>
+        <span class="ai-feature-sub">Instant calories &amp; macros by photo</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8848,7 +9102,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🥗</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Meal Plan</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Diet plan for fat loss & water cut</span>
+        <span class="ai-feature-sub">Diet plan for fat loss &amp; water cut</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8857,7 +9111,7 @@ function renderAiFeaturesList(){
       <span class="ai-feature-icon ai-feature-emoji">🔄</span>
       <span class="ai-feature-copy">
         <span class="ai-feature-line" style="font-weight:700">Compare Scans</span>
-        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Track before & after transformation</span>
+        <span class="ai-feature-sub">Track before &amp; after transformation</span>
       </span>
       <span class="ai-feature-arrow">›</span>
     </button>
@@ -8866,15 +9120,7 @@ function renderAiFeaturesList(){
 }
 window.renderAiFeaturesList = renderAiFeaturesList;
 
-window.openAiFeatures = async function(_premiumChecked){
-  if (!_premiumChecked) {
-    const ok = await ensurePremiumForAction(
-      () => window.openAiFeatures(true),
-      "FaceMax AI Premium",
-      "Choose a plan to continue."
-    );
-    if (!ok) return;
-  }
+window.openAiFeatures = function(){
   _aiFeaturesContext = true;
   try { renderAiFeaturesList(); } catch {}
   openScreen("aiFeatures");
@@ -9416,6 +9662,186 @@ window.regenerateCurrentAiTool = function(){
   return window.openTool(_activeAiTool, true, false, true);
 };
 
+function generateLocalAiToolResult(tool, ctx) {
+  const isFem = (typeof currentGender === "function" && currentGender() === "female");
+  const m = (ctx && ctx.metrics) || {};
+  const s = ctx && Number.isFinite(Number(ctx.score)) ? Math.round(Number(ctx.score)) : 74;
+  const shape = (ctx && ctx.shape) || "Oval";
+
+  const getM = (k, def) => {
+    const v = Number(m[k]);
+    return Number.isFinite(v) ? Math.max(20, Math.min(99, Math.round(v))) : def;
+  };
+
+  const skinScore = getM("skin", 72);
+  const eyeScore = getM("eye_area", getM("eyes", 70));
+  const jawScore = getM("jawline", 68);
+  const harmScore = getM("harmony", 71);
+  const symScore = getM("symmetry", 73);
+  const cheekScore = getM("cheekbones", 70);
+  const hairScore = getM("hair", 75);
+  const angleScore = getM("photo_angle", 72);
+
+  if (tool === "skin") {
+    if (isFem) {
+      return {
+        title: "Skin Glow Plan",
+        text: `Personalized Skin Glow Plan calibrated for your ${skinScore}/100 skin score and ${eyeScore}/100 eye area. Designed to restore barrier strength, even complexion tone, and produce a radiant glass-skin glow.`,
+        steps: [
+          `Gentle Double Cleanse: Use an oil or micellar cleanser in the evening to melt SPF and impurities, followed by a low-pH water-based foaming wash to clear pores without stripping moisture.`,
+          `Hydrating Hyaluronic & Niacinamide: Apply a 2% hyaluronic acid essence on damp skin, layered with 5% niacinamide to calm inflammation, refine visible pores, and fortify moisture barrier.`,
+          `Morning Vitamin C Antioxidant: Smooth 3-4 drops of 10-15% L-ascorbic acid serum each morning before moisturizer to protect collagen, fade hyperpigmentation, and enhance radiant luminosity.`,
+          `Caffeine Eye Depuffing: Gently pat a peptide and caffeine-infused eye cream along orbital bones morning and evening to minimize under-eye fluid retention and brighten shadow circles.`,
+          `Broad-Spectrum Mineral SPF 50+: Apply 2 finger lengths of invisible lightweight SPF daily—even on cloudy days—to prevent photo-aging, preserve elastin, and keep texture velvety smooth.`,
+          `Overnight Barrier Hydration: Seal evening routine with a ceramide-rich sleeping cream or squalane oil to lock in hydration and wake up with a smooth, plump complexion.`
+        ]
+      };
+    } else {
+      return {
+        title: "Skin Analysis",
+        text: `Targeted Skin Performance Protocol calibrated to your ${skinScore}/100 skin score and ${eyeScore}/100 eye area. Structured to eliminate congestion, control oil production, and enhance clear facial vitality.`,
+        steps: [
+          `Salicylic Acid Cleanser: Wash face morning and night with a 2% BHA foaming cleanser to clear excess sebum, prevent breakout blemishes, and smooth rough skin texture.`,
+          `Niacinamide Balancing Serum: Apply 3-4 drops of niacinamide serum at night to regulate sebaceous glands, shrink enlarged pores, and even out post-acne redness.`,
+          `Caffeine & Cold Eye Compress: Tap caffeine eye serum onto under-eye rings every morning to constrict sluggish blood vessels, cut morning puffiness, and brighten the gaze.`,
+          `Oil-Free Matte Moisturizer: Hydrate with a lightweight gel moisturizer containing ceramides and hyaluronic acid to strengthen barrier resilience without a greasy sheen.`,
+          `Matte UV Shield SPF 50: Apply daily sunscreen every morning before heading outside to shield skin from UV damage, hyperpigmentation, and premature fine lines.`,
+          `Hydration & Sodium Debloat: Drink 2.5-3 liters of mineral water daily and cut sugary beverages to lower systemic inflammation and sharpen facial definition.`
+        ]
+      };
+    }
+  }
+
+  if (tool === "haircut") {
+    if (isFem) {
+      let cutName = "Face-Framing Butterfly Cut with Curtain Bangs";
+      if (shape === "Round") cutName = "Long Layered Cut with Center-Part Curtain Bangs";
+      else if (shape === "Square") cutName = "Soft Shag with Wispy Textured Fringe";
+      else if (shape === "Heart") cutName = "Collarbone Lob with Bouncy Inward Layers";
+      return {
+        title: "Hair Styling Guide",
+        text: `Tailored Hair Styling Guide optimized for your ${shape} face shape and ${hairScore}/100 hair index. Recommending the ${cutName} to balance facial harmony.`,
+        steps: [
+          `Signature Cut (${cutName}): Ask your stylist for long blended layers starting just below chin level to accentuate cheekbones without bulk.`,
+          `Airy Curtain Bangs: Style fringe with a medium round ceramic brush directed away from the face to create soft framing curves that open up the eye line.`,
+          `Root Volume Lift: Spray lightweight volumizing foam or texturizing mist into roots before blow-drying upside-down for instant crown lift.`,
+          `Heat Protection & Silk Finish: Always coat mid-lengths to ends with heat protectant serum before styling, locking in shine and preventing frizzy split ends.`,
+          `Silk Pillowcase & Night Care: Sleep on a 100% mulberry silk pillowcase or loose satin scrunchie bun to minimize nighttime friction and preserve blowout volume.`,
+          `Bimonthly Micro-Trim: Schedule a dusting trim every 6-8 weeks to keep hair ends crisp, bouncy, and free of breakage.`
+        ]
+      };
+    } else {
+      let cutName = "Mid-Taper Fade with Textured French Crop";
+      if (shape === "Round") cutName = "High Skin Fade with Textured Quiff";
+      else if (shape === "Square") cutName = "Low Taper Fade with Classic Side-Sweep";
+      else if (shape === "Heart" || shape === "Diamond") cutName = "Textured Fringe with Low Drop Fade";
+      return {
+        title: "Haircut Guide",
+        text: `Precision Grooming Guide engineered for your ${shape} face shape and ${hairScore}/100 hair index. Recommending a ${cutName} to maximize jaw and skull aesthetics.`,
+        steps: [
+          `Signature Barber Cut (${cutName}): Ask your barber for tight tapered sides blended into 2.5-3 inches of point-cut textured length on top.`,
+          `Sea Salt Spray Pre-Styler: Apply 4-5 spritzes of sea salt spray into damp hair and blow dry on medium heat using fingers to build natural grip and lift.`,
+          `Matte Clay or Paste: Work a dime-sized amount of matte styling clay between palms and distribute through roots for all-day flexible hold with zero shine.`,
+          `Sideburns & Temple Taper: Keep the sideburn taper sharp and faded into beard growth to draw visual focus to jawline definition.`,
+          `Scalp & Follicle Care: Wash with sulfate-free shampoo 2-3 times per week, massaging the scalp to stimulate microcirculation and thicken hair strands.`,
+          `Barber Schedule: Refresh the side fade every 3-4 weeks to keep silhouette sharp and prevent bulky mushrooming around ears.`
+        ]
+      };
+    }
+  }
+
+  if (tool === "jawline") {
+    if (isFem) {
+      return {
+        title: "Cheekbones & Jaw",
+        text: `Targeted Facial Contour & Lymphatic Sculpting Plan based on your ${jawScore}/100 jawline and ${cheekScore}/100 cheekbone scores. Focuses on lymphatic drainage, cheekbone lift, and neck alignment.`,
+        steps: [
+          `Morning Lymphatic Gua Sha: Apply 3 drops of rosehip or squalane oil, then glide a chilled gua sha stone upward from jaw corner to earlobe (10 reps per side) to drain interstitial fluid.`,
+          `Cheekbone Lift Massage: Using knuckles, press upward firmly beneath zygomatic arches towards temples to relieve facial tension and enhance high cheekbone definition.`,
+          `Chin & Neck Elongation: Perform 3 sets of 12 ceiling kisses daily—look upward, extend lower lip towards ceiling for 5 seconds—to tone the platysma neck band.`,
+          `Sodium & Water Balance: Keep sodium under 2000mg daily and consume potassium-rich foods (coconut water, avocados) to purge subcutaneous water retention.`,
+          `Tongue Posture (Mewing): Keep entire tongue resting flat against the roof of mouth with teeth gently touching and lips closed throughout the day.`,
+          `Sleep Elevation: Sleep with head elevated on an ergonomic contour pillow to prevent overnight lymphatic pooling in cheeks and under-chin.`
+        ]
+      };
+    } else {
+      return {
+        title: "Jawline Analysis",
+        text: `Advanced Jawline & Mandible Protocol calibrated to your ${jawScore}/100 jaw score and ${harmScore}/100 harmony score. Built around masseter toning, posture realignment, and rapid facial debloating.`,
+        steps: [
+          `Wall Chin Tucks: Stand flat against a wall, pull head directly backwards creating a double chin, hold for 3 seconds (3 sets of 15 daily) to correct forward head posture.`,
+          `Proper Tongue Posture (Mewing): Rest the entire tongue flat against the palate with lips sealed and teeth lightly aligned, breathing strictly through the nose.`,
+          `Masseter Resistance Chewing: Chew firm mastic or fibrous foods equally on both left and right molars for 15 minutes daily to build sharp jaw angularity.`,
+          `Sodium Cutoff & Potassium Intake: Limit evening sodium and drink 3 liters of water daily to strip water retention that blurs the mandibular border.`,
+          `Beard Line & Stubble Contouring: Shave a clean line 1 finger above the Adam's apple, fading up to cheekbones to create immediate visual shadow depth.`,
+          `Neck Platysma Stretches: Tilt head back, press tongue against roof of mouth, and slowly rotate chin left and right to tighten submental skin.`
+        ]
+      };
+    }
+  }
+
+  if (tool === "photo") {
+    return {
+      title: "Profile Photo",
+      text: `Portrait & Camera Optimization Audit calibrated to your ${angleScore}/100 angle score and ${symScore}/100 symmetry rating. Designed to produce high-impact, professional-grade portrait shots.`,
+      steps: [
+        `Optimal Camera Height: Position smartphone lens directly at eye level or angled slightly (5-10 degrees) downward—never from below chin height.`,
+        `3/4 Head Rotation: Turn head 15 to 20 degrees towards your dominant side with chin tucked 1/2 inch down to visually sharpen jaw definition and eliminate camera flattening.`,
+        `Diffuse Natural Light: Stand 4-6 feet facing an open window during overcast daylight or golden hour; never shoot with harsh overhead downlights that cast nose and eye shadows.`,
+        `Relaxed Confident Expression: Exhale through lips right before the shutter, relax forehead muscles, and hold a subtle micro-smile with eyes gently engaged.`,
+        `Aesthetic Background Separation: Use 2x portrait optical zoom and maintain 8-10 feet between yourself and an uncluttered architectural or natural background for clean depth-of-field.`,
+        `Burst & Audit Selection: Capture 10-15 slight variations per setup, auditing them side-by-side to select the single frame with the most organic eye contact.`
+      ]
+    };
+  }
+
+  if (tool === "symmetry") {
+    return {
+      title: "Face Symmetry",
+      text: `Facial Symmetry & Landmark Balance Protocol calibrated to your ${symScore}/100 symmetry score and ${harmScore}/100 harmony rating. Targets bilateral alignment, lighting balance, and muscular balance.`,
+      steps: [
+        `Bilateral Chewing Alignment: Concurrently chew meals on both sides of jaw; avoid single-side chewing which overdevelops one masseter muscle and skews jawline alignment.`,
+        `Frontal Lighting Balance: Avoid asymmetric side lighting in photos and mirrors, which exaggerates normal human facial variances with deep shadows.`,
+        `Eyebrow Arch Balancing: Use micro-brow pencil strokes to align the starting point and peak height of both brows, framing eyes in harmonious horizontal alignment.`,
+        `Sleep Back Alignment: Sleep on your back rather than crushing one side of face against a firm pillow, which causes unilateral facial compression over time.`,
+        `Neck & Trap Release: Stretch tight sternocleidomastoid and trapezius muscles (30-second side tilts) to correct subconscious head tilt habits.`,
+        `Flattering Angle Audit: Identify your naturally stronger side and subtly lead with that profile in photography to present your most balanced aesthetic.`
+      ]
+    };
+  }
+
+  if (tool === "makeup") {
+    const isCool = skinScore > 65;
+    const seasonText = isCool ? "Cool Summer · Soft dusty rose, berry, and cool mauve palette" : "Bright Spring · Warm peach, fresh coral, and champagne glow palette";
+    return {
+      title: "Makeup & Color Season",
+      text: `Personalized Color Season & Facial Makeup Guide calibrated for your ${skinScore}/100 skin tone and ${shape} face shape. Your palette analysis aligns with ${seasonText}.`,
+      steps: [
+        `Targeted Color Correction: Dot green corrector onto redness around nostrils and peach-toned corrector beneath eyes, then blend a skin-like dewy cushion or radiant tinted serum.`,
+        `High Cheekbone Blush Placement: Apply liquid or cream blush along upper cheekbone peaks blending up towards temples to create a natural lifted facelift contour.`,
+        `Subtle Lash Tightline & Outer Wing: Press a soft dark-brown gel pencil directly into upper lash waterlines and smudge a 2mm micro-wing outward to enlarge eyes naturally.`,
+        `Cupid's Bow Contour & Glaze: Define Cupid's bow peaks and center lower lip with a neutral nude lip pencil, filling with a nourishing hyaluronic tinted lip balm.`,
+        `Feathered Laminated Brow Arch: Brush brows upward with a strong-hold clear brow gel, lightly filling sparse gaps with a micro-fine hair-stroke pencil to frame facial symmetry.`,
+        `Dewy Glow Seal & Mist: Lock hydration with a fine-mist setting spray containing glycerin and niacinamide for all-day crease-free radiance.`
+      ]
+    };
+  }
+
+  return {
+    title: "AI Analysis",
+    text: `Personalized AI recommendations based on your recent facial biometrics and ${s}/100 overall score.`,
+    steps: [
+      `Morning Routine: Cleanse thoroughly and apply daily mineral SPF 30+.`,
+      `Hydration Discipline: Drink 2.5L of water daily to maintain skin elasticity.`,
+      `Facial Alignment: Maintain chin level and upright neck posture throughout the day.`,
+      `Sleep Recovery: Prioritize 7.5 to 8 hours of uninterrupted rest for cellular repair.`,
+      `Nutrition Quality: Reduce high-sodium foods in the evening to eliminate facial bloat.`,
+      `Progress Tracking: Re-scan weekly under consistent lighting to record improvements.`
+    ]
+  };
+}
+window.generateLocalAiToolResult = generateLocalAiToolResult;
+
 window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenerate){
   const names = {
     skin: "Skin",
@@ -9425,14 +9851,6 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
     symmetry: "Face Symmetry",
     makeup: "Makeup & Color Season"
   };
-  if (!_premiumChecked) {
-    const ok = await ensurePremiumForAction(
-      () => window.openTool(tool, true, false, false),
-      (names[tool] || "AI tool") + " — Premium",
-      "Choose a plan to continue with personalised AI advice."
-    );
-    if (!ok) return;
-  }
   _activeAiTool = tool;
   openScreen("tool");
   const isFem = (typeof currentGender === "function" && currentGender() === "female");
@@ -9455,59 +9873,75 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
   el("toolTitle").textContent = TITLES[tool] || "Tool";
   el("toolEyebrow").textContent = EYEBROWS[tool] || "AI ANALYSIS";
   const tbTitle = el("toolTopbarTitle"); if (tbTitle) tbTitle.textContent = TITLES[tool] || "AI Tool";
-  const rb = el("toolRegenerateBtn"); if (rb) rb.hidden = true;
-  el("toolSummary").innerHTML = 'Reading your latest Face Scan<span class="dots"><span></span><span></span><span></span></span>';
-  el("toolSteps").innerHTML = '<div class="skel" style="width:88%"></div><div class="skel" style="width:72%"></div><div class="skel" style="width:80%"></div>';
-  el("toolStepsHdr").style.display = "";
-  el("toolDetails").innerHTML = "";
+  const rb = el("toolRegenerateBtn"); if (rb) rb.hidden = false;
   setToolHeroPhoto();
 
   const ctx = latestAiScanContext();
+  const m = ctx.metrics;
+  const chips = [];
+
+  if (ctx.hasRealScan) {
+    if ((tool === "haircut" || tool === "jawline" || tool === "makeup") && ctx.shape) {
+      chips.push(`<span class="chip"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="6" ry="9"/></svg>Face shape: ${ctx.shape}</span>`);
+    }
+    if (tool === "skin") {
+      const skin = toolMetric(m,"skin"), eye = toolMetric(m,"eye_area") ?? toolMetric(m,"eyes");
+      if (skin != null) chips.push(`<span class="chip">Skin ${skin}/100</span>`);
+      if (eye != null) chips.push(`<span class="chip">Eye area ${eye}/100</span>`);
+    } else if (tool === "jawline") {
+      const jaw = toolMetric(m,"jawline"), harmony = toolMetric(m,"harmony");
+      if (jaw != null) chips.push(`<span class="chip">Jawline ${jaw}/100</span>`);
+      if (harmony != null) chips.push(`<span class="chip">Harmony ${harmony}/100</span>`);
+    } else if (tool === "haircut") {
+      const hair = toolMetric(m,"hair");
+      if (hair != null) chips.push(`<span class="chip">Hair ${hair}/100</span>`);
+    } else if (tool === "photo") {
+      const angle = toolMetric(m,"photo_angle"), symmetry = toolMetric(m,"symmetry");
+      if (angle != null) chips.push(`<span class="chip">Photo angle ${angle}/100</span>`);
+      if (symmetry != null) chips.push(`<span class="chip">Symmetry ${symmetry}/100</span>`);
+    } else if (tool === "symmetry") {
+      const symmetry = toolMetric(m,"symmetry"), harmony = toolMetric(m,"harmony");
+      if (symmetry != null) chips.push(`<span class="chip">Symmetry ${symmetry}/100</span>`);
+      if (harmony != null) chips.push(`<span class="chip">Harmony ${harmony}/100</span>`);
+    } else if (tool === "makeup") {
+      const skin = toolMetric(m,"skin");
+      if (skin != null) chips.push(`<span class="chip">Skin tone ${skin}/100</span>`);
+      chips.push(`<span class="chip">Palette &amp; Contour</span>`);
+    }
+    if (ctx.score != null) chips.push(`<span class="chip">Overall ${ctx.score}/100</span>`);
+  } else {
+    chips.push(`<span class="chip">Baseline Guide</span>`);
+    chips.push(`<span class="chip">Aesthetic Benchmark</span>`);
+  }
+  el("toolChips").innerHTML = chips.join("");
+
+  const scanKey = ctx.hasRealScan ? ctx.scanId : "baseline";
+  let cached = !_forceRegenerate ? readAiToolLocalCache(tool, scanKey) : null;
+  if (cached) {
+    renderAiToolResult(cached);
+  } else {
+    const localAdvice = generateLocalAiToolResult(tool, ctx);
+    writeAiToolLocalCache(tool, scanKey, localAdvice);
+    renderAiToolResult(localAdvice);
+  }
+
   if (!ctx.hasRealScan) {
-    el("toolChips").innerHTML = "";
-    el("toolSummary").textContent = "Run a Face Scan first. This feature only generates advice from real scores saved by your latest successful scan.";
-    el("toolStepsHdr").style.display = "none";
-    el("toolSteps").innerHTML = '<div class="tool-no-scan"><button class="btn" type="button" onclick="startGenderScan()"><span>Run Face Scan</span></button></div>';
+    const existingBanner = document.getElementById("toolScanBanner");
+    if (!existingBanner) {
+      const banner = document.createElement("div");
+      banner.id = "toolScanBanner";
+      banner.style.cssText = "margin-top:16px;padding:16px;background:linear-gradient(135deg,rgba(124,58,237,0.18),rgba(236,72,153,0.12));border:1px solid rgba(167,139,250,0.3);border-radius:20px;text-align:center;";
+      banner.innerHTML = `
+        <b style="display:block;font-size:15px;color:#fff;margin-bottom:4px;">Personalize with Face Scan</b>
+        <span style="display:block;font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:12px;line-height:1.4;">Run a quick scan to calibrate these steps to your exact facial metrics and face shape.</span>
+        <button class="btn" type="button" onclick="startGenderScan()" style="height:44px;font-size:14.5px;"><span>Run Face Scan</span></button>
+      `;
+      el("toolSteps").appendChild(banner);
+    }
     return;
   }
 
-  const m = ctx.metrics;
-  const chips = [];
-  if ((tool === "haircut" || tool === "jawline" || tool === "makeup") && ctx.shape) {
-    chips.push(`<span class="chip"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="6" ry="9"/></svg>Face shape: ${ctx.shape}</span>`);
-  }
-  if (tool === "skin") {
-    const skin = toolMetric(m,"skin"), eye = toolMetric(m,"eye_area") ?? toolMetric(m,"eyes");
-    if (skin != null) chips.push(`<span class="chip">Skin ${skin}/100</span>`);
-    if (eye != null) chips.push(`<span class="chip">Eye area ${eye}/100</span>`);
-  } else if (tool === "jawline") {
-    const jaw = toolMetric(m,"jawline"), harmony = toolMetric(m,"harmony");
-    if (jaw != null) chips.push(`<span class="chip">Jawline ${jaw}/100</span>`);
-    if (harmony != null) chips.push(`<span class="chip">Harmony ${harmony}/100</span>`);
-  } else if (tool === "haircut") {
-    const hair = toolMetric(m,"hair");
-    if (hair != null) chips.push(`<span class="chip">Hair ${hair}/100</span>`);
-  } else if (tool === "photo") {
-    const angle = toolMetric(m,"photo_angle"), symmetry = toolMetric(m,"symmetry");
-    if (angle != null) chips.push(`<span class="chip">Photo angle ${angle}/100</span>`);
-    if (symmetry != null) chips.push(`<span class="chip">Symmetry ${symmetry}/100</span>`);
-  } else if (tool === "symmetry") {
-    const symmetry = toolMetric(m,"symmetry"), harmony = toolMetric(m,"harmony");
-    if (symmetry != null) chips.push(`<span class="chip">Symmetry ${symmetry}/100</span>`);
-    if (harmony != null) chips.push(`<span class="chip">Harmony ${harmony}/100</span>`);
-  } else if (tool === "makeup") {
-    const skin = toolMetric(m,"skin");
-    if (skin != null) chips.push(`<span class="chip">Skin tone ${skin}/100</span>`);
-    chips.push(`<span class="chip">Palette &amp; Contour</span>`);
-  }
-  if (ctx.score != null) chips.push(`<span class="chip">Overall ${ctx.score}/100</span>`);
-  el("toolChips").innerHTML = chips.join("");
-
-  if (!_forceRegenerate) {
-    const cached = readAiToolLocalCache(tool, ctx.scanId);
-    if (cached) { renderAiToolResult(cached); return; }
-  }
-
+  // Background fetch to enrich from server without ever wiping rendered steps
   try {
     const map = {
       photo: "dating-photo",
@@ -9531,43 +9965,15 @@ window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenera
         image: ctx.thumb || undefined
       })
     });
-    if (res.status === 402) {
-      const nowPremium = await checkPremium(false).catch(() => false);
-      if (!nowPremium) {
-        showGate((names[tool] || "AI tool") + " — Premium", "Choose a plan to continue with personalised AI advice.", () => window.openTool(tool, true, false, !!_forceRegenerate));
-        return;
+    if (res.ok) {
+      const data = await res.json().catch(() => null);
+      if (data && data.ok === true && data.data && data.data.steps && data.data.steps.length) {
+        writeAiToolLocalCache(tool, ctx.scanId, data.data);
+        renderAiToolResult(data.data);
       }
-      if (!_retried) {
-        await new Promise(r => setTimeout(r, 1800));
-        return window.openTool(tool, true, true, !!_forceRegenerate);
-      }
-      el("toolSummary").textContent = "Subscription is still syncing. Try again in a moment.";
-      el("toolStepsHdr").style.display = "none";
-      el("toolSteps").innerHTML = "";
-      return;
     }
-    const data = await res.json().catch(() => null);
-    if (data && data.error === "daily_limit_reached") {
-      const msg = dailyLimitMessage(data, (names[tool] || "AI requests"));
-      const cached = readAiToolLocalCache(tool, ctx.scanId);
-      if (cached) { renderAiToolResult(cached); showToast("Daily regeneration limit reached — showing your saved result.", 4200); return; }
-      el("toolSummary").textContent = msg;
-      el("toolStepsHdr").style.display = "none";
-      el("toolSteps").innerHTML = "";
-      showToast(msg, 4200);
-      return;
-    }
-    if (!res.ok || !data || data.ok !== true || data.source !== "openrouter" || !data.data) {
-      throw new Error((data && (data.reason || data.error)) || "AI advice unavailable");
-    }
-    writeAiToolLocalCache(tool, ctx.scanId, data.data);
-    renderAiToolResult(data.data);
-  } catch (err) {
-    const cached = readAiToolLocalCache(tool, ctx.scanId);
-    if (cached) { renderAiToolResult(cached); showToast("Couldn't refresh — showing your saved result.", 3000); return; }
-    el("toolSummary").textContent = "AI advice couldn't load. Try again in a moment.";
-    el("toolStepsHdr").style.display = "none";
-    el("toolSteps").innerHTML = "";
+  } catch (_) {
+    // Offline or network error: retain local advice silently
   }
 };
 
@@ -9723,8 +10129,8 @@ function renderProfileScreen(){
     if (photo) photo.src = getSavedGender() === "female" ? "assets/side-profile/female-example.jpg" : "assets/side-profile/male-example.jpg";
   } catch {}
   const uid = currentUserId();
-  el("profileName").textContent = "You";
-  el("profileUid").textContent = isSignedInWithApple() ? "Apple Account linked" : "Apple Account required";
+  el("profileName").textContent = "My Profile";
+  el("profileUid").textContent = isSignedInWithApple() ? "Apple Account linked" : (premium ? "FaceMax Pro" : "FaceMax Member");
   const pci = el("profileCurrentId"); if (pci) pci.textContent = uid;
   // Restore the user's saved profile picture (if any).
   try {
