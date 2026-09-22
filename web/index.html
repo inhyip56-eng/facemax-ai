@@ -2597,6 +2597,177 @@ html.cam-active .app { background:transparent !important; }
 #profile .settings-footnote-v4{margin:8px 2px 0}
 #profile .profile-chart-v4{border-radius:20px!important}
 
+/* ===== Profile Gender Switcher Card ===== */
+.profile-gender-switcher-card{margin:10px 0 14px;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.profile-gender-switcher-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+.profile-gender-title-wrap{display:flex;flex-direction:column;gap:2px}
+.profile-gender-kicker{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,rgba(255,255,255,.55))}
+.profile-gender-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.profile-gender-hint{font-size:12px;color:#c4b5fd;font-weight:550}
+.profile-gender-segmented{display:flex;gap:8px;background:rgba(0,0,0,.28);padding:4px;border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+.profile-gender-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:42px;border:1px solid transparent;border-radius:11px;background:transparent;color:rgba(255,255,255,.65);font-size:14.5px;font-weight:650;cursor:pointer;transition:all .2s cubic-bezier(.2,.8,.2,1);-webkit-tap-highlight-color:transparent}
+.profile-gender-btn .pg-icon{font-size:16px;line-height:1}
+.profile-gender-btn#profileGenderMaleBtn.active{background:linear-gradient(135deg,rgba(99,102,241,.32),rgba(139,92,246,.25));border-color:rgba(167,139,250,.45);color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.22)}
+.profile-gender-btn#profileGenderFemaleBtn.active{background:linear-gradient(135deg,rgba(244,63,94,.32),rgba(236,72,153,.25));border-color:rgba(244,114,182,.45);color:#fff;box-shadow:0 4px 14px rgba(244,63,94,.22)}
+
+/* ==================== MOG BATTLE (LooksMax AI Aesthetics) ==================== */
+.mb-container { padding: 12px 14px 100px; max-width: 480px; margin: 0 auto; position: relative; }
+.mb-hero { text-align: center; margin-bottom: 20px; position: relative; }
+.mb-hero::before { content: ""; position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 280px; height: 120px; background: radial-gradient(ellipse at center, rgba(139,92,246,0.22), transparent 70%); pointer-events: none; z-index: 0; }
+.mb-badge-pill { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; padding: 4px 12px; border-radius: 999px; background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.12)); border: 1px solid rgba(167,139,250,0.35); color: #ddd6fe; box-shadow: 0 4px 14px rgba(139,92,246,0.15); margin-bottom: 8px; }
+.mb-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #A855F7; box-shadow: 0 0 8px #C084FC; animation: mbPulseDot 2s infinite ease-in-out; }
+@keyframes mbPulseDot { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+.mb-title { position: relative; z-index: 1; font-size: 28px; font-weight: 900; letter-spacing: -0.02em; background: linear-gradient(135deg, #FFFFFF 30%, #DDD6FE 65%, #F472B6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 6px; line-height: 1.1; }
+.mb-subtitle { position: relative; z-index: 1; font-size: 12.5px; color: var(--muted); line-height: 1.45; margin: 0 auto; max-width: 310px; }
+
+.mb-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: rgba(255,255,255,0.04); padding: 4px; border-radius: 16px; margin-bottom: 22px; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.mb-tab { padding: 10px 14px; border-radius: 12px; border: none; background: transparent; color: var(--muted); font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; justify-content: center; gap: 6px; -webkit-tap-highlight-color: transparent; }
+.mb-tab.active { background: linear-gradient(135deg, rgba(139,92,246,0.32), rgba(109,40,217,0.45)); color: #fff; border: 1px solid rgba(167,139,250,0.45); box-shadow: 0 4px 16px rgba(109,40,217,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
+
+.mb-online-card { text-align: center; padding: 36px 20px; background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(139,92,246,0.03) 100%) #13111c; border: 1.5px solid rgba(255,255,255,0.08); border-radius: 24px; box-shadow: 0 12px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08); }
+.mb-online-icon { font-size: 48px; margin-bottom: 12px; filter: drop-shadow(0 0 20px rgba(139,92,246,0.5)); }
+.mb-online-card h3 { font-size: 18px; font-weight: 800; margin: 0 0 8px; color: #fff; text-transform: none; letter-spacing: -0.01em; }
+.mb-online-card p { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0 0 22px; }
+
+.mb-arena { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 0 20px; position: relative; }
+.mb-fighter { flex: 1; display: flex; flex-direction: column; align-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; min-width: 0; }
+.mb-fighter-card { width: 100%; aspect-ratio: 0.76; min-height: 195px; border-radius: 24px; background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(139,92,246,0.04) 100%) #14111d; border: 1.5px solid rgba(255,255,255,0.12); position: relative; overflow: hidden; display: grid; place-items: center; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 14px 36px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); }
+.mb-fighter-card:active { transform: scale(0.97); }
+.mb-fighter-card.is-ready { border-color: rgba(167,139,250,0.65); box-shadow: 0 14px 36px rgba(124,58,237,0.35), 0 0 24px rgba(139,92,246,0.25), inset 0 1px 0 rgba(255,255,255,0.25); }
+.mb-fighter-card.is-ready .mb-fighter-tag { display: none !important; }
+.mb-fighter-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mb-fighter-tag { position: absolute; top: 10px; left: 10px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; padding: 4px 9px; border-radius: 999px; background: rgba(15,13,23,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); color: #ddd6fe; z-index: 4; line-height: 1.1; }
+.mb-fighter-ready-chip { position: absolute; top: 10px; right: 10px; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: rgba(16,185,129,0.25); border: 1px solid rgba(52,211,153,0.6); color: #6ee7b7; z-index: 4; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; gap: 3px; box-shadow: 0 2px 10px rgba(16,185,129,0.3); line-height: 1.1; }
+.mb-fighter-placeholder { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 18px 10px; gap: 8px; }
+.mb-ph-circle { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, rgba(139,92,246,0.22), rgba(236,72,153,0.18)); border: 1px solid rgba(167,139,250,0.38); display: grid; place-items: center; box-shadow: 0 0 20px rgba(139,92,246,0.25); margin-bottom: 2px; }
+.mb-ph-text { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.mb-ph-btn { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0; }
+.mb-fighter-name { font-size: 13.5px; font-weight: 800; color: #fff; margin-top: 8px; letter-spacing: -0.01em; }
+
+.mb-vs-badge { display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 3; flex-shrink: 0; }
+.mb-vs-circle { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #EC4899 100%); display: grid; place-items: center; box-shadow: 0 0 0 3px rgba(168,85,247,0.22), 0 0 24px rgba(168,85,247,0.65), 0 4px 14px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.35); animation: mbPulse 2.5s infinite ease-in-out; }
+.mb-vs-emoji { font-size: 20px; line-height: 1; }
+.mb-vs-text { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; color: #C4B5FD; text-shadow: 0 0 10px rgba(167,139,250,0.6); }
+@keyframes mbPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(168,85,247,0.22), 0 0 20px rgba(139,92,246,0.55), 0 4px 12px rgba(0,0,0,0.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 5px rgba(168,85,247,0.35), 0 0 32px rgba(167,139,250,0.85), 0 6px 18px rgba(109,40,217,0.5); } }
+
+.mb-scan-beam { position: absolute; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, rgba(167,139,250,0.8), #fff, rgba(236,72,153,0.8), transparent); box-shadow: 0 0 14px #a855f7, 0 0 24px #ec4899; z-index: 5; animation: mbBeamSweep 1.8s linear infinite alternate; }
+@keyframes mbBeamSweep { 0% { top: 0%; opacity: 0.9; } 100% { top: 96%; opacity: 0.9; } }
+.mb-action-block { text-align: center; margin-top: 10px; }
+.mb-battle-btn { width: 100%; height: 52px; font-size: 15.5px; font-weight: 800; letter-spacing: 0.04em; border-radius: 20px; background: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #EC4899 100%); color: #fff; border: none; box-shadow: 0 8px 28px rgba(124,58,237,0.45), inset 0 1px 0 rgba(255,255,255,0.3); cursor: pointer; transition: all .2s ease; }
+.mb-battle-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; filter: saturate(0.5); }
+.mb-battle-btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(124,58,237,0.6); }
+.mb-hint { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+.mb-analysis-status { margin-top: 18px; padding: 18px; border-radius: 20px; background: rgba(22,18,33,0.85); border: 1px solid rgba(167,139,250,0.3); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); text-align: center; animation: fmFadeUp 0.3s ease both; box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+.mb-radar-spinner { width: 38px; height: 38px; margin: 0 auto 10px; border-radius: 50%; border: 3px solid rgba(139,92,246,0.18); border-top-color: #C084FC; animation: mbSpin 0.85s linear infinite; box-shadow: 0 0 16px rgba(192,132,252,0.4); }
+@keyframes mbSpin { to { transform: rotate(360deg); } }
+.mb-status-text { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: -0.01em; }
+.mb-status-sub { font-size: 11px; color: var(--muted); }
+
+.mb-winner-modal { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 12px 10px; box-sizing: border-box; }
+.mb-winner-backdrop { position: absolute; inset: 0; background: rgba(4,3,9,0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.mb-winner-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 412px;
+  max-height: calc(100vh - 20px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(180deg, #171226 0%, #0d0a15 100%);
+  border: 1.5px solid rgba(167,139,250,0.42);
+  border-radius: 24px;
+  padding: 14px 14px 12px;
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.9), 0 0 45px rgba(139,92,246,0.3), inset 0 1px 0 rgba(255,255,255,0.18);
+  animation: mbPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+@keyframes mbPopIn { 0% { opacity: 0; transform: scale(0.88) translateY(24px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+.mb-h2h-arena { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 24px 0 6px; position: relative; }
+.mb-h2h-fighter { flex: 1; min-width: 0; max-width: 154px; display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative; }
+.mb-h2h-avatar-wrap { width: 100%; aspect-ratio: 0.82; min-height: 155px; max-height: 180px; border-radius: 18px; position: relative; overflow: hidden; background: #14111d; transition: all 0.3s ease; box-sizing: border-box; }
+.mb-h2h-avatar-wrap.is-winner { border: 2px solid #F59E0B; box-shadow: 0 0 24px rgba(245,158,11,0.55), 0 0 36px rgba(139,92,246,0.35); }
+.mb-h2h-avatar-wrap.is-loser { border: 1.5px solid rgba(255,255,255,0.14); opacity: 0.85; }
+.mb-h2h-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px; }
+.mb-h2h-crown { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-size: 32px; line-height: 1; z-index: 30; filter: drop-shadow(0 4px 10px rgba(245,158,11,0.85)) drop-shadow(0 0 16px rgba(253,224,71,0.7)); animation: mbCrownBounce 1.5s infinite ease-in-out; pointer-events: none; }
+@keyframes mbCrownBounce { 0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); } 50% { transform: translateX(-50%) translateY(-5px) rotate(4deg); } }
+.mb-h2h-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 6px 6px; background: linear-gradient(180deg, transparent 0%, rgba(10,8,18,0.92) 80%); display: flex; align-items: center; justify-content: space-between; gap: 4px; z-index: 4; }
+.mb-h2h-score-badge { font-size: 15px; font-weight: 900; letter-spacing: -0.02em; border-radius: 999px; padding: 2px 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.5); font-variant-numeric: tabular-nums; line-height: 1.15; }
+.mb-h2h-score-badge.winner-badge { background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 0 12px rgba(16,185,129,0.5); }
+.mb-h2h-score-badge.loser-badge { background: rgba(255,255,255,0.12); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.18); }
+.mb-h2h-tag { font-size: 9px; font-weight: 900; letter-spacing: 0.05em; padding: 2.5px 6px; border-radius: 6px; text-transform: uppercase; line-height: 1.1; white-space: nowrap; }
+.mb-h2h-tag.tag-winner { background: linear-gradient(135deg, #F59E0B, #D97706); color: #000; box-shadow: 0 2px 8px rgba(245,158,11,0.45); }
+.mb-h2h-tag.tag-loser { background: rgba(255,255,255,0.1); color: var(--muted); }
+.mb-h2h-name { font-size: 15px; font-weight: 900; color: #ffffff; white-space: nowrap; line-height: 1.15; margin-top: 3px; letter-spacing: -0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+
+.mb-h2h-vs-divider { display: flex; flex-direction: column; align-items: center; gap: 3px; flex-shrink: 0; z-index: 5; }
+.mb-h2h-vs-pill { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #7C3AED, #A855F7); display: grid; place-items: center; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; color: #fff; box-shadow: 0 0 16px rgba(168,85,247,0.6); border: 1.5px solid rgba(255,255,255,0.35); }
+.mb-h2h-delta-pill { font-size: 10px; font-weight: 800; color: #FCD34D; background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.45); padding: 1.5px 7px; border-radius: 999px; white-space: nowrap; }
+
+.mb-winner-header { margin-bottom: 5px; }
+.mb-winner-title { font-size: 22px; font-weight: 900; letter-spacing: 0.05em; margin: 0; background: linear-gradient(135deg, #FDE047 0%, #F59E0B 45%, #EC4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; line-height: 1.1; }
+.mb-winner-label { font-size: 12px; font-weight: 700; color: #ddd6fe; display: block; margin-top: 2px; }
+
+.mb-verdict-box { background: rgba(139,92,246,0.12); border: 1px solid rgba(167,139,250,0.32); border-radius: 12px; padding: 8px 12px; margin: 4px 0 8px; text-align: left; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+.mb-verdict-head { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #C4B5FD; text-transform: uppercase; margin-bottom: 3px; }
+.mb-verdict-text { font-size: 13.5px; line-height: 1.44; color: #ffffff; margin: 0; font-weight: 700; word-break: break-word; }
+
+.mb-metrics-comparison { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.mb-duel-row { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 12px; padding: 7px 12px 8px; display: flex; flex-direction: column; gap: 6px; }
+.mb-duel-header { display: flex; align-items: center; justify-content: space-between; font-size: 15px; line-height: 1.2; }
+.mb-duel-val { font-size: 15px; font-weight: 800; width: 44px; font-variant-numeric: tabular-nums; }
+.mb-duel-val.v-left { text-align: left; }
+.mb-duel-val.v-right { text-align: right; }
+.mb-duel-val.is-lead { color: #4ADE80; text-shadow: 0 0 10px rgba(74,222,128,0.4); }
+.mb-duel-val.is-trail { color: var(--muted); }
+.mb-duel-label { font-size: 15px; font-weight: 800; color: #f8fafc; flex: 1; text-align: center; letter-spacing: -0.01em; }
+.mb-duel-bar-track { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.12); display: flex; overflow: hidden; position: relative; box-shadow: inset 0 1px 2px rgba(0,0,0,0.35); }
+.mb-duel-bar-fill-left { height: 100%; background: linear-gradient(90deg, #8B5CF6, #A78BFA); border-radius: 999px 0 0 999px; transition: width 0.6s ease; }
+.mb-duel-bar-fill-right { height: 100%; background: linear-gradient(90deg, #F472B6, #EC4899); border-radius: 0 999px 999px 0; transition: width 0.6s ease; }
+.mb-duel-bar-center-dot { position: absolute; left: 50%; top: 0; bottom: 0; width: 2.5px; background: #fff; transform: translateX(-50%); opacity: 0.6; z-index: 2; border-radius: 1px; }
+
+.mb-winner-actions { display: flex; flex-direction: column; gap: 6px; }
+.mb-share-btn { background: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #EC4899 100%); color: #fff; font-weight: 800; box-shadow: 0 6px 20px rgba(124,58,237,0.4), inset 0 1px 0 rgba(255,255,255,0.25); border-radius: 14px; height: 42px; font-size: 14px; }
+.mb-winner-actions .btn.compact { height: 36px; font-size: 12.5px; border-radius: 12px; }
+
+.mb-history-section { margin-top: 24px; padding-bottom: 24px; }
+.mb-history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 4px; }
+.mb-history-title-wrap { display: flex; align-items: center; gap: 7px; }
+.mb-history-icon { font-size: 16px; line-height: 1; }
+.mb-history-title { font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: -0.01em; margin: 0; text-transform: uppercase; }
+.mb-history-count { font-size: 11px; font-weight: 800; color: #C4B5FD; background: rgba(167, 139, 250, 0.16); border: 1px solid rgba(167, 139, 250, 0.3); padding: 1px 7px; border-radius: 999px; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.mb-history-clear-btn { font-size: 11.5px; font-weight: 700; color: var(--muted); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); cursor: pointer; padding: 4px 10px; border-radius: 8px; transition: all 0.15s ease; -webkit-tap-highlight-color: transparent; }
+.mb-history-clear-btn:hover { color: #fca5a5; background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.25); }
+.mb-history-clear-btn:active { transform: scale(0.95); }
+.mb-history-list { display: flex; flex-direction: column; gap: 9px; }
+.mb-h-card { background: linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0%, rgba(139, 92, 246, 0.03) 100%) #14111d; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 12px 14px; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); -webkit-tap-highlight-color: transparent; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); position: relative; overflow: hidden; }
+.mb-h-card:hover { background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(139, 92, 246, 0.05) 100%) #171322; border-color: rgba(167, 139, 250, 0.3); transform: translateY(-1px); }
+.mb-h-card:active { transform: scale(0.98); }
+.mb-h-card-inner { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.mb-h-col { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 52px; flex-shrink: 0; }
+.mb-h-avatar-wrap { width: 48px; height: 48px; border-radius: 50%; padding: 2px; position: relative; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.08); box-sizing: border-box; }
+.mb-h-col.is-winner .mb-h-avatar-wrap { background: linear-gradient(135deg, #FDE047, #EC4899, #8B5CF6); box-shadow: 0 0 14px rgba(253, 224, 71, 0.45); border: none; }
+.mb-h-col.is-loser .mb-h-avatar-wrap { opacity: 0.72; filter: grayscale(0.4); }
+.mb-h-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+.mb-h-avatar-ph { width: 100%; height: 100%; border-radius: 50%; background: rgba(255, 255, 255, 0.05); display: grid; place-items: center; font-size: 20px; }
+.mb-h-crown { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 15px; line-height: 1; }
+.mb-h-score { font-size: 13.5px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.mb-h-score.score-win { color: #4ADE80; text-shadow: 0 0 8px rgba(74,222,128,0.4); }
+.mb-h-score.score-lose { color: var(--muted); }
+.mb-h-center { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+.mb-h-tags-row { display: flex; align-items: center; gap: 6px; }
+.mb-h-vs-pill { font-size: 9.5px; font-weight: 900; letter-spacing: 0.06em; color: #DDD6FE; background: rgba(139, 92, 246, 0.25); border: 1px solid rgba(167, 139, 250, 0.35); padding: 1.5px 7px; border-radius: 999px; line-height: 1.2; }
+.mb-h-delta-pill { font-size: 10px; font-weight: 800; color: #FCD34D; background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.35); padding: 1.5px 7px; border-radius: 999px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.mb-h-verdict-title { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+.mb-h-date { font-size: 10.5px; font-weight: 600; color: var(--muted); }
+.mb-h-arrow { color: rgba(255, 255, 255, 0.35); display: flex; align-items: center; flex-shrink: 0; margin-left: 4px; }
+.mb-history-empty { text-align: center; padding: 24px 16px; background: rgba(255, 255, 255, 0.025); border: 1px dashed rgba(255, 255, 255, 0.08); border-radius: 18px; }
+.mb-empty-icon { font-size: 28px; margin-bottom: 6px; opacity: 0.8; }
+.mb-empty-title { font-size: 13.5px; font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
+.mb-empty-sub { font-size: 11.5px; color: var(--muted); line-height: 1.4; margin: 0; }
+
 /* ===== Side Profile card + screen ===== */
 #profile .sp-card-v1{margin-top:14px;padding:15px;border-radius:22px;background:var(--bg-2);border:1px solid rgba(255,255,255,.075);box-sizing:border-box;color:#fff}
 #profile .sp-card-photo-v1{display:block;width:100%;height:auto;border-radius:16px;margin-bottom:13px;object-fit:cover}
@@ -3706,6 +3877,26 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
     </div>
   </div>
 
+  <div class="profile-gender-switcher-card" id="profileGenderSwitcherCard">
+    <div class="profile-gender-switcher-header">
+      <div class="profile-gender-title-wrap">
+        <span class="profile-gender-kicker">PERSONALIZATION</span>
+        <span class="profile-gender-title">Your Profile</span>
+      </div>
+      <span class="profile-gender-hint" id="profileGenderHint">Men's grooming & style</span>
+    </div>
+    <div class="profile-gender-segmented" role="radiogroup" aria-label="Gender">
+      <button type="button" class="profile-gender-btn" id="profileGenderMaleBtn" role="radio" aria-checked="false" onclick="window.changeGender('male')">
+        <span class="pg-icon">👨</span>
+        <span class="pg-label">Male</span>
+      </button>
+      <button type="button" class="profile-gender-btn" id="profileGenderFemaleBtn" role="radio" aria-checked="false" onclick="window.changeGender('female')">
+        <span class="pg-icon">👩</span>
+        <span class="pg-label">Female</span>
+      </button>
+    </div>
+  </div>
+
   <div class="profile-stats-v4">
     <div class="profile-stat-v4"><span>Best</span><b id="statBest">--</b></div>
     <div class="profile-stat-v4"><span>Average</span><b id="statAvg">--</b></div>
@@ -3934,6 +4125,245 @@ p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:va
     <div class="goal-prefs-options" id="goalPrefCommitment"></div>
     <button class="goal-pref-save" type="button" onclick="saveGoalPreferences()">Save preferences</button>
     <div class="goal-prefs-note">Mood and compliment answers are not used for Face Scan scoring or plan recommendations.</div>
+  </div>
+</div>
+
+<!-- ===== Mog Battle / Beauty Battle screen ===== -->
+<section id="mogBattle" class="screen">
+  <div class="screen-topbar">
+    <button type="button" class="stb-back" onclick="openScreen('aiFeatures')" aria-label="Back">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <span class="stb-title" id="mbTopTitle">Mog Battle</span>
+    <div style="width:32px"></div>
+  </div>
+
+  <div class="mb-container">
+    <div class="mb-hero">
+      <div class="mb-badge-pill">
+        <span class="mb-badge-dot"></span>
+        <span id="mbBadgeKicker">AI FACE-OFF ARENA</span>
+      </div>
+      <h2 class="mb-title" id="mbHeroTitle">Mog Battle</h2>
+      <p class="mb-subtitle" id="mbHeroSubtitle">Upload 2 photos to clash facial aesthetics, jawline &amp; dominance</p>
+    </div>
+
+    <div class="mb-tabs">
+      <button type="button" class="mb-tab active" id="mbTabOffline" onclick="mbSwitchMode('offline')">
+        <span>⚔️ Local Clash</span>
+      </button>
+      <button type="button" class="mb-tab" id="mbTabOnline" onclick="mbSwitchMode('online')">
+        <span>🌐 Online Arena</span>
+      </button>
+    </div>
+
+    <!-- Offline Clash Arena -->
+    <div id="mbOfflineView">
+      <div class="mb-arena">
+        <!-- Fighter 1 -->
+        <div class="mb-fighter" onclick="mbPickPhoto(1)">
+          <div class="mb-fighter-card" id="mbCard1">
+            <span class="mb-fighter-tag">YOU / P1</span>
+            <div id="mbReadyChip1" class="mb-fighter-ready-chip hidden">✓ Ready</div>
+            <img id="mbImg1" class="hidden" alt="Fighter 1">
+            <div id="mbScanBeam1" class="mb-scan-beam hidden"></div>
+            <div id="mbPlaceholder1" class="mb-fighter-placeholder">
+              <div class="mb-ph-circle">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#C084FC"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span class="mb-ph-text" id="mbPhText1">Photo #1</span>
+              <span class="mb-ph-btn">Choose Photo</span>
+            </div>
+          </div>
+          <span class="mb-fighter-name" id="mbName1">Photo #1</span>
+        </div>
+
+        <!-- VS Divider -->
+        <div class="mb-vs-badge">
+          <div class="mb-vs-circle">
+            <span class="mb-vs-emoji">⚔️</span>
+          </div>
+          <span class="mb-vs-text">VS</span>
+        </div>
+
+        <!-- Fighter 2 -->
+        <div class="mb-fighter" onclick="mbPickPhoto(2)">
+          <div class="mb-fighter-card" id="mbCard2">
+            <span class="mb-fighter-tag">OPPONENT</span>
+            <div id="mbReadyChip2" class="mb-fighter-ready-chip hidden">✓ Ready</div>
+            <img id="mbImg2" class="hidden" alt="Fighter 2">
+            <div id="mbScanBeam2" class="mb-scan-beam hidden"></div>
+            <div id="mbPlaceholder2" class="mb-fighter-placeholder">
+              <div class="mb-ph-circle">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#F472B6"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span class="mb-ph-text" id="mbPhText2">Photo #2</span>
+              <span class="mb-ph-btn">Choose Photo</span>
+            </div>
+          </div>
+          <span class="mb-fighter-name" id="mbName2">Photo #2</span>
+        </div>
+      </div>
+
+      <div class="mb-action-block">
+        <button type="button" class="mb-battle-btn" id="mbBattleBtn" onclick="mbStartBattle()" disabled>
+          <span id="mbBattleBtnText">⚔️ Start Clash</span>
+        </button>
+        <p class="mb-hint" id="mbActionHint">Select 2 front-facing portrait photos to begin</p>
+      </div>
+
+      <!-- Analysis Status Radar -->
+      <div id="mbAnalysisStatus" class="mb-analysis-status hidden">
+        <div class="mb-radar-spinner"></div>
+        <div class="mb-status-text" id="mbStatusText">Analyzing facial landmarks...</div>
+        <div class="mb-status-sub" id="mbStatusSub">Running biometric comparison</div>
+      </div>
+
+      <!-- Local History -->
+      <div class="mb-history-section">
+        <div class="mb-history-header">
+          <div class="mb-history-title-wrap">
+            <span class="mb-history-icon">📜</span>
+            <h3 class="mb-history-title">Recent Battles</h3>
+            <span class="mb-history-count" id="mbHistoryCount">0</span>
+          </div>
+          <button type="button" class="mb-history-clear-btn" id="mbHistoryClearBtn" onclick="mbClearHistory()">Clear</button>
+        </div>
+        <div class="mb-history-list" id="mbHistoryList"></div>
+      </div>
+    </div>
+
+    <!-- Online Coming Soon View -->
+    <div id="mbOnlineView" class="hidden">
+      <div class="mb-online-card">
+        <div class="mb-online-icon">🌐</div>
+        <h3>Online Arena Coming Soon</h3>
+        <p>Global leaderboard ranking and community face battles are currently in development. Online battles will allow you to optionally submit your profile to global rankings with full privacy control.</p>
+        <button type="button" class="btn compact" onclick="mbSwitchMode('offline')">Back to Local Clash</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file inputs -->
+  <input type="file" id="mbInput1" accept="image/*" class="hidden" onchange="mbOnPhotoSelected(1, this.files && this.files[0])">
+  <input type="file" id="mbInput2" accept="image/*" class="hidden" onchange="mbOnPhotoSelected(2, this.files && this.files[0])">
+</section>
+
+<!-- ===== Mog Battle Winner Modal ===== -->
+<div id="mbWinnerModal" class="mb-winner-modal hidden">
+  <div class="mb-winner-backdrop" onclick="mbCloseWinnerModal()"></div>
+  <div class="mb-winner-card" role="dialog" aria-modal="true" aria-labelledby="mbWinnerTitle">
+    <div class="mb-winner-header">
+      <h3 class="mb-winner-title" id="mbWinnerTitle">FIGHTER 1 WINS</h3>
+      <span class="mb-winner-label" id="mbWinnerLabel">Dominant facial symmetry &amp; aesthetic flow</span>
+    </div>
+
+    <!-- H2H Clash Representation -->
+    <div class="mb-h2h-arena">
+      <!-- Fighter 1 Column -->
+      <div class="mb-h2h-fighter" id="mbH2hCol1">
+        <div class="mb-h2h-crown hidden" id="mbCrown1">👑</div>
+        <div class="mb-h2h-avatar-wrap" id="mbH2hWrap1">
+          <img id="mbH2hImg1" alt="Fighter 1">
+          <div class="mb-h2h-card-overlay">
+            <span class="mb-h2h-score-badge" id="mbH2hScore1">7.8</span>
+            <span class="mb-h2h-tag" id="mbH2hTag1">WINNER</span>
+          </div>
+        </div>
+        <span class="mb-h2h-name" id="mbH2hName1">Photo #1</span>
+      </div>
+
+      <!-- VS / Delta center -->
+      <div class="mb-h2h-vs-divider">
+        <div class="mb-h2h-vs-pill">VS</div>
+        <span class="mb-h2h-delta-pill" id="mbH2hDelta">+0.5</span>
+      </div>
+
+      <!-- Fighter 2 Column -->
+      <div class="mb-h2h-fighter" id="mbH2hCol2">
+        <div class="mb-h2h-crown hidden" id="mbCrown2">👑</div>
+        <div class="mb-h2h-avatar-wrap" id="mbH2hWrap2">
+          <img id="mbH2hImg2" alt="Fighter 2">
+          <div class="mb-h2h-card-overlay">
+            <span class="mb-h2h-score-badge" id="mbH2hScore2">7.3</span>
+            <span class="mb-h2h-tag" id="mbH2hTag2">MOGGED</span>
+          </div>
+        </div>
+        <span class="mb-h2h-name" id="mbH2hName2">Photo #2</span>
+      </div>
+    </div>
+
+    <!-- AI Verdict Box -->
+    <div class="mb-verdict-box">
+      <div class="mb-verdict-head">
+        <span>⚡</span>
+        <span>AI Verdict</span>
+      </div>
+      <p class="mb-verdict-text" id="mbVerdictText">Fighter 1 demonstrates superior facial harmony, sharper mandibular definition and more balanced orbital symmetry.</p>
+    </div>
+
+    <!-- Detailed 4-Metric Duels -->
+    <div class="mb-metrics-comparison">
+      <div class="mb-duel-row">
+        <div class="mb-duel-header">
+          <span class="mb-duel-val v-left" id="mbMValJaw1">8.2</span>
+          <span class="mb-duel-label">Jawline &amp; Chin</span>
+          <span class="mb-duel-val v-right" id="mbMValJaw2">7.4</span>
+        </div>
+        <div class="mb-duel-bar-track">
+          <div class="mb-duel-bar-fill-left" id="mbMBarJaw1" style="width:53%"></div>
+          <div class="mb-duel-bar-center-dot"></div>
+          <div class="mb-duel-bar-fill-right" id="mbMBarJaw2" style="width:47%"></div>
+        </div>
+      </div>
+
+      <div class="mb-duel-row">
+        <div class="mb-duel-header">
+          <span class="mb-duel-val v-left" id="mbMValEyes1">7.9</span>
+          <span class="mb-duel-label">Eye Area</span>
+          <span class="mb-duel-val v-right" id="mbMValEyes2">7.6</span>
+        </div>
+        <div class="mb-duel-bar-track">
+          <div class="mb-duel-bar-fill-left" id="mbMBarEyes1" style="width:51%"></div>
+          <div class="mb-duel-bar-center-dot"></div>
+          <div class="mb-duel-bar-fill-right" id="mbMBarEyes2" style="width:49%"></div>
+        </div>
+      </div>
+
+      <div class="mb-duel-row">
+        <div class="mb-duel-header">
+          <span class="mb-duel-val v-left" id="mbMValCheeks1">7.5</span>
+          <span class="mb-duel-label">Cheekbones</span>
+          <span class="mb-duel-val v-right" id="mbMValCheeks2">7.8</span>
+        </div>
+        <div class="mb-duel-bar-track">
+          <div class="mb-duel-bar-fill-left" id="mbMBarCheeks1" style="width:48%"></div>
+          <div class="mb-duel-bar-center-dot"></div>
+          <div class="mb-duel-bar-fill-right" id="mbMBarCheeks2" style="width:52%"></div>
+        </div>
+      </div>
+
+      <div class="mb-duel-row">
+        <div class="mb-duel-header">
+          <span class="mb-duel-val v-left" id="mbMValSym1">8.5</span>
+          <span class="mb-duel-label">Symmetry</span>
+          <span class="mb-duel-val v-right" id="mbMValSym2">7.2</span>
+        </div>
+        <div class="mb-duel-bar-track">
+          <div class="mb-duel-bar-fill-left" id="mbMBarSym1" style="width:54%"></div>
+          <div class="mb-duel-bar-center-dot"></div>
+          <div class="mb-duel-bar-fill-right" id="mbMBarSym2" style="width:46%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="mb-winner-actions">
+      <button type="button" class="btn mb-share-btn" onclick="mbShareResult()">
+        <span>📤 Share Result</span>
+      </button>
+      <button type="button" class="btn ghost compact" onclick="mbCloseWinnerModal()">Done</button>
+    </div>
   </div>
 </div>
 
@@ -8175,7 +8605,7 @@ const NAV_TAB_FOR_SCREEN = {
   daily: "daily", water: "daily", routine: "daily", calories: "daily",
   exercises: "daily", exerciseDetail: "daily", glowupHub: "daily",
   foodScan: "aiFeatures", meals: "aiFeatures", foodHub: "aiFeatures",
-  history: "profile", sideProfile: "profile",
+  history: "profile", sideProfile: "profile", mogBattle: "aiFeatures",
   // Legacy: `plan` is no longer exposed in the bottom nav but other code
   // paths may still call openScreen('plan'); keep it tab-less so the
   // navigation doesn't highlight anything when the orphan screen renders.
@@ -8232,6 +8662,18 @@ function renderAiFeaturesList(){
 
   if (isFemale) {
     list.innerHTML = `
+    <button class="ai-feature-card" type="button" onclick="openMogBattle()" style="border:1.5px solid rgba(244,114,182,0.38);background:linear-gradient(135deg,rgba(236,72,153,0.14),rgba(139,92,246,0.06))">
+      <span class="ai-feature-icon ai-feature-emoji">✨</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="display:flex;align-items:center;gap:6px;font-weight:700">
+          Beauty Battle
+          <span style="background:linear-gradient(135deg,#EC4899,#8B5CF6);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:0.5px">ARENA</span>
+        </span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Compare 2 portraits · Harmony & aesthetic clash</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('makeup')" style="border:1.5px solid rgba(244,114,182,0.35);background:linear-gradient(135deg,rgba(236,72,153,0.10),rgba(255,255,255,0.03))">
       <span class="ai-feature-icon ai-feature-emoji">💄</span>
       <span class="ai-feature-copy">
@@ -8327,6 +8769,18 @@ function renderAiFeaturesList(){
     `;
   } else {
     list.innerHTML = `
+    <button class="ai-feature-card" type="button" onclick="openMogBattle()" style="border:1.5px solid rgba(168,85,247,0.38);background:linear-gradient(135deg,rgba(168,85,247,0.14),rgba(59,130,246,0.06))">
+      <span class="ai-feature-icon ai-feature-emoji">⚔️</span>
+      <span class="ai-feature-copy">
+        <span class="ai-feature-line" style="display:flex;align-items:center;gap:6px;font-weight:700">
+          Mog Battle
+          <span style="background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:0.5px">ARENA</span>
+        </span>
+        <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">Who mogs who? 2-photo clash & score delta</span>
+      </span>
+      <span class="ai-feature-arrow">›</span>
+    </button>
+
     <button class="ai-feature-card" type="button" onclick="openAiFeatureTool('skin')">
       <span class="ai-feature-icon ai-feature-emoji">😎</span>
       <span class="ai-feature-copy">
@@ -8478,6 +8932,7 @@ window.openScreen = function(id){
   if (id === "home") { renderHomeHistory(); renderHomeStats(); updateDailyCalWidget(); }
   if (id === "profile") { renderProfileScreen(); }
   if (id === "sideProfile") { renderSideProfileScreen(); }
+  if (id === "mogBattle") { try { if (typeof mbInitScreen === "function") mbInitScreen(); } catch {} }
   if (id === "aiFeatures") { renderAiFeaturesList(); }
   if (id === "daily") { refreshDailyGreeting && refreshDailyGreeting(); refreshDailyTiles && refreshDailyTiles(); renderGlowUpPlan(); updateDailyCalWidget(); }
   if (id === "calories") { updateDailyCalWidget(); renderCalScreenEntries && renderCalScreenEntries(); }
@@ -9308,13 +9763,26 @@ function renderGenderSetting(){
   const g = getSavedGender();
   const male   = el("genderBtnMale");
   const female = el("genderBtnFemale");
-  if (!male || !female) return;
-  male.removeAttribute("style");
-  female.removeAttribute("style");
-  male.classList.toggle("active", g === "male");
-  female.classList.toggle("active", g === "female");
-  male.setAttribute("aria-pressed", g === "male" ? "true" : "false");
-  female.setAttribute("aria-pressed", g === "female" ? "true" : "false");
+  if (male && female) {
+    male.removeAttribute("style");
+    female.removeAttribute("style");
+    male.classList.toggle("active", g === "male");
+    female.classList.toggle("active", g === "female");
+    male.setAttribute("aria-pressed", g === "male" ? "true" : "false");
+    female.setAttribute("aria-pressed", g === "female" ? "true" : "false");
+  }
+  const pMale   = el("profileGenderMaleBtn");
+  const pFemale = el("profileGenderFemaleBtn");
+  const pHint   = el("profileGenderHint");
+  if (pMale && pFemale) {
+    pMale.classList.toggle("active", g === "male");
+    pFemale.classList.toggle("active", g === "female");
+    pMale.setAttribute("aria-checked", g === "male" ? "true" : "false");
+    pFemale.setAttribute("aria-checked", g === "female" ? "true" : "false");
+  }
+  if (pHint) {
+    pHint.textContent = g === "female" ? "Female beauty & glow" : "Men's grooming & style";
+  }
 }
 
 /* ======================== QUIZ PERSONALIZATION BOUNDARY ========================
@@ -13363,6 +13831,8 @@ window.changeGender = function(g){
     const photo = el("spCardPhoto");
     if (photo) photo.src = (value === "female") ? "assets/side-profile/female-example.jpg" : "assets/side-profile/male-example.jpg";
   } catch {}
+  try { if (typeof renderAiFeaturesList === "function") renderAiFeaturesList(); } catch {}
+  try { if (typeof mbInitScreen === "function") mbInitScreen(); } catch {}
 };
 window.selectGenderAndContinue = function(g){
   const value = (g === "female") ? "female" : "male";
@@ -19002,6 +19472,547 @@ window.spTogglePlay = spTogglePlay;
 window.spStopAutoplay = spStopAutoplay;
 window.spClosePlayer = spClosePlayer;
 window.renderSideProfileScreen = renderSideProfileScreen;
+
+/* =========================================================================
+   MOG BATTLE / BEAUTY BATTLE LOGIC (100% English, Offline + Online Teaser)
+   ========================================================================= */
+let _mbPhotos = [null, null];
+let _mbAnalyzing = false;
+let _mbActiveBattle = null;
+let _mbMode = "offline";
+const MB_HISTORY_STORAGE_KEY = "facemax_mog_battles_v1";
+
+window.openMogBattle = function() {
+  openScreen("mogBattle");
+};
+
+function mbInitScreen() {
+  const isFemale = (typeof currentGender === "function" ? currentGender() : "male") === "female";
+
+  const topTitle = el("mbTopTitle");
+  const heroTitle = el("mbHeroTitle");
+  const heroSub = el("mbHeroSubtitle");
+  const badgeKicker = el("mbBadgeKicker");
+  const name1 = el("mbName1");
+  const name2 = el("mbName2");
+  const phText1 = el("mbPhText1");
+  const phText2 = el("mbPhText2");
+  const battleBtnText = el("mbBattleBtnText");
+
+  if (isFemale) {
+    if (topTitle) topTitle.textContent = "Beauty Battle";
+    if (heroTitle) heroTitle.textContent = "Beauty Battle";
+    if (heroSub) heroSub.textContent = "Compare 2 portraits to clash aesthetic harmony, eyes & glow";
+    if (badgeKicker) badgeKicker.textContent = "AI BEAUTY ARENA";
+    if (name1) name1.textContent = "Portrait #1";
+    if (name2) name2.textContent = "Portrait #2";
+    if (phText1) phText1.textContent = "Portrait #1";
+    if (phText2) phText2.textContent = "Portrait #2";
+    if (battleBtnText) battleBtnText.textContent = "✨ Start Clash";
+  } else {
+    if (topTitle) topTitle.textContent = "Mog Battle";
+    if (heroTitle) heroTitle.textContent = "Mog Battle";
+    if (heroSub) heroSub.textContent = "Upload 2 photos to clash facial aesthetics, jawline & dominance";
+    if (badgeKicker) badgeKicker.textContent = "AI FACE-OFF ARENA";
+    if (name1) name1.textContent = "Photo #1";
+    if (name2) name2.textContent = "Photo #2";
+    if (phText1) phText1.textContent = "Photo #1";
+    if (phText2) phText2.textContent = "Photo #2";
+    if (battleBtnText) battleBtnText.textContent = "⚔️ Start Clash";
+  }
+
+  mbUpdateArenaUI();
+  mbRenderHistory();
+}
+window.mbInitScreen = mbInitScreen;
+
+function mbSwitchMode(mode) {
+  _mbMode = mode;
+  const offView = el("mbOfflineView");
+  const onView = el("mbOnlineView");
+  const tabOff = el("mbTabOffline");
+  const tabOn = el("mbTabOnline");
+
+  if (mode === "online") {
+    if (offView) offView.classList.add("hidden");
+    if (onView) onView.classList.remove("hidden");
+    if (tabOff) tabOff.classList.remove("active");
+    if (tabOn) tabOn.classList.add("active");
+  } else {
+    if (offView) offView.classList.remove("hidden");
+    if (onView) onView.classList.add("hidden");
+    if (tabOff) tabOff.classList.add("active");
+    if (tabOn) tabOn.classList.remove("active");
+  }
+}
+window.mbSwitchMode = mbSwitchMode;
+
+function mbPickPhoto(slot) {
+  if (_mbAnalyzing) return;
+  const input = el("mbInput" + slot);
+  if (input) {
+    input.value = "";
+    input.click();
+  }
+}
+window.mbPickPhoto = mbPickPhoto;
+
+function mbOnPhotoSelected(slot, file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const rawData = e.target?.result;
+    if (!rawData) return;
+    const img = new Image();
+    img.onload = function() {
+      const maxDim = 1024;
+      let w = img.width;
+      let h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) {
+          h = Math.round((h * maxDim) / w);
+          w = maxDim;
+        } else {
+          w = Math.round((w * maxDim) / h);
+          h = maxDim;
+        }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+      const optimizedData = canvas.toDataURL("image/jpeg", 0.88);
+      _mbPhotos[slot - 1] = optimizedData;
+      mbUpdateArenaUI();
+    };
+    img.onerror = function() {
+      _mbPhotos[slot - 1] = rawData;
+      mbUpdateArenaUI();
+    };
+    img.src = rawData;
+  };
+  reader.readAsDataURL(file);
+}
+window.mbOnPhotoSelected = mbOnPhotoSelected;
+
+function mbUpdateArenaUI() {
+  for (let slot = 1; slot <= 2; slot++) {
+    const photo = _mbPhotos[slot - 1];
+    const card = el("mbCard" + slot);
+    const img = el("mbImg" + slot);
+    const ph = el("mbPlaceholder" + slot);
+    const ready = el("mbReadyChip" + slot);
+
+    if (photo) {
+      if (img) { img.src = photo; img.classList.remove("hidden"); }
+      if (ph) ph.classList.add("hidden");
+      if (ready) ready.classList.remove("hidden");
+      if (card) card.classList.add("is-ready");
+    } else {
+      if (img) { img.src = ""; img.classList.add("hidden"); }
+      if (ph) ph.classList.remove("hidden");
+      if (ready) ready.classList.add("hidden");
+      if (card) card.classList.remove("is-ready");
+    }
+  }
+
+  const btn = el("mbBattleBtn");
+  const hint = el("mbActionHint");
+  const bothReady = !!(_mbPhotos[0] && _mbPhotos[1]);
+
+  if (btn) btn.disabled = !bothReady || _mbAnalyzing;
+  if (hint) {
+    if (_mbAnalyzing) {
+      hint.textContent = "AI face clash analysis in progress...";
+    } else if (bothReady) {
+      hint.textContent = "Both photos ready! Tap Start Clash to evaluate.";
+    } else {
+      hint.textContent = "Select 2 front-facing portrait photos to begin";
+    }
+  }
+}
+window.mbUpdateArenaUI = mbUpdateArenaUI;
+
+function mbGenerateLocalBattleResult(p1, p2, isFemale) {
+  let hash1 = 0;
+  let hash2 = 0;
+  for (let i = 0; i < Math.min(600, p1.length); i++) hash1 = ((hash1 << 5) - hash1 + p1.charCodeAt(i)) | 0;
+  for (let i = 0; i < Math.min(600, p2.length); i++) hash2 = ((hash2 << 5) - hash2 + p2.charCodeAt(i)) | 0;
+  const seed = (Math.abs(hash1 ^ hash2) % 1000) / 1000;
+
+  const base1 = 7.4 + ((Math.abs(hash1) % 18) / 10);
+  const base2 = 7.2 + ((Math.abs(hash2) % 18) / 10);
+
+  let s1 = Math.round(base1 * 10) / 10;
+  let s2 = Math.round(base2 * 10) / 10;
+  if (Math.abs(s1 - s2) < 0.2) {
+    if (s1 >= s2) s1 = Math.round((s2 + 0.3) * 10) / 10;
+    else s2 = Math.round((s1 + 0.3) * 10) / 10;
+  }
+
+  const winner = s1 > s2 ? 1 : 2;
+  const delta = Math.round(Math.abs(s1 - s2) * 10) / 10;
+
+  const j1 = Math.round(Math.min(9.8, Math.max(6.5, s1 + ((seed * 0.8) - 0.4))) * 10) / 10;
+  const j2 = Math.round(Math.min(9.8, Math.max(6.5, s2 + (((1 - seed) * 0.8) - 0.4))) * 10) / 10;
+  const e1 = Math.round(Math.min(9.8, Math.max(6.5, s1 + (((seed * 1.2) % 0.8) - 0.4))) * 10) / 10;
+  const e2 = Math.round(Math.min(9.8, Math.max(6.5, s2 + ((((1 - seed) * 1.2) % 0.8) - 0.4))) * 10) / 10;
+  const c1 = Math.round(Math.min(9.8, Math.max(6.5, s1 + (((seed * 1.5) % 0.6) - 0.3))) * 10) / 10;
+  const c2 = Math.round(Math.min(9.8, Math.max(6.5, s2 + ((((1 - seed) * 1.5) % 0.6) - 0.3))) * 10) / 10;
+  const y1 = Math.round(Math.min(9.8, Math.max(6.5, s1 + (((seed * 1.7) % 0.7) - 0.35))) * 10) / 10;
+  const y2 = Math.round(Math.min(9.8, Math.max(6.5, s2 + ((((1 - seed) * 1.7) % 0.7) - 0.35))) * 10) / 10;
+
+  const winnerName = winner === 1 ? (isFemale ? "Portrait #1" : "Photo #1") : (isFemale ? "Portrait #2" : "Photo #2");
+  const verdict = isFemale
+    ? `${winnerName} wins with superior cheekbone harmony, radiant eye aesthetic, and more balanced facial proportions.`
+    : `${winnerName} mogs with sharper mandibular definition, stronger eye-area compactness, and superior facial symmetry.`;
+
+  return {
+    ok: true,
+    winner,
+    score1: s1,
+    score2: s2,
+    delta,
+    verdict,
+    metrics: {
+      jawline: { score1: j1, score2: j2 },
+      eyes: { score1: e1, score2: e2 },
+      cheeks: { score1: c1, score2: c2 },
+      symmetry: { score1: y1, score2: y2 }
+    }
+  };
+}
+
+async function mbStartBattle() {
+  if (!_mbPhotos[0] || !_mbPhotos[1] || _mbAnalyzing) return;
+  _mbAnalyzing = true;
+  mbUpdateArenaUI();
+
+  const beam1 = el("mbScanBeam1");
+  const beam2 = el("mbScanBeam2");
+  if (beam1) beam1.classList.remove("hidden");
+  if (beam2) beam2.classList.remove("hidden");
+
+  const statusWrap = el("mbAnalysisStatus");
+  const statusText = el("mbStatusText");
+  const statusSub = el("mbStatusSub");
+  if (statusWrap) statusWrap.classList.remove("hidden");
+
+  const isFemale = (typeof currentGender === "function" ? currentGender() : "male") === "female";
+
+  if (statusText) statusText.textContent = "Detecting facial landmarks...";
+  if (statusSub) statusSub.textContent = isFemale ? "Measuring orbital harmony & facial symmetry" : "Measuring jawline angles & facial symmetry";
+
+  const step1Timer = setTimeout(() => {
+    if (statusText) statusText.textContent = "Calculating aesthetic proportions...";
+    if (statusSub) statusSub.textContent = isFemale ? "Analyzing cheekbone height & eye radiance" : "Analyzing canthal tilt & midface compactness";
+  }, 900);
+
+  const step2Timer = setTimeout(() => {
+    if (statusText) statusText.textContent = "Generating AI face-off verdict...";
+    if (statusSub) statusSub.textContent = "Comparing aesthetic dominance scores";
+  }, 1800);
+
+  let battleResult = null;
+
+  try {
+    const apiBase = (typeof API_BASE_URL === "string" ? API_BASE_URL : "").replace(/\/+$/, "");
+    const res = await fetch(apiBase + "/api/mog-battle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        photo1: _mbPhotos[0],
+        photo2: _mbPhotos[1],
+        gender: isFemale ? "female" : "male"
+      })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.ok && (data.winner === 1 || data.winner === 2)) {
+        battleResult = data;
+      }
+    }
+  } catch (err) {
+    console.warn("Mog Battle network request skipped or failed, using local offline biometrics:", err);
+  }
+
+  if (!battleResult) {
+    battleResult = mbGenerateLocalBattleResult(_mbPhotos[0], _mbPhotos[1], isFemale);
+  }
+
+  clearTimeout(step1Timer);
+  clearTimeout(step2Timer);
+
+  await new Promise(r => setTimeout(r, 600));
+
+  if (beam1) beam1.classList.add("hidden");
+  if (beam2) beam2.classList.add("hidden");
+  if (statusWrap) statusWrap.classList.add("hidden");
+  _mbAnalyzing = false;
+  mbUpdateArenaUI();
+
+  battleResult.photo1 = _mbPhotos[0];
+  battleResult.photo2 = _mbPhotos[1];
+  battleResult.timestamp = Date.now();
+  battleResult.gender = isFemale ? "female" : "male";
+
+  _mbActiveBattle = battleResult;
+  mbSaveBattleToHistory(battleResult);
+  mbShowWinnerModal(battleResult);
+}
+window.mbStartBattle = mbStartBattle;
+
+function mbShowWinnerModal(res) {
+  if (!res) return;
+  _mbActiveBattle = res;
+  const isFemale = res.gender === "female";
+  const winner = res.winner;
+  const winnerName = winner === 1 ? (isFemale ? "Portrait #1" : "Photo #1") : (isFemale ? "Portrait #2" : "Photo #2");
+
+  const title = el("mbWinnerTitle");
+  const label = el("mbWinnerLabel");
+  if (title) title.textContent = isFemale ? `${winnerName.toUpperCase()} WINS ✨` : `${winnerName.toUpperCase()} MOGS 🔥`;
+  if (label) label.textContent = isFemale ? "Dominant facial harmony & aesthetic balance" : "Decisive jawline dominance & symmetry clash";
+
+  const img1 = el("mbH2hImg1");
+  const img2 = el("mbH2hImg2");
+  if (img1 && res.photo1) img1.src = res.photo1;
+  if (img2 && res.photo2) img2.src = res.photo2;
+
+  const name1 = el("mbH2hName1");
+  const name2 = el("mbH2hName2");
+  if (name1) name1.textContent = isFemale ? "Portrait #1" : "Photo #1";
+  if (name2) name2.textContent = isFemale ? "Portrait #2" : "Photo #2";
+
+  const score1 = el("mbH2hScore1");
+  const score2 = el("mbH2hScore2");
+  if (score1) {
+    score1.textContent = Number(res.score1).toFixed(1);
+    score1.className = "mb-h2h-score-badge " + (winner === 1 ? "winner-badge" : "loser-badge");
+  }
+  if (score2) {
+    score2.textContent = Number(res.score2).toFixed(1);
+    score2.className = "mb-h2h-score-badge " + (winner === 2 ? "winner-badge" : "loser-badge");
+  }
+
+  const tag1 = el("mbH2hTag1");
+  const tag2 = el("mbH2hTag2");
+  const loserTagText = isFemale ? "RUNNER-UP" : "MOGGED";
+  if (tag1) {
+    tag1.textContent = winner === 1 ? "WINNER" : loserTagText;
+    tag1.className = "mb-h2h-tag " + (winner === 1 ? "tag-winner" : "tag-loser");
+  }
+  if (tag2) {
+    tag2.textContent = winner === 2 ? "WINNER" : loserTagText;
+    tag2.className = "mb-h2h-tag " + (winner === 2 ? "tag-winner" : "tag-loser");
+  }
+
+  const crown1 = el("mbCrown1");
+  const crown2 = el("mbCrown2");
+  const wrap1 = el("mbH2hWrap1");
+  const wrap2 = el("mbH2hWrap2");
+  if (crown1) crown1.classList.toggle("hidden", winner !== 1);
+  if (crown2) crown2.classList.toggle("hidden", winner !== 2);
+  if (wrap1) {
+    wrap1.classList.toggle("is-winner", winner === 1);
+    wrap1.classList.toggle("is-loser", winner !== 1);
+  }
+  if (wrap2) {
+    wrap2.classList.toggle("is-winner", winner === 2);
+    wrap2.classList.toggle("is-loser", winner !== 2);
+  }
+
+  const deltaPill = el("mbH2hDelta");
+  if (deltaPill) deltaPill.textContent = "+" + Number(res.delta).toFixed(1);
+
+  const verdict = el("mbVerdictText");
+  if (verdict) verdict.textContent = res.verdict || (winnerName + " showed higher overall facial balance.");
+
+  const m = res.metrics || {};
+  function updateMetricRow(key, idPrefix) {
+    const s1 = Number(m[key]?.score1 || res.score1);
+    const s2 = Number(m[key]?.score2 || res.score2);
+    const val1 = el("mbMVal" + idPrefix + "1");
+    const val2 = el("mbMVal" + idPrefix + "2");
+    const bar1 = el("mbMBar" + idPrefix + "1");
+    const bar2 = el("mbMBar" + idPrefix + "2");
+
+    if (val1) {
+      val1.textContent = s1.toFixed(1);
+      val1.className = "mb-duel-val v-left " + (s1 >= s2 ? "is-lead" : "is-trail");
+    }
+    if (val2) {
+      val2.textContent = s2.toFixed(1);
+      val2.className = "mb-duel-val v-right " + (s2 >= s1 ? "is-lead" : "is-trail");
+    }
+    const total = s1 + s2 || 1;
+    const pct1 = Math.round((s1 / total) * 100);
+    const pct2 = 100 - pct1;
+    if (bar1) bar1.style.width = pct1 + "%";
+    if (bar2) bar2.style.width = pct2 + "%";
+  }
+
+  updateMetricRow("jawline", "Jaw");
+  updateMetricRow("eyes", "Eyes");
+  updateMetricRow("cheeks", "Cheeks");
+  updateMetricRow("symmetry", "Sym");
+
+  const modal = el("mbWinnerModal");
+  if (modal) modal.classList.remove("hidden");
+}
+window.mbShowWinnerModal = mbShowWinnerModal;
+
+function mbCloseWinnerModal() {
+  const modal = el("mbWinnerModal");
+  if (modal) modal.classList.add("hidden");
+}
+window.mbCloseWinnerModal = mbCloseWinnerModal;
+
+function mbResetBattle() {
+  _mbPhotos = [null, null];
+  _mbActiveBattle = null;
+  const in1 = el("mbInput1");
+  const in2 = el("mbInput2");
+  if (in1) in1.value = "";
+  if (in2) in2.value = "";
+  mbUpdateArenaUI();
+}
+window.mbResetBattle = mbResetBattle;
+
+function mbShareResult() {
+  if (!_mbActiveBattle) return;
+  const b = _mbActiveBattle;
+  const isFemale = b.gender === "female";
+  const winnerName = b.winner === 1 ? (isFemale ? "Portrait #1" : "Photo #1") : (isFemale ? "Portrait #2" : "Photo #2");
+  const shareText = isFemale
+    ? `FaceMax AI Beauty Battle Result:\n✨ Winner: ${winnerName} (${b.score1} vs ${b.score2})\n${b.verdict}\nEvaluated on FaceMax AI.`
+    : `FaceMax AI Mog Battle Result:\n⚔️ Winner: ${winnerName} (${b.score1} vs ${b.score2})\n${b.verdict}\nEvaluated on FaceMax AI.`;
+
+  if (navigator.share) {
+    navigator.share({ title: isFemale ? "Beauty Battle" : "Mog Battle", text: shareText }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(shareText).then(() => {
+      if (typeof showToast === "function") showToast("Battle result copied to clipboard!");
+    }).catch(() => {});
+  }
+}
+window.mbShareResult = mbShareResult;
+
+function mbGetSavedBattles() {
+  try {
+    const raw = localStorage.getItem(MB_HISTORY_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function mbSaveBattleToHistory(battle) {
+  try {
+    let list = mbGetSavedBattles();
+    list.unshift({
+      timestamp: battle.timestamp || Date.now(),
+      gender: battle.gender || "male",
+      winner: battle.winner,
+      score1: battle.score1,
+      score2: battle.score2,
+      delta: battle.delta,
+      verdict: battle.verdict,
+      metrics: battle.metrics,
+      photo1: battle.photo1,
+      photo2: battle.photo2
+    });
+    if (list.length > 15) list = list.slice(0, 15);
+    localStorage.setItem(MB_HISTORY_STORAGE_KEY, JSON.stringify(list));
+    mbRenderHistory();
+  } catch (e) {
+    console.warn("Failed to persist battle history:", e);
+  }
+}
+
+function mbClearHistory() {
+  try {
+    localStorage.removeItem(MB_HISTORY_STORAGE_KEY);
+  } catch {}
+  mbRenderHistory();
+}
+window.mbClearHistory = mbClearHistory;
+
+function mbOpenHistoryBattle(index) {
+  const list = mbGetSavedBattles();
+  const battle = list[index];
+  if (battle) {
+    mbShowWinnerModal(battle);
+  }
+}
+window.mbOpenHistoryBattle = mbOpenHistoryBattle;
+
+function mbRenderHistory() {
+  const listEl = el("mbHistoryList");
+  const countEl = el("mbHistoryCount");
+  if (!listEl) return;
+  const battles = mbGetSavedBattles();
+
+  if (countEl) countEl.textContent = battles.length;
+
+  if (battles.length === 0) {
+    listEl.innerHTML = `
+      <div class="mb-history-empty">
+        <div class="mb-empty-icon">⚔️</div>
+        <p class="mb-empty-title">No Battles Yet</p>
+        <p class="mb-empty-sub">Upload 2 photos above to begin your first facial clash!</p>
+      </div>
+    `;
+    return;
+  }
+
+  listEl.innerHTML = battles.map((b, idx) => {
+    const isFemale = b.gender === "female";
+    const w = b.winner;
+    const s1 = Number(b.score1).toFixed(1);
+    const s2 = Number(b.score2).toFixed(1);
+    const winnerName = w === 1 ? (isFemale ? "Portrait #1" : "Photo #1") : (isFemale ? "Portrait #2" : "Photo #2");
+    const d = new Date(b.timestamp || Date.now());
+    const dateStr = d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+
+    return `
+      <div class="mb-h-card" onclick="mbOpenHistoryBattle(${idx})">
+        <div class="mb-h-card-inner">
+          <div class="mb-h-col ${w === 1 ? 'is-winner' : 'is-loser'}">
+            <div class="mb-h-avatar-wrap">
+              ${w === 1 ? '<span class="mb-h-crown">👑</span>' : ''}
+              ${b.photo1 ? `<img src="${b.photo1}" class="mb-h-avatar" alt="Fighter 1">` : `<div class="mb-h-avatar-ph">👤</div>`}
+            </div>
+            <span class="mb-h-score ${w === 1 ? 'score-win' : 'score-lose'}">${s1}</span>
+          </div>
+
+          <div class="mb-h-center">
+            <div class="mb-h-tags-row">
+              <span class="mb-h-vs-pill">VS</span>
+              <span class="mb-h-delta-pill">+${Number(b.delta).toFixed(1)}</span>
+            </div>
+            <span class="mb-h-verdict-title">${winnerName} ${isFemale ? 'Wins ✨' : 'Mogs 🔥'}</span>
+            <span class="mb-h-date">${dateStr}</span>
+          </div>
+
+          <div class="mb-h-col ${w === 2 ? 'is-winner' : 'is-loser'}">
+            <div class="mb-h-avatar-wrap">
+              ${w === 2 ? '<span class="mb-h-crown">👑</span>' : ''}
+              ${b.photo2 ? `<img src="${b.photo2}" class="mb-h-avatar" alt="Fighter 2">` : `<div class="mb-h-avatar-ph">👤</div>`}
+            </div>
+            <span class="mb-h-score ${w === 2 ? 'score-win' : 'score-lose'}">${s2}</span>
+          </div>
+
+          <div class="mb-h-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+window.mbRenderHistory = mbRenderHistory;
 </script>
 
 </body>
