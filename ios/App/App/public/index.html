@@ -2596,6 +2596,91 @@ html.cam-active .app { background:transparent !important; }
 #profile .apple-sync-status-v1{padding:0 2px 8px}
 #profile .settings-footnote-v4{margin:8px 2px 0}
 #profile .profile-chart-v4{border-radius:20px!important}
+
+/* ===== Side Profile card + screen ===== */
+#profile .sp-card-v1{margin-top:14px;padding:15px;border-radius:22px;background:var(--bg-2);border:1px solid rgba(255,255,255,.075);box-sizing:border-box;color:#fff}
+#profile .sp-card-photo-v1{display:block;width:100%;height:auto;border-radius:16px;margin-bottom:13px;object-fit:cover}
+#profile .sp-card-head-v1{display:flex;align-items:flex-start;gap:11px;margin-bottom:14px}
+#profile .sp-card-icon-v1{width:38px;height:38px;flex:0 0 38px;border-radius:13px;display:grid;place-items:center;background:rgba(167,139,250,.14);color:#c4b5fd}
+#profile .sp-card-icon-v1 svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#profile .sp-card-copy-v1{display:flex;flex-direction:column;gap:3px;min-width:0}
+#profile .sp-card-copy-v1 b{font-size:14.5px;font-weight:800;letter-spacing:-.01em;color:#fff}
+#profile .sp-card-copy-v1 span{font-size:11.5px;color:var(--muted);line-height:1.35}
+#profile .sp-card-cta-v1{appearance:none;-webkit-appearance:none;width:100%;height:46px;border:0!important;border-radius:14px;background:rgba(255,255,255,.06)!important;color:#fff!important;font-size:13px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:none!important;cursor:pointer}
+#profile .sp-card-cta-v1:active{transform:scale(.99)}
+#profile .sp-card-cta-v1 svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2}
+
+#sideProfile{padding:0 16px calc(24px + env(safe-area-inset-bottom,0px))}
+#sideProfile .sp-locked-v1{margin-top:60px;text-align:center;padding:30px 20px;border-radius:22px;background:var(--bg-2);border:1px solid rgba(255,255,255,.075)}
+#sideProfile .sp-locked-icon-v1{font-size:34px;margin-bottom:10px}
+#sideProfile .sp-locked-v1 b{display:block;font-size:16px;font-weight:800;color:#fff;margin-bottom:8px}
+#sideProfile .sp-locked-v1 p{font-size:12.5px;color:var(--muted);line-height:1.4;margin:0 0 18px}
+
+p.sp-explainer-v1{margin:10px 2px 14px;font-size:12.5px;line-height:1.5;color:var(--muted);text-align:center}
+
+#sideProfile .sp-hero-photo-v1{position:relative;width:100%;aspect-ratio:3/4;border-radius:20px;overflow:hidden;background:var(--bg-2);border:1px solid var(--line-2)}
+#sideProfile .sp-hero-photo-v1 img{width:100%;height:100%;object-fit:cover;display:block}
+#sideProfile .sp-hero-photo-empty-v1{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--dim)}
+#sideProfile .sp-hero-photo-empty-v1 svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:1.6}
+#sideProfile .sp-hero-photo-empty-v1 span{font-size:12.5px;font-weight:600}
+
+#sideProfile .sp-shoot-btn-v1{appearance:none;-webkit-appearance:none;width:100%;height:52px;margin-top:14px;border:0!important;border-radius:16px;background:linear-gradient(135deg,#8b5cf6,#c85cdb)!important;color:#fff!important;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:none!important;cursor:pointer}
+#sideProfile .sp-shoot-btn-v1[disabled]{opacity:.45;pointer-events:none}
+#sideProfile .sp-shoot-btn-v1:active{transform:scale(.99)}
+#sideProfile .sp-shoot-btn-v1 svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+#sideProfile .sp-day-strip-v1{display:flex;gap:7px;overflow-x:auto;margin-top:16px;padding:2px 2px 6px;scroll-snap-type:x proximity}
+#sideProfile .sp-day-strip-v1::-webkit-scrollbar{display:none}
+#sideProfile .sp-day-cell-v1{flex:0 0 auto;width:52px;aspect-ratio:3/4;border-radius:10px;overflow:hidden;position:relative;background:var(--bg-2);border:1px solid var(--line-2);scroll-snap-align:start}
+#sideProfile .sp-day-cell-v1 img{width:100%;height:100%;object-fit:cover;display:block}
+#sideProfile .sp-day-cell-v1 span{position:absolute;left:0;right:0;bottom:0;padding:2px 0;text-align:center;font-size:9px;font-weight:700;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.65),transparent)}
+#sideProfile .sp-day-cell-v1.is-today{border-color:#c4b5fd}
+
+#sideProfile .sp-play-big-btn-v1{appearance:none;-webkit-appearance:none;width:100%;height:54px;margin-top:14px;border:0!important;border-radius:16px;background:var(--bg-2)!important;border:1px solid var(--line-3)!important;color:#fff!important;font-size:14.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:none!important;cursor:pointer}
+#sideProfile .sp-play-big-btn-v1 svg{width:19px;height:19px;fill:#fff}
+#sideProfile .sp-play-big-btn-v1[disabled]{opacity:.45;pointer-events:none}
+
+#sideProfile .sp-gate-v1{margin-top:20px;text-align:center;padding:26px 18px;border-radius:22px;background:var(--bg-2);border:1px solid rgba(167,139,250,.28);box-shadow:0 8px 30px rgba(0,0,0,.45);animation:spGatePulse .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes spGatePulse{0%{transform:scale(0.94);opacity:0.5}100%{transform:scale(1);opacity:1}}
+#sideProfile .sp-gate-icon-v1{font-size:34px;margin-bottom:10px}
+#sideProfile .sp-gate-v1 b{display:block;font-size:16px;font-weight:800;color:#fff;margin-bottom:8px}
+#sideProfile .sp-gate-v1 p{font-size:12.5px;color:var(--muted);line-height:1.4;margin:0 0 18px}
+
+.sp-camera-v1{position:fixed;inset:0;z-index:99999;background:#000}
+.sp-camera-v1 video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.sp-camera-guide-v1{position:absolute;top:0;right:14%;bottom:0;width:2px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:2}
+.sp-camera-guide-line-v1{position:absolute;top:9%;bottom:16%;width:0;border-left:2px solid rgba(255,255,255,.85)}
+.sp-camera-guide-label-v1{position:absolute;bottom:calc(118px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.75);background:none;padding:0;border-radius:0;text-align:center}
+.sp-camera-bar-v1{position:absolute;bottom:0;left:0;right:0;padding:26px 24px calc(30px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:center;background:linear-gradient(to top,rgba(0,0,0,.48),rgba(0,0,0,0) 80%)}
+.sp-camera-v1 .lc-close{position:fixed;left:max(18px,calc((100vw - min(100vw,430px))/2 + 18px));top:calc(18px + env(safe-area-inset-top,0px));width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:none;color:#fff;display:grid;place-items:center;cursor:pointer;z-index:4}
+.sp-camera-v1 .lc-close svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.sp-camera-v1 .lc-spacer{display:none}
+.sp-camera-v1 .lc-shutter{width:78px;height:78px;border-radius:50%;border:4px solid #fff;background:transparent;display:grid;place-items:center;cursor:pointer;position:relative}
+.sp-camera-v1 .lc-shutter span{width:62px;height:62px;border-radius:50%;background:#fff;display:block}
+.sp-camera-v1 .lc-error{position:absolute;top:calc(70px + env(safe-area-inset-top,0px));left:20px;right:20px;padding:12px;border-radius:12px;background:rgba(239,68,68,.85);color:#fff;font-size:13px;text-align:center;z-index:5}
+
+.sp-player-v1{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column}
+.sp-player-close-v1{position:fixed;left:max(18px,calc((100vw - min(100vw,430px))/2 + 18px));top:calc(18px + env(safe-area-inset-top,0px));width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:none;color:#fff;display:grid;place-items:center;cursor:pointer;z-index:4}
+.sp-player-close-v1 svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.sp-player-stage-v1{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;padding:0 20px}
+.sp-player-stage-v1 img{width:100%;aspect-ratio:3/4;max-height:100%;border-radius:20px;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.sp-player-ranges-v1{display:flex;gap:7px;padding:8px 16px 4px;overflow-x:auto}
+.sp-player-ranges-v1::-webkit-scrollbar{display:none}
+.sp-player-range-btn-v1{flex:0 0 auto;appearance:none;-webkit-appearance:none;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;line-height:1.25}
+.sp-player-range-btn-v1 small{font-size:10px;font-weight:600;color:rgba(255,255,255,.45)}
+.sp-player-range-btn-v1.active{background:#8b5cf6;border-color:#8b5cf6;color:#fff}
+.sp-player-range-btn-v1.active small{color:rgba(255,255,255,.85)}
+.sp-player-scrub-v1{padding:4px 20px calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px}
+.sp-player-playpause-v1{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);border:none;display:grid;place-items:center;cursor:pointer}
+.sp-player-playpause-v1 svg{width:18px;height:18px;fill:#fff}
+.sp-player-scrub-v1 input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:34px;background:transparent;margin:0}
+.sp-player-scrub-v1 input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:999px;background:rgba(255,255,255,.22)}
+.sp-player-scrub-v1 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;margin-top:-8px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.sp-player-scrub-v1 input[type=range]::-moz-range-track{height:4px;border-radius:999px;background:rgba(255,255,255,.22)}
+.sp-player-scrub-v1 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:none}
+.sp-player-day-top-v1{text-align:center;padding:calc(64px + env(safe-area-inset-top,0px)) 16px 10px}
+.sp-player-day-top-v1 span{color:#fff;font-size:30px;font-weight:900;letter-spacing:-.02em}
+
 .gu-personal-focus{font-size:10.5px;color:#b8afc1;font-weight:650;line-height:1.3;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
 .goal-prefs-modal{position:fixed;inset:0;z-index:10050;background:rgba(5,3,8,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;padding:0}.goal-prefs-modal.hidden{display:none}.goal-prefs-sheet{width:min(100%,620px);max-height:88vh;overflow:auto;background:#17121d;border:1px solid rgba(255,255,255,.11);border-radius:28px 28px 0 0;padding:18px 18px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 60px rgba(0,0,0,.42)}.goal-prefs-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}.goal-prefs-head h3{margin:0;font-size:21px;letter-spacing:-.025em;text-transform:none}.goal-prefs-head p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.4}.goal-prefs-close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#fff;font-size:22px;line-height:1}.goal-prefs-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.42);margin:16px 2px 8px}.goal-prefs-options{display:flex;flex-wrap:wrap;gap:7px}.goal-pref-chip{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);color:#c8c1cc;border-radius:13px;padding:9px 11px;font-size:12px;font-weight:700}.goal-pref-chip.active{background:rgba(167,139,250,.18);border-color:rgba(196,181,253,.45);color:#ede9fe}.goal-pref-save{width:100%;height:52px;border:0;border-radius:17px;margin-top:20px;background:linear-gradient(135deg,#8b5cf6,#c35bea);color:#fff;font-size:14px;font-weight:800}.goal-prefs-note{font-size:10.5px;color:rgba(255,255,255,.38);line-height:1.45;margin-top:10px;text-align:center}
 
@@ -3630,6 +3715,21 @@ html.cam-active .app { background:transparent !important; }
   <div id="progressChartWrap" class="chart-card empty profile-chart-v4"></div>
   <div id="profileUpgrade" style="display:none" aria-hidden="true"></div>
 
+  <!-- ===== Side Profile progress card ===== -->
+  <div class="sp-card-v1" id="spCardV1">
+    <img class="sp-card-photo-v1" id="spCardPhoto" src="assets/side-profile/male-example.jpg" alt="Side profile — daily timelapse">
+    <div class="sp-card-head-v1">
+      <div class="sp-card-copy-v1">
+        <b>Side Profile</b>
+        <span>Take a photo of your profile daily and track your transformation</span>
+      </div>
+    </div>
+    <button type="button" class="sp-card-cta-v1" onclick="openSideProfile()">
+      <span>Open</span>
+      <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+
   <div class="settings-section-v4" id="appleAccountSection">
     <div class="settings-title-v4">Account &amp; sync</div>
     <div class="settings-card-v4">
@@ -3723,6 +3823,100 @@ html.cam-active .app { background:transparent !important; }
     </div>
   </div>
 </section>
+
+<!-- ===== Side Profile screen ===== -->
+<section id="sideProfile" class="screen sp-screen-v1">
+  <div class="screen-topbar">
+    <button type="button" class="stb-back" onclick="openScreen('profile')" aria-label="Back">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <span class="stb-title">Side Profile</span>
+    <div style="width:32px"></div>
+  </div>
+
+  <div id="spLockedBlock" class="sp-locked-v1 hidden">
+    <div class="sp-locked-icon-v1" aria-hidden="true">🔒</div>
+    <b>Available with Premium</b>
+    <p>Unlock Premium to take daily profile photos and watch your transformation timelapse.</p>
+    <button type="button" class="btn" onclick="openGate()">Unlock Access</button>
+  </div>
+
+  <div id="spUnlockedBlock" class="hidden">
+    <p class="sp-explainer-v1">Take a photo every day after exercises — watch your facial progress and jawline change over time in a timelapse.</p>
+
+    <!-- Big hero photo: the latest self-shot -->
+    <div class="sp-hero-photo-v1" id="spHeroPhotoV1">
+      <img id="spHeroPhotoImg" alt="" class="hidden">
+      <div id="spHeroPhotoEmpty" class="sp-hero-photo-empty-v1">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="4"/><path d="M5 7h3l1.5-2h5L16 7h3v12H5z"/></svg>
+        <span>No photos yet</span>
+      </div>
+    </div>
+
+    <button type="button" class="sp-shoot-btn-v1" id="spShootBtn" onclick="spOnShootTap()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="4"/><path d="M5 7h3l1.5-2h5L16 7h3v12H5z"/></svg>
+      <span id="spShootBtnText">Take today's photo</span>
+    </button>
+
+    <!-- Hidden file input fallback -->
+    <input type="file" id="spFileInput" accept="image/*" capture="user" class="hidden" onchange="spHandleFileInput(this.files && this.files[0])">
+
+    <!-- Linear day strip: one cell per day, scrolls horizontally -->
+    <div id="spDayStrip" class="sp-day-strip-v1"></div>
+
+    <button type="button" class="sp-play-big-btn-v1" id="spPlayBigBtn" onclick="spStartPlayer()">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <span id="spPlayBigBtnText">Watch Timelapse</span>
+    </button>
+  </div>
+
+  <!-- Exercises-first gate -->
+  <div id="spExerciseGate" class="sp-gate-v1 hidden">
+    <div class="sp-gate-icon-v1" aria-hidden="true">💪</div>
+    <b>Exercises First</b>
+    <p>For consistent results, complete all facial exercises for today first — then return here for your progress shot.</p>
+    <button type="button" class="btn" onclick="renderExerciseList();openScreen('exercises')">To Exercises</button>
+    <button type="button" class="btn ghost compact mt-12" onclick="spCloseGate()">Back</button>
+  </div>
+</section>
+
+<!-- ===== Side Profile guided camera ===== -->
+<div id="spCamera" class="hidden sp-camera-v1">
+  <video id="spCameraVideo" playsinline autoplay muted></video>
+  <canvas id="spCameraCanvas" class="hidden"></canvas>
+  <div class="sp-camera-guide-v1" aria-hidden="true">
+    <div class="sp-camera-guide-line-v1"></div>
+    <span class="sp-camera-guide-label-v1">Align back of head with line</span>
+  </div>
+  <div class="sp-camera-bar-v1">
+    <button type="button" class="lc-close" onclick="spCloseCamera()" aria-label="Close">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+    </button>
+    <button type="button" class="lc-shutter" onclick="spSnapCamera()" aria-label="Capture"><span></span></button>
+    <div class="lc-spacer"></div>
+  </div>
+  <div id="spCameraError" class="lc-error hidden"></div>
+</div>
+
+<!-- ===== Side Profile timelapse player ===== -->
+<div id="spPlayer" class="hidden sp-player-v1">
+  <button type="button" class="lc-close sp-player-close-v1" onclick="spClosePlayer()" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+  </button>
+  <div class="sp-player-day-top-v1">
+    <span id="spPlayerDayLabel">Day 1</span>
+  </div>
+  <div class="sp-player-stage-v1" id="spPlayerStage">
+    <img id="spPlayerImg" alt="">
+  </div>
+  <div class="sp-player-ranges-v1" id="spPlayerRanges"></div>
+  <div class="sp-player-scrub-v1">
+    <button type="button" class="sp-player-playpause-v1" id="spPlayerPlayBtn" onclick="spTogglePlay()" aria-label="Play">
+      <svg id="spPlayerPlayIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <input type="range" id="spPlayerScrub" min="0" max="0" value="0" step="1">
+  </div>
+</div>
 
 <div id="goalPrefsModal" class="goal-prefs-modal hidden" onclick="if(event.target===this)closeGoalPreferences()">
   <div class="goal-prefs-sheet" role="dialog" aria-modal="true" aria-labelledby="goalPrefsTitle">
@@ -7981,7 +8175,7 @@ const NAV_TAB_FOR_SCREEN = {
   daily: "daily", water: "daily", routine: "daily", calories: "daily",
   exercises: "daily", exerciseDetail: "daily", glowupHub: "daily",
   foodScan: "aiFeatures", meals: "aiFeatures", foodHub: "aiFeatures",
-  history: "profile",
+  history: "profile", sideProfile: "profile",
   // Legacy: `plan` is no longer exposed in the bottom nav but other code
   // paths may still call openScreen('plan'); keep it tab-less so the
   // navigation doesn't highlight anything when the orphan screen renders.
@@ -8283,6 +8477,7 @@ window.openScreen = function(id){
   }
   if (id === "home") { renderHomeHistory(); renderHomeStats(); updateDailyCalWidget(); }
   if (id === "profile") { renderProfileScreen(); }
+  if (id === "sideProfile") { renderSideProfileScreen(); }
   if (id === "aiFeatures") { renderAiFeaturesList(); }
   if (id === "daily") { refreshDailyGreeting && refreshDailyGreeting(); refreshDailyTiles && refreshDailyTiles(); renderGlowUpPlan(); updateDailyCalWidget(); }
   if (id === "calories") { updateDailyCalWidget(); renderCalScreenEntries && renderCalScreenEntries(); }
@@ -9068,6 +9263,10 @@ window.handleProfileAvatarPick = async function(file){
 
 function renderProfileScreen(){
   _profileHistoryExpanded = false;
+  try {
+    const photo = el("spCardPhoto");
+    if (photo) photo.src = getSavedGender() === "female" ? "assets/side-profile/female-example.jpg" : "assets/side-profile/male-example.jpg";
+  } catch {}
   const uid = currentUserId();
   el("profileName").textContent = "You";
   el("profileUid").textContent = isSignedInWithApple() ? "Apple Account linked" : "Apple Account required";
@@ -13160,6 +13359,10 @@ window.changeGender = function(g){
   onbState.gender = value;
   // Update Profile UI
   renderGenderSetting();
+  try {
+    const photo = el("spCardPhoto");
+    if (photo) photo.src = (value === "female") ? "assets/side-profile/female-example.jpg" : "assets/side-profile/male-example.jpg";
+  } catch {}
 };
 window.selectGenderAndContinue = function(g){
   const value = (g === "female") ? "female" : "male";
@@ -18344,6 +18547,461 @@ window.syncTDEEChoiceUI = function() {
   }
   document.addEventListener('DOMContentLoaded', function(){setTimeout(function(){syncTDEEChoiceUI();selectInternalPlan(window._internalPaywallPlan);},50);});
 })();
+
+/* ======================== SIDE PROFILE DAILY TRACKING ======================== */
+const SP_DB_NAME = "facemax_side_profile_db";
+const SP_STORE = "photos";
+let _spDB = null;
+let _spStream = null;
+let _spPlayerTimer = null;
+let _spFrames = [];
+let _spCurrentIndex = 0;
+let _spIsPlaying = false;
+let _spDedupeRanOnce = false;
+
+function spOpenDB(){
+  return new Promise((resolve, reject) => {
+    if (_spDB) return resolve(_spDB);
+    if (!window.indexedDB) return reject(new Error("IndexedDB not supported"));
+    const req = indexedDB.open(SP_DB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(SP_STORE)) {
+        db.createObjectStore(SP_STORE, { keyPath: "dayIndex" });
+      }
+    };
+    req.onsuccess = () => { _spDB = req.result; resolve(_spDB); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function spGetAllPhotos(){
+  return spOpenDB().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction(SP_STORE, "readonly");
+    const store = tx.objectStore(SP_STORE);
+    const req = store.getAll();
+    req.onsuccess = () => resolve((req.result || []).sort((a,b) => a.dayIndex - b.dayIndex));
+    req.onerror = () => reject(req.error);
+  })).catch(() => []).then(all => spDedupeByDay(all));
+}
+
+function spDedupeByDay(all){
+  const byDate = new Map();
+  for (const p of all) {
+    const prev = byDate.get(p.localDate);
+    if (!prev || (p.createdAt || 0) > (prev.createdAt || 0)) byDate.set(p.localDate, p);
+  }
+  const cleaned = Array.from(byDate.values()).sort((a,b) => (a.createdAt || 0) - (b.createdAt || 0));
+  const needsFix = cleaned.length !== all.length;
+  cleaned.forEach((p, i) => { p.dayIndex = i + 1; });
+  if (needsFix && !_spDedupeRanOnce) {
+    _spDedupeRanOnce = true;
+    spReplaceAllPhotos(cleaned).catch(() => {});
+  }
+  return cleaned;
+}
+
+function spReplaceAllPhotos(list){
+  return spOpenDB().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction(SP_STORE, "readwrite");
+    const store = tx.objectStore(SP_STORE);
+    store.clear();
+    list.forEach(p => store.put(p));
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  }));
+}
+
+function spAddPhoto(dataUrl, localDate){
+  return spOpenDB().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction(SP_STORE, "readwrite");
+    const store = tx.objectStore(SP_STORE);
+    const getAllReq = store.getAll();
+    getAllReq.onsuccess = () => {
+      const all = getAllReq.result || [];
+      const existing = all.find(p => p.localDate === localDate);
+      if (existing) {
+        const putReq = store.put({ ...existing, dataUrl, createdAt: Date.now() });
+        putReq.onsuccess = () => resolve(existing.dayIndex);
+        putReq.onerror = () => reject(putReq.error);
+      } else {
+        const dayIndex = all.length + 1;
+        const putReq = store.put({ dayIndex, localDate, dataUrl, createdAt: Date.now() });
+        putReq.onsuccess = () => resolve(dayIndex);
+        putReq.onerror = () => reject(putReq.error);
+      }
+    };
+    getAllReq.onerror = () => reject(getAllReq.error);
+  }));
+}
+
+function spHasPhotoToday(photos){
+  const today = todayKey();
+  return (photos || []).some(p => p.localDate === today);
+}
+
+function spAllExercisesDoneToday(){
+  if (typeof readExerciseDoneToday !== "function" || typeof FACE_EXERCISES === "undefined") return true;
+  const done = readExerciseDoneToday();
+  return FACE_EXERCISES.every(e => done.has(e.id));
+}
+
+function spIsPremium(){
+  return !!premium;
+}
+
+async function renderSideProfileScreen(){
+  const locked = el("spLockedBlock");
+  const unlocked = el("spUnlockedBlock");
+  if (!locked || !unlocked) return;
+  if (!spIsPremium()) {
+    locked.classList.remove("hidden");
+    unlocked.classList.add("hidden");
+    return;
+  }
+  locked.classList.add("hidden");
+  unlocked.classList.remove("hidden");
+
+  const photos = await spGetAllPhotos();
+  const total = photos.length;
+
+  const hasToday = spHasPhotoToday(photos);
+  const btn = el("spShootBtn");
+  const btnText = el("spShootBtnText");
+  if (btn && btnText) {
+    btnText.textContent = hasToday ? "Already photographed today · Retake" : "Take today's photo";
+    btn.disabled = false;
+  }
+
+  // Big hero photo — always the latest shot taken
+  const heroImg = el("spHeroPhotoImg");
+  const heroEmpty = el("spHeroPhotoEmpty");
+  if (heroImg && heroEmpty) {
+    if (total > 0) {
+      heroImg.src = photos[photos.length - 1].dataUrl;
+      heroImg.classList.remove("hidden");
+      heroEmpty.classList.add("hidden");
+    } else {
+      heroImg.classList.add("hidden");
+      heroEmpty.classList.remove("hidden");
+    }
+  }
+
+  // Linear day strip — one cell per day
+  const strip = el("spDayStrip");
+  if (strip) {
+    const today = todayKey();
+    strip.innerHTML = photos.map(p => `<div class="sp-day-cell-v1${p.localDate === today ? " is-today" : ""}">
+      <img src="${p.dataUrl}" alt="">
+      <span>Day ${p.dayIndex}</span>
+    </div>`).join("");
+    requestAnimationFrame(() => { strip.scrollLeft = strip.scrollWidth; });
+  }
+
+  // Big play button
+  const playBtn = el("spPlayBigBtn");
+  const playBtnText = el("spPlayBigBtnText");
+  if (playBtn && playBtnText) {
+    if (total >= 2) {
+      playBtn.disabled = false;
+      playBtnText.textContent = "Watch Timelapse";
+    } else if (total === 1) {
+      playBtn.disabled = false;
+      playBtnText.textContent = "View Photo";
+    } else {
+      playBtn.disabled = true;
+      playBtnText.textContent = "Take a photo to watch";
+    }
+  }
+}
+
+function spOnShootTap(){
+  if (!spIsPremium()) { openScreen("profile"); return; }
+  if (!spAllExercisesDoneToday()) {
+    const gate = el("spExerciseGate");
+    if (gate) {
+      gate.classList.remove("hidden");
+      try { if (typeof facemax !== "undefined" && facemax.haptic) facemax.haptic("medium"); } catch {}
+      setTimeout(() => {
+        try {
+          gate.scrollIntoView({ behavior: "smooth", block: "center" });
+        } catch (_) {
+          try { gate.scrollIntoView(true); } catch (_) {}
+        }
+        const scroller = document.scrollingElement || document.documentElement || document.body;
+        if (scroller) {
+          const rect = gate.getBoundingClientRect();
+          const targetY = (window.pageYOffset || scroller.scrollTop || 0) + rect.top - Math.max(20, (window.innerHeight - rect.height) / 2);
+          try {
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          } catch (_) {
+            scroller.scrollTop = targetY;
+          }
+        }
+      }, 50);
+    }
+    return;
+  }
+  spOpenCamera();
+}
+
+function spCloseGate(){
+  el("spExerciseGate")?.classList.add("hidden");
+  const shootBtn = el("spShootBtn");
+  if (shootBtn) {
+    try {
+      shootBtn.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (_) {
+      try { shootBtn.scrollIntoView(true); } catch (_) {}
+    }
+  }
+}
+
+async function spOpenCamera(){
+  const overlay = el("spCamera");
+  const video = el("spCameraVideo");
+  const errBox = el("spCameraError");
+  if (errBox) { errBox.classList.add("hidden"); errBox.textContent = ""; }
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    const fileInput = el("spFileInput");
+    if (fileInput) {
+      fileInput.click();
+      return;
+    }
+    showToast("Camera is not supported on this device.");
+    return;
+  }
+
+  overlay.classList.remove("hidden");
+  try {
+    let stream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "user" }, width: { ideal: 1440 }, height: { ideal: 1920 }, aspectRatio: { ideal: 0.75 } },
+        audio: false
+      });
+    } catch (_) {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    }
+    _spStream = stream;
+    video.srcObject = stream;
+    await video.play().catch(() => {});
+  } catch (e) {
+    console.warn("spOpenCamera getUserMedia failed, falling back to file input:", e);
+    overlay.classList.add("hidden");
+    const fileInput = el("spFileInput");
+    if (fileInput) {
+      fileInput.click();
+      return;
+    }
+    const msg = (e && (e.name === "NotAllowedError" || e.name === "PermissionDeniedError"))
+      ? "Camera access denied. Please enable camera access in Settings."
+      : "Failed to open camera.";
+    showToast(msg);
+  }
+}
+
+function spCloseCamera(){
+  const overlay = el("spCamera");
+  const video = el("spCameraVideo");
+  if (_spStream) {
+    try { _spStream.getTracks().forEach(t => t.stop()); } catch {}
+    _spStream = null;
+  }
+  try { video.pause(); video.srcObject = null; } catch {}
+  overlay.classList.add("hidden");
+}
+
+async function spSnapCamera(){
+  const video = el("spCameraVideo");
+  const canvas = el("spCameraCanvas");
+  if (!video || !canvas || !video.videoWidth) return;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext("2d");
+  ctx.save();
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  ctx.restore();
+  let dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+  if (typeof downscaleImage === "function") {
+    try {
+      dataUrl = await downscaleImage(dataUrl, 1440, 0.88);
+    } catch (_) {}
+  }
+  spCloseCamera();
+  try {
+    await spAddPhoto(dataUrl, todayKey());
+    showToast("Photo saved");
+  } catch (e) {
+    showToast("Failed to save photo");
+  }
+  renderSideProfileScreen();
+}
+
+async function spHandleFileInput(file){
+  if (!file) return;
+  try {
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+    let processed = dataUrl;
+    if (typeof downscaleImage === "function") {
+      try {
+        processed = await downscaleImage(dataUrl, 1440, 0.88);
+      } catch (_) {}
+    }
+    await spAddPhoto(processed, todayKey());
+    showToast("Photo saved");
+  } catch (err) {
+    console.error("spHandleFileInput error:", err);
+    showToast("Failed to save photo");
+  } finally {
+    const input = el("spFileInput");
+    if (input) input.value = "";
+    renderSideProfileScreen();
+  }
+}
+
+async function spStartPlayer(){
+  const photos = await spGetAllPhotos();
+  if (!photos.length) return;
+  _spFrames = photos;
+  _spIsPlaying = false;
+
+  const overlay = el("spPlayer");
+  const img = el("spPlayerImg");
+  const dayLabel = el("spPlayerDayLabel");
+  const scrub = el("spPlayerScrub");
+  if (!overlay || !img || !scrub) return;
+
+  overlay.classList.remove("hidden");
+  scrub.max = String(_spFrames.length - 1);
+
+  const showFrame = (i) => {
+    i = Math.max(0, Math.min(_spFrames.length - 1, i));
+    _spCurrentIndex = i;
+    img.src = _spFrames[i].dataUrl;
+    dayLabel.textContent = `Day ${i + 1}`;
+    scrub.value = String(i);
+  };
+  window._spShowFrame = showFrame;
+  showFrame(_spFrames.length - 1);
+
+  spRenderPlayerRanges(showFrame);
+
+  scrub.oninput = () => { spStopAutoplay(); showFrame(Number(scrub.value)); };
+
+  const stage = el("spPlayerStage");
+  if (stage && !stage._boundPointer) {
+    stage._boundPointer = true;
+    let dragging = false, startX = 0, startIndex = 0;
+    const onDown = (x) => { dragging = true; spStopAutoplay(); startX = x; startIndex = _spCurrentIndex; };
+    const onMove = (x) => {
+      if (!dragging) return;
+      const dx = x - startX;
+      const stepPx = 18;
+      const delta = Math.round(dx / stepPx);
+      showFrame(startIndex + delta);
+    };
+    const onUp = () => { dragging = false; };
+    stage.onpointerdown = (e) => onDown(e.clientX);
+    stage.onpointermove = (e) => onMove(e.clientX);
+    stage.onpointerup = onUp;
+    stage.onpointerleave = onUp;
+  }
+}
+
+function spRenderPlayerRanges(showFrame){
+  const wrap = el("spPlayerRanges");
+  if (!wrap) return;
+  const total = _spFrames.length;
+  const ranges = [
+    { key: "1w", label: "1W", sub: "7 days", days: 7 },
+    { key: "1m", label: "1M", sub: "30 days", days: 30 },
+    { key: "3m", label: "3M", sub: "90 days", days: 90 },
+    { key: "6m", label: "6M", sub: "180 days", days: 180 },
+    { key: "all", label: "All", sub: "all time", days: Infinity },
+  ].filter(r => r.days === Infinity || r.days <= total || r.days === 7);
+
+  wrap.innerHTML = ranges.map((r, idx) => `<button type="button" class="sp-player-range-btn-v1${idx === ranges.length - 1 ? " active" : ""}" data-range="${r.key}" onclick="spApplyPlayerRange('${r.key}')">
+    ${r.label}<small>${r.sub}</small>
+  </button>`).join("");
+}
+
+function spApplyPlayerRange(key){
+  const total = _spFrames.length;
+  const daysMap = { "1w": 7, "1m": 30, "3m": 90, "6m": 180, all: Infinity };
+  const days = daysMap[key] ?? Infinity;
+  const startIndex = days === Infinity ? 0 : Math.max(0, total - days);
+  spStopAutoplay();
+  window._spShowFrame && window._spShowFrame(startIndex);
+  document.querySelectorAll(".sp-player-range-btn-v1").forEach(b => {
+    b.classList.toggle("active", b.dataset.range === key);
+  });
+}
+
+function spTogglePlay(){
+  if (_spIsPlaying) { spStopAutoplay(); return; }
+  if (_spFrames.length < 2) return;
+  _spIsPlaying = true;
+  spSetPlayIcon(true);
+  if (_spCurrentIndex >= _spFrames.length - 1) _spCurrentIndex = 0;
+  clearInterval(_spPlayerTimer);
+  _spPlayerTimer = setInterval(() => {
+    const next = _spCurrentIndex + 1;
+    if (next > _spFrames.length - 1) { spStopAutoplay(); return; }
+    window._spShowFrame && window._spShowFrame(next);
+  }, 400);
+}
+
+function spStopAutoplay(){
+  clearInterval(_spPlayerTimer);
+  _spPlayerTimer = null;
+  _spIsPlaying = false;
+  spSetPlayIcon(false);
+}
+
+function spSetPlayIcon(isPlaying){
+  const icon = el("spPlayerPlayIcon");
+  const btn = el("spPlayerPlayBtn");
+  if (!icon || !btn) return;
+  icon.innerHTML = isPlaying
+    ? '<rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect>'
+    : '<path d="M8 5v14l11-7z"></path>';
+  btn.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
+}
+
+function spClosePlayer(){
+  spStopAutoplay();
+  el("spPlayer")?.classList.add("hidden");
+}
+
+window.openSideProfile = function(){
+  openScreen("sideProfile");
+};
+window.openGate = function(){
+  if (typeof showGate === "function") showGate("Unlock FaceMax AI Premium", "Unlock Premium to take daily profile photos and watch your transformation timelapse.");
+  else openScreen("gate");
+};
+window.spOnShootTap = spOnShootTap;
+window.spCloseGate = spCloseGate;
+window.spOpenCamera = spOpenCamera;
+window.spCloseCamera = spCloseCamera;
+window.spSnapCamera = spSnapCamera;
+window.spHandleFileInput = spHandleFileInput;
+window.spStartPlayer = spStartPlayer;
+window.spRenderPlayerRanges = spRenderPlayerRanges;
+window.spApplyPlayerRange = spApplyPlayerRange;
+window.spTogglePlay = spTogglePlay;
+window.spStopAutoplay = spStopAutoplay;
+window.spClosePlayer = spClosePlayer;
+window.renderSideProfileScreen = renderSideProfileScreen;
 </script>
 
 </body>
