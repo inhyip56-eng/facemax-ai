@@ -10368,10 +10368,11 @@ function _fmInboxMetaForId(id, extra){
   const n = Number(id);
   if (extra && extra.route) return { route:String(extra.route), type:String(extra.inboxType || "plan") };
   if (n === ids.RESCAN_7D || n === ids.WINBACK_7D || n === ids.WINBACK_14D) return { route:"upload", type:"scan" };
-  if (n === ids.STREAK || n === ids.EVENING || n === ids.WINBACK_3D) return { route:"glowupHub", type:"streak" };
-  if (n === ids.DAILY) return { route:"glowupHub", type:"plan" };
+  if (n === (ids.FOOD_SCAN || 1003)) return { route:"foodScan", type:"food" };
+  if (n === ids.STREAK || n === ids.EVENING || n === ids.WINBACK_3D) return { route:"daily", type:"streak" };
+  if (n === ids.DAILY) return { route:"daily", type:"plan" };
   if (n >= 1300 && n < 1400) return { route:"daily", type:"achievement" };
-  return { route:"home", type:"plan" };
+  return { route:"daily", type:"plan" };
 }
 function fmInboxAdd(item){
   if (!item || !item.title) return null;
@@ -10405,6 +10406,7 @@ function fmInboxAdd(item){
   return key;
 }
 function _fmInboxIcon(type){
+  if (type === "food") return '<svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 1 5 5v1h1a3 3 0 0 1 3 3v2a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-2a3 3 0 0 1 3-3h1V7a5 5 0 0 1 5-5Z"/></svg>';
   if (type === "achievement") return '<svg viewBox="0 0 24 24"><path d="M8 4h8v3a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5v1a4 4 0 0 0 4 4M16 6h3v1a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4"/></svg>';
   if (type === "streak") return '<svg viewBox="0 0 24 24"><path d="M13 3s1 3-2 5c-2 1-4 3-4 6a5 5 0 0 0 10 0c0-2-1-4-4-6 1 3-1 4-1 4s0-3-3-5"/></svg>';
   if (type === "scan") return '<svg viewBox="0 0 24 24"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><circle cx="12" cy="11" r="3"/><path d="M7.5 17c1.1-2 2.6-3 4.5-3s3.4 1 4.5 3"/></svg>';
@@ -10452,11 +10454,13 @@ function fmInboxMarkAllRead(){
 }
 window.fmInboxMarkAllRead = fmInboxMarkAllRead;
 function _fmInboxNavigate(route){
-  const r = String(route || "home");
-  if (r === "glowupHub") { if (typeof window.openGlowUpHub === "function") return window.openGlowUpHub(); return openScreen("home"); }
+  const r = String(route || "daily");
+  if (r === "foodScan") { if (typeof window.openFoodScan === "function") return window.openFoodScan(); return openScreen("foodScan"); }
+  if (r === "meals") { if (typeof window.openMeals === "function") return window.openMeals(); return openScreen("meals"); }
+  if (r === "exercises") { if (typeof window.openExercises === "function") return window.openExercises(); return openScreen("exercises"); }
+  if (r === "daily" || r === "glowupHub") { if (typeof window.openDailyHub === "function") return window.openDailyHub(); return openScreen("daily"); }
   if (r === "upload") return openScreen("upload");
   if (r === "profile") return openScreen("profile");
-  if (r === "daily") { if (typeof window.openDailyHub === "function") return window.openDailyHub(); return openScreen("daily"); }
   return openScreen("home");
 }
 function openNotificationItem(index){
@@ -10699,7 +10703,7 @@ async function scheduleRetentionPack(){
   const morning = _fmPickMorningMessage(ctx);
   const evening = _fmPickEveningMessage(ctx);
 
-  // Morning reminder — repeats at the stored reminder time (08:00 by default).
+  // 1. Morning reminder — repeats at the stored reminder time (08:00 by default).
   const prefs = notifLoadPrefs();
   const timeMatch = /^(\d{1,2}):(\d{2})$/.exec(String(prefs.dailyTime || "08:00"));
   const reminderHour = timeMatch ? Math.max(0, Math.min(23, Number(timeMatch[1]))) : 8;
@@ -10709,46 +10713,47 @@ async function scheduleRetentionPack(){
     hour: reminderHour, minute: reminderMinute,
     title: morning.title,
     body: morning.body,
-    extra: { route:"glowupHub", inboxType:"plan" },
+    extra: { route:"daily", inboxType:"plan" },
   });
 
-  // Evening reminder — one-shot for TODAY only. Never carry today's stale
-  // "2 steps left" copy into tomorrow.
-  await window.facemax.notif.cancel(window.facemax.notif.ids.EVENING);
-  await window.facemax.notif.cancel(window.facemax.notif.ids.STREAK);
-  if (!ctx.completedToday) {
-    const eveningAt = new Date();
-    eveningAt.setHours(20, 0, 0, 0);
-    if (eveningAt.getTime() > Date.now() + 5000) {
-      await window.facemax.notif.scheduleAt({
-        id: window.facemax.notif.ids.EVENING,
-        at: eveningAt,
-        title: evening.title,
-        body: evening.body,
-        extra: { route:"glowupHub", inboxType:"streak" },
-      });
-    }
+  // 2. Afternoon meal scanner reminder — repeats daily at 13:30.
+  await window.facemax.notif.scheduleDaily({
+    id: window.facemax.notif.ids.FOOD_SCAN || 1003,
+    hour: 13, minute: 30,
+    title: "Log your meal 🥗",
+    body: "Snap a quick photo with Food Scanner to track calories & macros.",
+    extra: { route:"foodScan", inboxType:"food" },
+  });
 
-    // Duolingo-style last chance, but only for a meaningful existing streak.
-    // This is cancelled immediately when the user finishes the plan.
-    if (ctx.atRisk && ctx.streak >= 3) {
-      const lateAt = new Date();
-      lateAt.setHours(21, 45, 0, 0);
-      if (lateAt.getTime() > Date.now() + 5000) {
-        const late = _fmPickLastChanceMessage(ctx);
-        await window.facemax.notif.scheduleAt({
-          id: window.facemax.notif.ids.STREAK,
-          at: lateAt,
-          title: late.title,
-          body: late.body,
-          extra: { route:"glowupHub", inboxType:"streak" },
-        });
-      }
+  // 3. Evening reminder — repeats daily at 20:30.
+  // Using scheduleDaily ensures evening reminders arrive every single day,
+  // even if the user hasn't opened the app earlier today.
+  await window.facemax.notif.scheduleDaily({
+    id: window.facemax.notif.ids.EVENING,
+    hour: 20, minute: 30,
+    title: evening.title,
+    body: evening.body,
+    extra: { route:"daily", inboxType:"streak" },
+  });
+
+  // 4. Duolingo-style last chance — one-shot at 21:45 for at-risk streaks.
+  await window.facemax.notif.cancel(window.facemax.notif.ids.STREAK);
+  if (!ctx.completedToday && ctx.atRisk && ctx.streak >= 2) {
+    const lateAt = new Date();
+    lateAt.setHours(21, 45, 0, 0);
+    if (lateAt.getTime() > Date.now() + 5000) {
+      const late = _fmPickLastChanceMessage(ctx);
+      await window.facemax.notif.scheduleAt({
+        id: window.facemax.notif.ids.STREAK,
+        at: lateAt,
+        title: late.title,
+        body: late.body,
+        extra: { route:"daily", inboxType:"streak" },
+      });
     }
   }
 
-  // Re-scan reminder is anchored to the actual last scan, not the latest app
-  // open. If the seven-day point has already passed, remind tomorrow morning.
+  // 5. Re-scan reminder (7 days after last scan).
   await window.facemax.notif.cancel(window.facemax.notif.ids.RESCAN_7D);
   if (scanHistory && scanHistory.length) {
     const lastScanMs = Number(scanHistory[0] && scanHistory[0].date);
@@ -10763,21 +10768,14 @@ async function scheduleRetentionPack(){
     await window.facemax.notif.scheduleAt({
       id: window.facemax.notif.ids.RESCAN_7D,
       at: rescan,
-      title: "Time to re-scan",
-      body: "See how your score moved this week.",
+      title: "Time to re-scan 📸",
+      body: "See how your scores and symmetry have changed this week.",
       extra: { route:"upload", inboxType:"scan" },
     });
   }
 
   // ── Win-back sequence ──────────────────────────────────────────────────
-  // These are scheduled relative to *now* (i.e. the most recent app open)
-  // and reset every time this function runs, so the 3/7/14-day clock
-  // always counts from the user's last real visit, not from install.
-  // Escalating tone: gentle nudge → loss-aversion (streak/score) → stronger
-  // win-back. Each one no-ops via scheduleAt's own guard if it would land
-  // in the past (e.g. if scheduleRetentionPack runs again before it fires —
-  // in that case it's simply replaced with a fresh +3/+7/+14d target).
-  const ctx2 = ctx; // already computed above
+  const ctx2 = ctx;
   const winback3 = new Date(); winback3.setDate(winback3.getDate() + 3); winback3.setHours(10, 0, 0, 0);
   const winback7 = new Date(); winback7.setDate(winback7.getDate() + 7); winback7.setHours(18, 0, 0, 0);
   const winback14 = new Date(); winback14.setDate(winback14.getDate() + 14); winback14.setHours(12, 0, 0, 0);
@@ -10789,7 +10787,7 @@ async function scheduleRetentionPack(){
     body: ctx2.streak >= 2
       ? `That ${ctx2.streak}-day run will have ended — one completed plan starts the comeback.`
       : `It's been 3 days. Your ${Math.max(1, Number(ctx2.commitmentMinutes) || 5)}-minute plan gets you moving again.`,
-    extra: { route:"glowupHub", inboxType:"streak" },
+    extra: { route:"daily", inboxType:"streak" },
   });
 
   await window.facemax.notif.scheduleAt({
@@ -10814,6 +10812,7 @@ async function scheduleRetentionPack(){
 async function cancelRetentionPack(){
   if (!window.facemax || !window.facemax.notif || !window.facemax.notif.isAvailable()) return;
   await window.facemax.notif.cancel(window.facemax.notif.ids.DAILY);
+  await window.facemax.notif.cancel(window.facemax.notif.ids.FOOD_SCAN || 1003);
   await window.facemax.notif.cancel(window.facemax.notif.ids.EVENING);
   await window.facemax.notif.cancel(window.facemax.notif.ids.RESCAN_7D);
   await window.facemax.notif.cancel(window.facemax.notif.ids.STREAK);
