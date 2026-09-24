@@ -8859,7 +8859,7 @@ window.goBack = async function(){
   if (_screenHistory.length > 1) {
     _screenHistory.pop(); // remove current
     const prev = _screenHistory.pop(); // get previous (openScreen will re-push it)
-    const paid = ["tool","compare","daily","glowupHub","foodScan","foodHub","calories","water","routine","exercises","meals","report"].includes(prev);
+    const paid = ["tool","mogBattle","compare","daily","glowupHub","foodScan","foodHub","calories","water","routine","exercises","meals","report"].includes(prev);
     if (paid) {
       const ok = await ensurePremiumForAction(() => openScreen(prev), "FaceMax AI Premium", "Choose a plan to continue.");
       if (!ok) return;
@@ -9191,7 +9191,7 @@ window.closePremiumGate = function(){
   const prev = _screenHistory[_screenHistory.length - 1] || "home";
   // If the paywall was forced because Premium expired while a paid function
   // was already on-screen, closing it must not reveal that paid screen again.
-  const paid = ["aiFeatures","tool","compare","daily","glowupHub","foodScan","calories","water","routine","exercises","meals","report"].includes(prev);
+  const paid = ["aiFeatures","tool","mogBattle","compare","daily","glowupHub","foodScan","calories","water","routine","exercises","meals","report"].includes(prev);
   openScreen(paid ? "home" : prev);
 };
 
@@ -9816,6 +9816,14 @@ function generateLocalAiToolResult(tool, ctx) {
 window.generateLocalAiToolResult = generateLocalAiToolResult;
 
 window.openTool = async function(tool, _premiumChecked, _retried, _forceRegenerate){
+  if (!_premiumChecked) {
+    const ok = await ensurePremiumForAction(
+      () => window.openTool(tool, true, _retried, _forceRegenerate),
+      "FaceMax AI Premium",
+      "Choose a plan to continue."
+    );
+    if (!ok) return;
+  }
   const names = {
     skin: "Skin",
     haircut: "Haircut",
@@ -19846,7 +19854,15 @@ let _mbActiveBattle = null;
 let _mbMode = "offline";
 const MB_HISTORY_STORAGE_KEY = "facemax_mog_battles_v1";
 
-window.openMogBattle = function() {
+window.openMogBattle = async function(_premiumChecked) {
+  if (!_premiumChecked) {
+    const ok = await ensurePremiumForAction(
+      () => window.openMogBattle(true),
+      "Mog Battle — Premium",
+      "Choose a plan to enter the Battle Arena."
+    );
+    if (!ok) return;
+  }
   openScreen("mogBattle");
 };
 
